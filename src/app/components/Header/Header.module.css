@@ -1,0 +1,52 @@
+.wrapper {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+}
+
+.firstRow {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.title {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 40px;
+}
+
+.citySelect {
+  color: black;
+  font-family: Familjen Grotesk;
+  font-weight: 600;
+  font-size: 40px;
+  line-height: 46px;
+  letter-spacing: 0%;
+  display: flex;
+  gap: 10px;
+}
+
+.in,
+.routes {
+  color: #757575;
+}
+
+.in {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.routes {
+  font-family: Familjen Grotesk;
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 32px;
+  letter-spacing: 0%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10px;
+}

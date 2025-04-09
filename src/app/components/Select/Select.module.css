@@ -1,0 +1,16 @@
+.citySelect {
+  background: none;
+  border: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #000;
+  font-family: Familjen Grotesk;
+  font-weight: 600;
+  font-size: 40px;
+  line-height: 46px;
+}
+
+.citySelect:focus {
+  outline: none;
+}
