@@ -1,6 +1,7 @@
 import React from "react";
 import styles from "./Login.module.css";
 import Link from "next/link";
+import Button from "@/app/_components/Button/Button";
 
 function Login() {
   return (
@@ -19,9 +20,10 @@ function Login() {
           placeholder="Password"
         />
       </div>
-      <Link href={"/dashboard"}>
+      {/* <Link href={"/dashboard"}>
         <div className={styles.logInBtn}>Log in</div>
-      </Link>
+      </Link> */}
+      <Button href={"/dashboard"} variant="primary" label={"Log in"} />
     </>
   );
 }
