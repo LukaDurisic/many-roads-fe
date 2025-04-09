@@ -1,0 +1,28 @@
+.wrapper {
+  display: flex;
+  background-color: white;
+}
+.contentWrapper {
+  width: 100%;
+  padding: 40px;
+}
+
+.mapToggle {
+  width: 54px;
+  height: 54px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #000;
+  border-radius: 50%;
+  position: fixed;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  cursor: pointer;
+}
+
+.toggleImg {
+  height: 22px;
+  width: 22px;
+}
