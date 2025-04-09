@@ -1,0 +1,55 @@
+.logInIcon {
+  height: 64px;
+  width: 64px;
+  background-color: #d9d9d9;
+}
+.inputContainer {
+  width: 415px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.title {
+  color: #000;
+  font-family: Familjen Grotesk;
+  font-weight: 600;
+  font-size: 40px;
+  line-height: 46px;
+  letter-spacing: 0%;
+}
+
+.input {
+  background-color: transparent;
+  border: 1px solid #d9d9d9;
+  border-radius: 32px;
+  height: 44px;
+  padding: 0px 20px;
+  color: #000;
+  font-family: Inter;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 20px;
+  letter-spacing: 0%;
+}
+
+.input::placeholder {
+  color: #d9d9d9;
+}
+
+.logInBtn {
+  width: 415px;
+  height: 52px;
+  background-color: #969696;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 32px;
+  font-family: Inter;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 20px;
+  letter-spacing: 0%;
+  cursor: pointer;
+}
