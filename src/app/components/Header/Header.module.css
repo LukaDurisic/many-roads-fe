@@ -15,6 +15,7 @@
   justify-content: center;
   align-items: center;
   gap: 40px;
+  width: fit-content;
 }
 
 .citySelect {
@@ -26,6 +27,7 @@
   letter-spacing: 0%;
   display: flex;
   gap: 10px;
+  width: 100%;
 }
 
 .in,
@@ -49,4 +51,5 @@
   justify-content: center;
   align-items: center;
   margin-top: 10px;
+  width: 200px;
 }

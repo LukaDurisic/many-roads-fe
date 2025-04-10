@@ -1,24 +1,70 @@
-import React from "react";
+"use client";
+import React, { useState } from "react";
 import styles from "./UserMenu.module.css";
 import Image from "next/image";
 import BurgerMenuIcon from "../../assets/burgerMenu.svg";
 import ProfileIcon from "../../assets/profile.svg";
+import Select from "../Select/Select";
+
+const languageOptions = [
+  {
+    label: "English",
+    value: "Eng",
+  },
+  {
+    label: "繁體中文",
+    value: "traditional",
+  },
+  {
+    label: "简体中文",
+    value: "simplified",
+  },
+];
+
+const userOptions = [
+  {
+    label: "Log out",
+    value: "logOut",
+  },
+  // {
+  //   label: "Log out",
+  //   value: "logOut",
+  // },
+  // {
+  //   label: "Log out",
+  //   value: "logOut",
+  // },
+];
 
 function UserMenu() {
+  const [isUserOpen, setIsUserOpen] = useState(false);
+
   return (
     <div className={styles.wrapper}>
-      <div className={styles.langSelect}>English</div>
+      <div className={styles.langSelect}>
+        <Select options={languageOptions} style="lang" />
+      </div>
       <div className={styles.userSelect}>
         <Image
           alt="burger menu"
           src={BurgerMenuIcon}
           className={styles.burgerMenuIcon}
+          onClick={() => setIsUserOpen(!isUserOpen)}
         />
         <Image
           alt="profile icon"
           src={ProfileIcon}
           className={styles.profileIcon}
         />
+        {isUserOpen && (
+          <div className={styles.optionsDiv}>
+            {userOptions.map((option) => (
+              <div className={styles.userOption} key={option.value}>
+                {option.label}
+              </div>
+            ))}
+          </div>
+        )}
       </div>
     </div>
   );

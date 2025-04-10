@@ -24,3 +24,35 @@
   letter-spacing: 0%;
   color: #000;
 }
+
+.optionsDiv {
+  position: absolute;
+  margin-top: 104px;
+  right: 40px;
+  box-shadow: 0px 2px 12px 0px #00000014;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.userOption {
+  color: #000;
+  font-family: Inter;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 20px;
+  letter-spacing: 0%;
+  height: 44px;
+  width: 200px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding-left: 15px;
+  border-radius: 8px;
+}
+.userOption:hover {
+  background-color: rgb(246, 246, 246);
+}
+
+.burgerMenuIcon {
+  cursor: pointer;
+}

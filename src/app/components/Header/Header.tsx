@@ -19,7 +19,6 @@ function Header() {
           </div>
           <div className={styles.routes}>250 routes</div>
         </div>
-
         <UserMenu />
       </div>
       <div className={styles.lastRow}></div>
