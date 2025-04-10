@@ -6,8 +6,10 @@ const filters = ["Nearby", "Architecture", "Art", "History", "Nature", "Shop"];
 function Filters() {
   return (
     <div className={styles.wrapper}>
-      {filters.map((filter: string) => (
-        <div className={styles.filter}>{filter}</div>
+      {filters.map((filter: string, index: number) => (
+        <div className={styles.filter} key={index}>
+          {filter}
+        </div>
       ))}
     </div>
   );

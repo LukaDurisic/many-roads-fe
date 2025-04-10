@@ -1,0 +1,84 @@
+.wrapper {
+  height: 340px;
+  width: 300px;
+  padding: 10px;
+  cursor: pointer;
+  background-color: #f3f3f3;
+  color: #0d0d0d;
+}
+
+.fakeImage {
+  height: 200px;
+  background-color: #d9d9d9;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 5px;
+}
+
+.tags {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+}
+
+.tag,
+.checkpointNumber {
+  background-color: #f3f3f3;
+  font-family: Inter;
+  font-weight: 400;
+  font-size: 12.41px;
+  line-height: 14.89px;
+  letter-spacing: 0px;
+  color: #0d0d0d;
+  padding: 7px;
+  border-radius: 5px;
+  text-transform: uppercase;
+}
+
+.descriptionContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 10px 0px;
+}
+
+.title {
+  font-family: Inter;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 100%;
+  letter-spacing: 0px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.city,
+.info {
+  font-family: Inter;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 16px;
+  letter-spacing: 0px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  color: #757575;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.profile {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: Inter;
+  font-weight: 600;
+  font-size: 12.41px;
+  line-height: 100%;
+  letter-spacing: 0px;
+  vertical-align: middle;
+}
