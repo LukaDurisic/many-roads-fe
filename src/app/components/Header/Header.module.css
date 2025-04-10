@@ -1,7 +1,8 @@
 .wrapper {
   width: 100%;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
+  gap: 30px;
 }
 
 .firstRow {
@@ -52,4 +53,12 @@
   align-items: center;
   margin-top: 10px;
   width: 200px;
+}
+
+.lastRow {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+  height: 48px;
+  width: 100%;
 }

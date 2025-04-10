@@ -5,6 +5,7 @@ import Image from "next/image";
 import BurgerMenuIcon from "../../assets/burgerMenu.svg";
 import ProfileIcon from "../../assets/profile.svg";
 import Select from "../Select/Select";
+import Link from "next/link";
 
 const languageOptions = [
   {
@@ -25,14 +26,17 @@ const userOptions = [
   {
     label: "Log out",
     value: "logOut",
+    route: "/",
   },
   // {
   //   label: "Log out",
   //   value: "logOut",
+  // route:"/"
   // },
   // {
   //   label: "Log out",
   //   value: "logOut",
+  // route:"/"
   // },
 ];
 
@@ -59,9 +63,11 @@ function UserMenu() {
         {isUserOpen && (
           <div className={styles.optionsDiv}>
             {userOptions.map((option) => (
-              <div className={styles.userOption} key={option.value}>
-                {option.label}
-              </div>
+              <Link href={option.route}>
+                <div className={styles.userOption} key={option.value}>
+                  {option.label}
+                </div>
+              </Link>
             ))}
           </div>
         )}

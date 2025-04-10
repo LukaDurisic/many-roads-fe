@@ -2,6 +2,8 @@ import React from "react";
 import styles from "./Header.module.css";
 import UserMenu from "../UserMenu/UserMenu";
 import Select from "../Select/Select";
+import Search from "../Search/Search";
+import Filters from "../Filters/Filters";
 
 const testOptions = [
   { label: "Hong Kong", value: "HongKong" },
@@ -21,7 +23,10 @@ function Header() {
         </div>
         <UserMenu />
       </div>
-      <div className={styles.lastRow}></div>
+      <div className={styles.lastRow}>
+        <Search />
+        <Filters />
+      </div>
     </div>
   );
 }

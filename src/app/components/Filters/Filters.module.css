@@ -1,0 +1,19 @@
+.wrapper {
+  color: #000;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 15px;
+}
+
+.filter {
+  padding: 10px 20px;
+  border: 1px solid #ececec;
+  font-family: Inter;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 20px;
+  letter-spacing: 0%;
+  border-radius: 80px;
+}
