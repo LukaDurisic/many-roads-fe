@@ -20,6 +20,7 @@
 .imgContainer {
   width: 60%;
   height: 100vh;
-  background-image: url("../../assets/cover.jpg");
-  background-size: cover;
+  /* background-image: url("../../assets/cover.jpg");
+  background-size: cover; */
+  background-color: #f3f3f3;
 }

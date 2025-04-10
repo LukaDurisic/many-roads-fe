@@ -62,8 +62,8 @@ function UserMenu() {
         />
         {isUserOpen && (
           <div className={styles.optionsDiv}>
-            {userOptions.map((option) => (
-              <Link href={option.route}>
+            {userOptions.map((option, index) => (
+              <Link href={option.route} key={index}>
                 <div className={styles.userOption} key={option.value}>
                   {option.label}
                 </div>

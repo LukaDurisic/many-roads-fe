@@ -4,6 +4,7 @@ import Image from "next/image";
 import ProfileIcon from "../../assets/profile.svg";
 import DistanceIcon from "../../assets/distance.svg";
 import TimeIcon from "../../assets/time.svg";
+import Link from "next/link";
 
 interface RouteCardData {
   routeId: number;
@@ -26,36 +27,37 @@ interface RouteCardProps {
 
 const RouteCard: React.FC<RouteCardProps> = ({ routeData }) => {
   return (
-    <div className={styles.wrapper}>
-      <div className={styles.imgContainer}>
-        <div className={styles.fakeImage}>
-          <div className={styles.tags}>
-            {routeData.tags.map((tag, index) => (
-              <div key={index} className={styles.tag}>
-                {tag}
-              </div>
-            ))}
+    <Link href={`/route/${routeData.routeId}`}>
+      <div className={styles.wrapper}>
+        <div className={styles.imgContainer}>
+          <div className={styles.fakeImage}>
+            <div className={styles.tags}>
+              {routeData.tags.map((tag, index) => (
+                <div key={index} className={styles.tag}>
+                  {tag}
+                </div>
+              ))}
+            </div>
+            <div className={styles.checkpointNumber}>
+              {routeData.checkpointNumber} / 5
+            </div>
           </div>
-          <div className={styles.checkpointNumber}>
-            {routeData.checkpointNumber} / 5
+        </div>
+        <div className={styles.descriptionContainer}>
+          <div className={styles.title}>{routeData.title}</div>
+          <div className={styles.city}>
+            {routeData.city} | {routeData.start} –&gt; {routeData.end}
+          </div>
+          <div className={styles.info}>
+            <Image alt="profile" src={DistanceIcon} /> {routeData.distance} km |{" "}
+            <Image alt="profile" src={TimeIcon} /> {routeData.duration}
+          </div>
+          <div className={styles.profile}>
+            <Image alt="profile" src={ProfileIcon} /> {routeData.userName}
           </div>
         </div>
       </div>
-      <div className={styles.descriptionContainer}>
-        <div className={styles.title}>{routeData.title}</div>
-        <div className={styles.city}>
-          {routeData.city} | {routeData.start} –&gt; {routeData.end}
-        </div>
-        <div className={styles.info}>
-          {" "}
-          <Image alt="profile" src={DistanceIcon} /> {routeData.distance} km |{" "}
-          <Image alt="profile" src={TimeIcon} /> {routeData.duration}
-        </div>
-        <div className={styles.profile}>
-          <Image alt="profile" src={ProfileIcon} /> {routeData.userName}
-        </div>
-      </div>
-    </div>
+    </Link>
   );
 };
 
