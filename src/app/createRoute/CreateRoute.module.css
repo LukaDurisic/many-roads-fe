@@ -1,0 +1,10 @@
+.wrapper {
+  display: flex;
+  background-color: white;
+}
+.contentWrapper {
+  width: 100%;
+  padding: 40px;
+  font-size: 40px;
+  color: #000;
+}
