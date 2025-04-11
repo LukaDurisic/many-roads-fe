@@ -20,10 +20,9 @@ function Login() {
           placeholder="Password"
         />
       </div>
-      {/* <Link href={"/dashboard"}>
-        <div className={styles.logInBtn}>Log in</div>
-      </Link> */}
-      <Button href={"/dashboard"} variant="primary" label={"Log in"} />
+      <div className={styles.logInBtn}>
+        <Button href={"/dashboard"} variant="primary" label={"Log in"} />
+      </div>
     </>
   );
 }
