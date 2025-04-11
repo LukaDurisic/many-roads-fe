@@ -1,5 +1,5 @@
 "use client";
-import React, { use, useState } from "react";
+import React, { useState } from "react";
 import styles from "./Select.module.css";
 import ArrowIconCity from "../../assets/arrowDownCity.svg";
 import ArrowIcon from "../../assets/arrowDown.svg";
