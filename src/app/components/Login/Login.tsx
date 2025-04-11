@@ -1,6 +1,5 @@
 import React from "react";
 import styles from "./Login.module.css";
-import Link from "next/link";
 import Button from "@/app/_components/Button/Button";
 
 function Login() {
