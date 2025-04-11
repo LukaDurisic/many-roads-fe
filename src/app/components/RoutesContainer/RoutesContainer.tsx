@@ -7,7 +7,11 @@ function RoutesContainer() {
   return (
     <div className={styles.temp}>
       {routesMock.map((route) => (
-        <RouteCard key={route.routeId} routeData={route} />
+        <RouteCard
+          key={route.routeId}
+          routeData={route}
+          isProfileShowing={true}
+        />
       ))}
     </div>
   );
