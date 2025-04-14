@@ -21,7 +21,7 @@ interface ButtonProps {
   href?: string;
   external?: boolean;
   tag?: ElementType;
-  onClick?: void;
+  onClick?: void | (() => void);
   variant?: ButtonVariant;
 }
 
