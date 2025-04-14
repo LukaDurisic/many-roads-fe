@@ -58,43 +58,43 @@ function CreateRoute() {
           ) : (
             "Invalid step"
           )}
-          <div className={styles.routing}>
-            {currentStep === 1 ? (
-              <div className={styles.step1Btn}>
-                <Button
-                  label="Next ->"
-                  className={styles.nextBtn}
-                  onClick={() => setCurrentStep(2)}
-                />
-              </div>
-            ) : currentStep === 2 ? (
-              <div className={styles.step23Btn}>
-                <Button
-                  label="<- Previous"
-                  onClick={() => setCurrentStep(1)}
-                  className={styles.prevBtn}
-                />
-                <Button
-                  label="Next ->"
-                  onClick={() => setCurrentStep(3)}
-                  className={styles.nextBtn}
-                />
-              </div>
-            ) : currentStep === 3 ? (
-              <div className={styles.step23Btn}>
-                <Button
-                  label="<- Previous"
-                  className={styles.prevBtn}
-                  onClick={() => setCurrentStep(2)}
-                />
-                <Button
-                  label="Publish"
-                  className={styles.nextBtn}
-                  href="/dashboard"
-                />
-              </div>
-            ) : null}
-          </div>
+        </div>
+        <div className={styles.routing}>
+          {currentStep === 1 ? (
+            <div className={styles.step1Btn}>
+              <Button
+                label="Next ->"
+                className={styles.nextBtn}
+                onClick={() => setCurrentStep(2)}
+              />
+            </div>
+          ) : currentStep === 2 ? (
+            <div className={styles.step23Btn}>
+              <Button
+                label="<- Previous"
+                onClick={() => setCurrentStep(1)}
+                className={styles.prevBtn}
+              />
+              <Button
+                label="Next ->"
+                onClick={() => setCurrentStep(3)}
+                className={styles.nextBtn}
+              />
+            </div>
+          ) : currentStep === 3 ? (
+            <div className={styles.step23Btn}>
+              <Button
+                label="<- Previous"
+                className={styles.prevBtn}
+                onClick={() => setCurrentStep(2)}
+              />
+              <Button
+                label="Publish"
+                className={styles.nextBtn}
+                href="/dashboard"
+              />
+            </div>
+          ) : null}
         </div>
       </div>
     </div>

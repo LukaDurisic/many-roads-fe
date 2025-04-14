@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { use, useState } from "react";
 import styles from "./Step2.module.css";
 import Image from "next/image";
 import TrashIcon from "../../assets/trash.svg";
@@ -9,6 +9,7 @@ import InfoIcon from "../../assets/info.svg";
 function Step2() {
   const [createAudio, setCreateAudio] = useState(false);
   const [description, setDescription] = useState("");
+  const [imageDescription, setImageDescription] = useState("");
   const [name, setName] = useState("");
 
   return (
@@ -50,7 +51,7 @@ function Step2() {
         </div>
 
         <div className={styles.descriptionBox}>
-          <label className={styles.descTitle}>Description</label>
+          <label className={styles.descTitle}>Write a Description</label>
           <textarea
             placeholder="Type Here"
             className={styles.textarea}
@@ -82,6 +83,19 @@ function Step2() {
           <div className={styles.descTitle}>Gallery</div>
           <div className={styles.imageBoxGallery}>
             <Image src={AddImageIcon} alt="add image" />
+          </div>
+          <div className={styles.imageDescriptionBox}>
+            <label className={styles.descTitle}>Image 1 description</label>
+            <textarea
+              placeholder="Type Here"
+              className={styles.textarea}
+              value={imageDescription}
+              onChange={(e) => setImageDescription(e.target.value)}
+              maxLength={100}
+            />
+            <div className={styles.charCount}>
+              {imageDescription.length} / 100
+            </div>
           </div>
         </div>
         <div className={styles.addCheckpointBtn}>+ Add checkpoint</div>
