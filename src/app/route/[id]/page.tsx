@@ -31,7 +31,17 @@ const checkpointsData = [
   { name: "Fourth", imageUrl: "", address: "Ipsum", checkpointNumber: 4 },
 ];
 
-function Route({ params }: { params: { id: string } }) {
+// interface RouteParams {
+//   params: {
+//     id: string;
+//   };
+// }
+
+//{ params }: RouteParams
+
+//const { id } = await params;
+
+function Route() {
   return (
     <div className={styles.wrapper}>
       <Navbar />
