@@ -146,7 +146,7 @@ const Map = () => {
                 mapPaneName={OverlayView.OVERLAY_MOUSE_TARGET}
               >
                 <div>
-                  <RouteCard routeData={routesMock[1]} />
+                  <RouteCard isProfileShowing routeData={routesMock[1]} />
                 </div>
               </OverlayView>
             )
