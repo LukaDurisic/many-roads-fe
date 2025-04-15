@@ -2,6 +2,7 @@ import React from "react";
 import styles from "./CheckpointCardDetailed.module.css";
 import Image from "next/image";
 import PlayIcon from "../../assets/play.svg";
+import LocationIcon from "../../assets/location.svg";
 
 interface GalleryImage {
   url: string;
@@ -35,7 +36,12 @@ function CheckpointCardDetailed({
           </div>
           <div className={styles.infoItem}>
             <span className={styles.icon}>
-              {/*location icon from other pr, will add it later*/}📍
+              <Image
+                src={LocationIcon}
+                alt="location icon"
+                height={22}
+                width={24}
+              />
             </span>
             <div className={styles.location}>{checkpointData.address}</div>
           </div>
