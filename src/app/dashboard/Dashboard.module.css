@@ -3,8 +3,10 @@
   background-color: white;
 }
 .contentWrapper {
+  display: flex;
+  flex-direction: column;
   width: 100%;
-  padding: 40px;
+  padding: 40px 0 0 0;
 }
 
 .mapToggle {
