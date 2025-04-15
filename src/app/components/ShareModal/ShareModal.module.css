@@ -1,0 +1,18 @@
+.card {
+  padding: 20px 50px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 30px;
+}
+
+.title {
+  font-family: Familjen Grotesk;
+  font-weight: 600;
+  font-size: 40px;
+  line-height: 46px;
+  letter-spacing: 0%;
+  text-align: center;
+  color: #0f0f0f;
+  text-align: center;
+}

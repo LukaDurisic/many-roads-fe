@@ -1,7 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import styles from "./Select.module.css";
-import ArrowIconCity from "../../assets/arrowDownCity.svg";
+import ArrowIconCity from "../../assets/arrowDownCity";
 import ArrowIcon from "../../assets/arrowDown.svg";
 import Image from "next/image";
 
@@ -38,12 +38,11 @@ const Select: React.FC<SelectProps> = ({ options, style }) => {
         ))}
       </select>
       {style === "city" && (
-        <Image
-          src={ArrowIconCity}
-          alt="arrow"
-          className={`${styles.selectIconCity} ${
-            isOpen ? styles.iconOpen : ""
-          }`}
+        <ArrowIconCity
+          fill={"#0d0d0d"}
+          height="24"
+          width="24"
+          style={isOpen ? { rotate: " 180deg" } : {}}
         />
       )}
       {style === "lang" && (
