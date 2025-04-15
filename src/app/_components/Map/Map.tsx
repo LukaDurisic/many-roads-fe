@@ -26,10 +26,12 @@ const center = {
 };
 
 const Map = () => {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [tours, setTours] = useState<Tour[]>(initialTours);
   const [selectedTour, setSelectedTour] = useState<Tour | null>(null);
   const [directions, setDirections] =
     useState<google.maps.DirectionsResult | null>(null);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [map, setMap] = useState<google.maps.Map | null>(null);
 
   const libraries: Libraries = [
