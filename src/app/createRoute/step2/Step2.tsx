@@ -5,6 +5,7 @@ import Image from "next/image";
 import TrashIcon from "../../assets/trash.svg";
 import AddImageIcon from "../../assets/addImage.svg";
 import InfoIcon from "../../assets/info.svg";
+import LocationIcon from "../../assets/location.svg";
 
 function Step2() {
   const [createAudio, setCreateAudio] = useState(false);
@@ -34,7 +35,12 @@ function Step2() {
           </div>
           <div className={styles.inputGroup}>
             <span className={styles.icon}>
-              {/*location icon from other pr, will add it later*/}📍
+              <Image
+                src={LocationIcon}
+                alt="play icon"
+                height={22}
+                width={24}
+              />
             </span>
             <input className={styles.input} placeholder="Address" />
           </div>
