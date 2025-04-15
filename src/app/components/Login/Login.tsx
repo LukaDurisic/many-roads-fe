@@ -1,6 +1,7 @@
 import React from "react";
 import styles from "./Login.module.css";
-import Button from "@/app/_components/Button/Button";
+import Button from "@/app/components/Button/Button";
+
 
 function Login() {
   return (
