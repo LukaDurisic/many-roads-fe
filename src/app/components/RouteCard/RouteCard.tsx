@@ -23,9 +23,13 @@ interface RouteCardData {
 
 interface RouteCardProps {
   routeData: RouteCardData;
+  isProfileShowing: boolean;
 }
 
-const RouteCard: React.FC<RouteCardProps> = ({ routeData }) => {
+const RouteCard: React.FC<RouteCardProps> = ({
+  routeData,
+  isProfileShowing,
+}) => {
   return (
     <Link href={`/route/${routeData.routeId}`}>
       <div className={styles.wrapper}>
@@ -52,9 +56,11 @@ const RouteCard: React.FC<RouteCardProps> = ({ routeData }) => {
             <Image alt="profile" src={DistanceIcon} /> {routeData.distance} km |{" "}
             <Image alt="profile" src={TimeIcon} /> {routeData.duration}
           </div>
-          <div className={styles.profile}>
-            <Image alt="profile" src={ProfileIcon} /> {routeData.userName}
-          </div>
+          {isProfileShowing && (
+            <div className={styles.profile}>
+              <Image alt="profile" src={ProfileIcon} /> {routeData.userName}
+            </div>
+          )}
         </div>
       </div>
     </Link>
