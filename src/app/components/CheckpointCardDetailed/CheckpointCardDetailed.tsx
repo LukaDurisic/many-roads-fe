@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "./CheckpointCard.module.css";
+import styles from "./CheckpointCardDetailed.module.css";
 import Image from "next/image";
 import PlayIcon from "../../assets/play.svg";
 
