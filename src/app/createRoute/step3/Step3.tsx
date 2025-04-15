@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "./Step3.module.css";
-import CheckpointCard from "@/app/components/CheckpointCard/CheckpointCard";
+import CheckpointCardDetailed from "@/app/components/CheckpointCardDetailed/CheckpointCardDetailed";
 
 const classifications = ["History", "Adventure"];
 const accessibilities = ["Child", "Pet"];
@@ -93,7 +93,11 @@ function Step3() {
         </div>
       </div>
       {checkpoints?.map((checkpoint, index) => (
-        <CheckpointCard checkpointData={checkpoint} index={index} key={index} />
+        <CheckpointCardDetailed
+          checkpointData={checkpoint}
+          index={index}
+          key={index}
+        />
       ))}
       <div className={styles.mapWithRoute}></div>
     </div>

@@ -17,7 +17,7 @@ interface Checkpoint {
   galleryImages: GalleryImage[];
 }
 
-function CheckpointCard({
+function CheckpointCardDetailed({
   checkpointData,
   index,
 }: {
@@ -56,4 +56,4 @@ function CheckpointCard({
   );
 }
 
-export default CheckpointCard;
+export default CheckpointCardDetailed;
