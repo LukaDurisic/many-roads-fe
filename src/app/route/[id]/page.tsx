@@ -48,11 +48,9 @@ function Route() {
   return (
     <div className={styles.wrapper}>
       {isShareOpen && (
-        <Modal
-          children={<ShareModal />}
-          isOpen={isShareOpen}
-          onClose={() => setIsShareOpen(false)}
-        />
+        <Modal isOpen={isShareOpen} onClose={() => setIsShareOpen(false)}>
+          <ShareModal />
+        </Modal>
       )}
       <Navbar />
       <div className={styles.contentWrapper}>
