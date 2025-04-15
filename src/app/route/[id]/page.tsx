@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import styles from "./Route.module.css";
 import Navbar from "../../components/Navbar/Navbar";
 import Header from "@/app/components/Header/Header";
@@ -11,6 +11,8 @@ import CheckpointCard from "@/app/components/CheckpointCard/CheckpointCard";
 import ProfileIcon from "../../assets/profile.svg";
 import VerifyIcon from "../../assets/verify.svg";
 import Link from "next/link";
+import ShareModal from "@/app/components/ShareModal/ShareModal";
+import Modal from "@/app/components/Modal/Modal";
 
 const accessOptions = [
   { name: "child", checked: true },
@@ -42,8 +44,14 @@ const checkpointsData = [
 //const { id } = await params;
 
 function Route() {
+  const [isShareOpen, setIsShareOpen] = useState(false);
   return (
     <div className={styles.wrapper}>
+      {isShareOpen && (
+        <Modal isOpen={isShareOpen} onClose={() => setIsShareOpen(false)}>
+          <ShareModal />
+        </Modal>
+      )}
       <Navbar />
       <div className={styles.contentWrapper}>
         <Header />
@@ -59,7 +67,7 @@ function Route() {
               />{" "}
               Back to list
             </Link>
-            <div className={styles.share}>
+            <div className={styles.share} onClick={() => setIsShareOpen(true)}>
               <Image alt="share" src={ShareIcon} height={18} width={18} />
               Share
             </div>

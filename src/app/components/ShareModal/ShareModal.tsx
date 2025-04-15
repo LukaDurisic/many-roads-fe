@@ -1,9 +1,22 @@
-import React from "react";
+"use client";
+import React, { useState } from "react";
 import styles from "./ShareModal.module.css";
 import RouteCard from "../RouteCard/RouteCard";
 import Button from "../Button/Button";
 
 function ShareModal() {
+  const [copied, setCopied] = useState(false);
+
+  const handleCopy = async () => {
+    try {
+      await navigator.clipboard.writeText(window.location.href);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch (err) {
+      console.error("Failed to copy: ", err);
+    }
+  };
+
   return (
     <div className={styles.card}>
       <div className={styles.title}>Share this route</div>
@@ -24,7 +37,8 @@ function ShareModal() {
         }}
         isProfileShowing={false}
       />
-      <Button label="Copy link" />
+      <Button label="Copy link" onClick={handleCopy} />
+      {copied && <p className={styles.alert}>Link copied</p>}
     </div>
   );
 }
