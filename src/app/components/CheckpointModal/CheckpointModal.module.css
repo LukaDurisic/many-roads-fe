@@ -1,0 +1,101 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  max-width: 1000px;
+}
+
+.content {
+  display: flex;
+  justify-content: space-between;
+  gap: 100px;
+}
+
+.gallery {
+  height: 450px;
+  width: 45%;
+}
+
+.info {
+  width: 50%;
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
+  align-items: flex-start;
+}
+
+.nameContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: baseline;
+}
+
+.name {
+  font-family: Inter;
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 28px;
+  letter-spacing: 0px;
+  color: #0d0d0d;
+}
+
+.location {
+  font-family: Inter;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
+  letter-spacing: 0px;
+  color: #757575;
+}
+
+.description {
+  display: flex;
+  justify-content: baseline;
+  text-align: start;
+}
+
+.more {
+  font-family: Inter;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 16px;
+  letter-spacing: 0px;
+  text-decoration: underline;
+  color: #0d0d0d;
+  cursor: pointer;
+}
+
+.btnsContainer {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: -20px;
+}
+
+.rotatedSpan {
+  rotate: 180deg;
+  display: flex;
+  align-items: center;
+}
+
+.btn,
+.disabledBtn {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: Inter;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 24px;
+  letter-spacing: 0px;
+  text-align: center;
+  color: #0d0d0d;
+  cursor: pointer;
+}
+
+.disabledBtn {
+  color: #5c5c5c4d;
+  cursor: not-allowed;
+}

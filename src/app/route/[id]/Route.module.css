@@ -5,20 +5,26 @@
 
 .contentWrapper {
   width: 100%;
-  padding: 40px;
+  padding: 40px 0px;
   font-size: 40px;
   color: #000;
 }
 
 .routeContent {
   width: 100%;
-  padding: 20px 0px;
+  padding: 20px 40px;
 }
 
 .routeHeader {
   display: flex;
   width: 100%;
   justify-content: space-between;
+  align-items: center;
+}
+
+.spanRotated {
+  rotate: 180deg;
+  display: flex;
   align-items: center;
 }
 
