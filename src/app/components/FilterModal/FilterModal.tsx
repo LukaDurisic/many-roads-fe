@@ -18,7 +18,11 @@ export default function FilterModal() {
   const [routeType, setRouteType] = useState<string[]>([]);
   const [accessibility, setAccessibility] = useState<string[]>([]);
 
-  const handleToggle = (value: string, setter: Function, state: string[]) => {
+  const handleToggle = (
+    value: string,
+    setter: (newState: string[]) => void,
+    state: string[]
+  ) => {
     setter(
       state.includes(value)
         ? state.filter((v) => v !== value)
@@ -46,7 +50,7 @@ export default function FilterModal() {
       <div className={styles.section}>
         <label className={styles.label}>Sort</label>
         {["Best Match", "Most Popular", "Closest", "Newly Added"].map(
-          (label, index) => {
+          (label) => {
             const value = label.toLowerCase().replace(" ", "");
             return (
               <div key={value} className={styles.inputItem}>
