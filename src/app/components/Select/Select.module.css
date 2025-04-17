@@ -11,7 +11,8 @@
 
 /*City style*/
 
-.citySelect {
+.citySelect,
+.citySmallSelect {
   appearance: none;
   -webkit-appearance: none;
   -moz-appearance: none;
@@ -31,8 +32,18 @@
 }
 
 .citySelect:focus,
+.citySmallSelect,
 .langSelect {
   outline: none;
+}
+
+.citySmallSelect {
+  font-family: Inter;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 22px;
+  letter-spacing: 0px;
+  color: #757575;
 }
 
 .cityOption {
