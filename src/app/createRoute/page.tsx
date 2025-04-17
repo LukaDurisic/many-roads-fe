@@ -1,12 +1,12 @@
 "use client";
 import React, { useState } from "react";
 import styles from "./CreateRoute.module.css";
-import Navbar from "../components/Navbar/Navbar";
-import UserMenu from "../components/UserMenu/UserMenu";
+import Navbar from "../_components/Navbar/Navbar";
+import UserMenu from "../_components/UserMenu/UserMenu";
 import Step1 from "./step1/Step1";
 import Step2 from "./step2/Step2";
 import Step3 from "./step3/Step3";
-import Button from "../components/Button/Button";
+import Button from "../_components/Button/Button";
 
 function CreateRoute() {
   const [currentStep, setCurrentStep] = useState(1);

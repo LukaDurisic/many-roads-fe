@@ -13,3 +13,12 @@ export interface Tour {
   type: "cinema" | "restaurant" | "museum";
   locations: Location[];
 }
+
+export type Coordinate = {
+  lat: number;
+  lng: number;
+};
+
+export interface MapComponentProps {
+  tourList: Tour[];
+}

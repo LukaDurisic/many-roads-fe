@@ -9,25 +9,20 @@ import {
   OverlayView,
 } from "@react-google-maps/api";
 import { type Libraries } from "@react-google-maps/api";
-import { Tour, Location } from "@/app/_types";
-import { tours as initialTours } from "@/app/_mock-data/tours";
-import RouteCard from "@/app/components/RouteCard/RouteCard";
-import { routesMock } from "@/app/components/RoutesContainer/utils";
+import { Tour, Location, MapComponentProps } from "@/app/_types";
+import RouteCard from "@/app/_components/RouteCard/RouteCard";
+import { routesMock } from "@/app/_components/RoutesContainer/utils";
 import { createSvgIcon } from "@/app/_lib/utils/create-svg";
+import { extractLocations, findCenter } from "@/app/_lib/utils/find-map-center";
 
 const mapContainerStyle = {
   width: "100%",
   height: "100%",
 };
 
-const center = {
-  lat: 43.508751,
-  lng: 16.440981,
-};
-
-const Map = () => {
+const Map: React.FC<MapComponentProps> = ({ tourList }) => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [tours, setTours] = useState<Tour[]>(initialTours);
+  const [tours, setTours] = useState<Tour[]>(tourList);
   const [selectedTour, setSelectedTour] = useState<Tour | null>(null);
   const [directions, setDirections] =
     useState<google.maps.DirectionsResult | null>(null);
@@ -40,6 +35,10 @@ const Map = () => {
     "geometry",
     "visualization",
   ];
+
+  const locationCoordinates = extractLocations(tourList);
+
+  const { lat, lng } = findCenter(locationCoordinates);
 
   const { isLoaded, loadError } = useJsApiLoader({
     id: "google-map-script",
@@ -103,7 +102,7 @@ const Map = () => {
     <div style={{ width: "100%", height: "100%" }}>
       <GoogleMap
         mapContainerStyle={mapContainerStyle}
-        center={center}
+        center={{ lat, lng }}
         zoom={14}
         onLoad={onLoad}
         onUnmount={onUnmount}
@@ -132,9 +131,6 @@ const Map = () => {
           />
         ))}
         {tours.map((tour) => {
-          /* console.log("selectedMarkerId", selectedMarkerId); */
-          console.log("tourID", tour.id);
-
           return (
             selectedTour?.id === tour.id && (
               <OverlayView
@@ -152,24 +148,6 @@ const Map = () => {
             )
           );
         })}
-
-        {/* {tours.map(
-          (tour, index) =>
-            selectedMarkerId === tour.id && (
-              <OverlayView
-                key={`overlay-${tour.id}`}
-                position={{
-                  lat: tour.locations[index].lat,
-                  lng: tour.locations[index].lng,
-                }}
-                mapPaneName={OverlayView.OVERLAY_MOUSE_TARGET}
-              >
-                <div>
-                  <RouteCard routeData={routesMock[1]} />
-                </div>
-              </OverlayView>
-            )
-        )} */}
 
         {selectedTour &&
           selectedTour.locations.slice(1).map((location: Location) => (

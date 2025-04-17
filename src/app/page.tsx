@@ -1,4 +1,4 @@
-import LogInComp from "./components/LoginComponent/LogInComp";
+import LogInComp from "./_components/LoginComponent/LogInComp";
 
 export default function Home() {
   return (
