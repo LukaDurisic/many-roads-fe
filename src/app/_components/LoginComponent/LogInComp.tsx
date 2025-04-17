@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "./LogInComp.module.css";
-import Login from "@/app/components/Login/Login";
+import Login from "@/app/_components/Login/Login";
 
 interface LogInCompProps {
   formToRender: string;
