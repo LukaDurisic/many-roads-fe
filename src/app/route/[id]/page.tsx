@@ -4,7 +4,7 @@ import styles from "./Route.module.css";
 import Navbar from "../../components/Navbar/Navbar";
 import Header from "@/app/components/Header/Header";
 import Image from "next/image";
-import ArrowIcon from "../../assets/arrowRight.svg";
+import ArrowIcon from "../../assets/arrowRight";
 import ShareIcon from "../../assets/share.svg";
 import PersonIcon from "../../assets/person.svg";
 import CheckpointCard from "@/app/components/CheckpointCard/CheckpointCard";
@@ -12,6 +12,7 @@ import ProfileIcon from "../../assets/profile.svg";
 import VerifyIcon from "../../assets/verify.svg";
 import Link from "next/link";
 import ShareModal from "@/app/components/ShareModal/ShareModal";
+import CheckpointModal from "@/app/components/CheckpointModal/CheckpointModal";
 import Modal from "@/app/components/Modal/Modal";
 
 const accessOptions = [
@@ -45,11 +46,22 @@ const checkpointsData = [
 
 function Route() {
   const [isShareOpen, setIsShareOpen] = useState(false);
+  const [isCheckpointOpen, setIsCheckpointOpen] = useState(false);
+  const [activeCheckpoint, setActiveCheckpoint] = useState(0);
+
   return (
     <div className={styles.wrapper}>
       {isShareOpen && (
         <Modal isOpen={isShareOpen} onClose={() => setIsShareOpen(false)}>
           <ShareModal />
+        </Modal>
+      )}
+      {isCheckpointOpen && (
+        <Modal
+          isOpen={isCheckpointOpen}
+          onClose={() => setIsCheckpointOpen(false)}
+        >
+          <CheckpointModal checkpointNumber={activeCheckpoint} />
         </Modal>
       )}
       <Navbar />
@@ -58,13 +70,9 @@ function Route() {
         <div className={styles.routeContent}>
           <div className={styles.routeHeader}>
             <Link href={"/dashboard"} className={styles.back}>
-              <Image
-                alt="arrow"
-                src={ArrowIcon}
-                style={{ rotate: "180deg" }}
-                height={14}
-                width={14}
-              />{" "}
+              <span className={styles.spanRotated}>
+                <ArrowIcon fill="#757575" height={14} width={14} />
+              </span>{" "}
               Back to list
             </Link>
             <div className={styles.share} onClick={() => setIsShareOpen(true)}>
@@ -156,7 +164,14 @@ function Route() {
             </div>
             <div className={styles.checkpointsContainer}>
               {checkpointsData.map((checkpoint, index) => (
-                <CheckpointCard key={index} checkpointData={checkpoint} />
+                <CheckpointCard
+                  key={index}
+                  checkpointData={checkpoint}
+                  onClick={() => {
+                    setIsCheckpointOpen(true);
+                    setActiveCheckpoint(index);
+                  }}
+                />
               ))}
             </div>
           </div>
