@@ -21,7 +21,7 @@ const RouteCard: React.FC<RouteCardProps> = ({
       <div className={styles.wrapper}>
         <div className={styles.imgContainer}>
           <div className={styles.fakeImage}>
-            <img
+            <Image
               className={styles.bgImage}
               alt="Background"
               src={

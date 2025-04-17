@@ -10,11 +10,12 @@ import ListIcon from "../assets/list.svg";
 import MapContainer from "../components/MapContainer/MapContainer";
 import RoutesContainer from "../components/RoutesContainer/RoutesContainer";
 import { getAllRoutes } from "../_services/client-api-requests";
+import { Route } from "../_types";
 // import { useTours } from "../_hooks/tours";
 
 function Dashboard() {
   const [isMapActive, setIsMapActive] = useState(false);
-  const [routes, setRoutes] = useState<any>([]);
+  const [routes, setRoutes] = useState<Route[]>([]);
 
   useEffect(() => {
     const fetchRoutes = async () => {
