@@ -61,11 +61,20 @@
 .passContainer.error,
 .input.error {
   border-bottom: 2px solid #c11a1a;
+  color: #c11a1a;
 }
 
 .passContainer.error .input::placeholder,
-input.error::placeholder {
+input.error::placeholder,
+.input.errorPass,
+.errContainer {
   color: #c11a1a;
+}
+
+.errContainer {
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
 .showPass {
@@ -108,4 +117,8 @@ input.error::placeholder {
 .hiddenLabel {
   visibility: hidden;
   margin-bottom: -20px;
+}
+
+.label.error {
+  color: #c11a1a;
 }

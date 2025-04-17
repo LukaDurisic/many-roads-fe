@@ -5,12 +5,15 @@ import Button from "@/app/components/Button/Button";
 import Image from "next/image";
 import ShowIcon from "../../assets/show";
 import HideIcon from "../../assets/hide";
+import InfoIcon from "../../assets/info";
 import LogoIcon from "../../assets/mrLogo.svg";
 import { useRouter } from "next/navigation";
 import { userLogIn } from "@/app/_services/client-api-requests";
+import { ClipLoader } from "react-spinners";
 
 function Login() {
   const [showPassword, setShowPassword] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [isFocused, setIsFocused] = useState(false);
   const [isFocusedName, setIsFocusedName] = useState(false);
   const [showErrorName, setShowErrorName] = useState(false);
@@ -35,29 +38,29 @@ function Login() {
     }
 
     try {
+      setIsLoading(true);
       const response = await userLogIn(username, password);
 
       if (response?.data?.non_field_errors?.length > 0) {
         setShowInvalidError(true);
+        setIsLoading(false);
       } else if (
         response.data.access?.length > 0 &&
         response.data.refresh?.length > 0
       ) {
         localStorage.setItem("accessToken", response.data.access);
         localStorage.setItem("refreshToken", response.data.refresh);
+        setIsLoading(false);
         router.push("/dashboard");
       } else {
         console.error("Unexpected login response:", response);
         setShowInvalidError(true);
+        setIsLoading(false);
       }
-    } catch (error: any) {
+    } catch (error) {
       console.error("Login error:", error);
-
-      if (error.response?.data?.non_field_errors?.length > 0) {
-        setShowInvalidError(true);
-      } else {
-        setShowInvalidError(true);
-      }
+      setShowInvalidError(true);
+      setIsLoading(false);
     }
   };
 
@@ -70,11 +73,12 @@ function Login() {
       </div>
       <div className={styles.inputContainer}>
         <label
-          className={
+          className={`${
             isFocusedName || username.length > 0
               ? styles.label
               : styles.hiddenLabel
           }
+          ${showInvalidError ? styles.error : ""}`}
         >
           Email or username
         </label>
@@ -95,9 +99,10 @@ function Login() {
           onBlur={() => setIsFocusedName(false)}
         />
         <label
-          className={
+          className={`${
             isFocused || password.length > 0 ? styles.label : styles.hiddenLabel
           }
+            ${showInvalidError ? styles.error : ""}`}
         >
           Password
         </label>
@@ -108,7 +113,9 @@ function Login() {
         >
           <input
             type={showPassword ? "text" : "password"}
-            className={`${styles.input} ${styles.inputPassword}`}
+            className={`${styles.input} ${styles.inputPassword} ${
+              showInvalidError || showErrorPass ? styles.errorPass : ""
+            }`}
             placeholder={isFocused ? "" : "Password"}
             onChange={(e) => {
               setPassword(e.target.value);
@@ -146,10 +153,17 @@ function Login() {
             </button>
           )}
         </div>
-        {showInvalidError && "Error"}
+        {showInvalidError && (
+          <div className={styles.errContainer}>
+            <InfoIcon height={20} width={20} stroke="#C11A1A" />
+            Invalid email or password!
+          </div>
+        )}
       </div>
       <div className={styles.logInBtn}>
-        <Button variant="primary" label={"Log in"} onClick={() => logIn()} />
+        <Button variant="primary" onClick={() => logIn()}>
+          {isLoading ? <ClipLoader color={"#fff"} size={30} /> : "Log in"}
+        </Button>
       </div>
     </>
   );

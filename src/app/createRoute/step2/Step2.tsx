@@ -4,7 +4,7 @@ import styles from "./Step2.module.css";
 import Image from "next/image";
 import TrashIcon from "../../assets/trash.svg";
 import AddImageIcon from "../../assets/addImage.svg";
-import InfoIcon from "../../assets/info.svg";
+import InfoIcon from "../../assets/info";
 import LocationIcon from "../../assets/location";
 
 function Step2() {
@@ -45,9 +45,9 @@ function Step2() {
             <Image src={AddImageIcon} alt="add image" /> Intro image
           </div>
           <div className={styles.imageNote}>
-            <Image src={InfoIcon} alt="info" height={20} width={20} /> Intro
-            image is visible on the checkpoint cards, while gallery images are
-            the ones that are shown on checkpoint view.
+            <InfoIcon height={35} width={35} stroke="#CCCCCC" /> Intro image is
+            visible on the checkpoint cards, while gallery images are the ones
+            that are shown on checkpoint view.
           </div>
         </div>
 
