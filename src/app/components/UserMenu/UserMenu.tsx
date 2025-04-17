@@ -64,7 +64,16 @@ function UserMenu() {
           <div className={styles.optionsDiv}>
             {userOptions.map((option, index) => (
               <Link href={option.route} key={index}>
-                <div className={styles.userOption} key={option.value}>
+                <div
+                  className={styles.userOption}
+                  key={option.value}
+                  onClick={() => {
+                    if (option.value === "logOut") {
+                      localStorage.removeItem("accessToken");
+                      localStorage.removeItem("refreshToken");
+                    }
+                  }}
+                >
                   {option.label}
                 </div>
               </Link>
