@@ -1,7 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import styles from "./ShareModal.module.css";
-import RouteCard from "../RouteCard/RouteCard";
+// import RouteCard from "../RouteCard/RouteCard";
 import Button from "../Button/Button";
 
 function ShareModal() {
