@@ -13,3 +13,5 @@ const getEndpointPath = getEndpointPathWith(
 
 export const getAllTours = async () =>
   axiosClient.get(getEndpointPath(API_PATHS.tours));
+
+export const getAllRoutes = async () => axiosClient.get("/api/routes");

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styles from "./Dashboard.module.css";
 import Navbar from "../components/Navbar/Navbar";
 import Header from "../components/Header/Header";
@@ -9,19 +9,30 @@ import MapIcon from "../assets/map.svg";
 import ListIcon from "../assets/list.svg";
 import MapContainer from "../components/MapContainer/MapContainer";
 import RoutesContainer from "../components/RoutesContainer/RoutesContainer";
-import { useTours } from "../_hooks/tours";
+import { getAllRoutes } from "../_services/client-api-requests";
+// import { useTours } from "../_hooks/tours";
 
 function Dashboard() {
   const [isMapActive, setIsMapActive] = useState(false);
-  const { data } = useTours();
-  console.log(data);
+  const [routes, setRoutes] = useState<any>([]);
+
+  useEffect(() => {
+    const fetchRoutes = async () => {
+      const response = await getAllRoutes();
+      setRoutes(response.data);
+    };
+
+    fetchRoutes();
+  }, []);
+  // const { data } = useTours();
+  // console.log(data);
 
   return (
     <div className={styles.wrapper}>
       <Navbar />
       <div className={styles.contentWrapper}>
-        <Header />
-        {isMapActive ? <MapContainer /> : <RoutesContainer />}
+        <Header numberOfRoutes={routes.length} />
+        {isMapActive ? <MapContainer /> : <RoutesContainer routes={routes} />}
         <div
           className={styles.mapToggle}
           onClick={() => setIsMapActive(!isMapActive)}
