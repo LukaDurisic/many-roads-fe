@@ -54,7 +54,9 @@ export default function FilterModal() {
             const value = label.toLowerCase().replace(" ", "");
             return (
               <div key={value} className={styles.inputItem}>
-                <label htmlFor={value}>{label}</label>
+                <label htmlFor={value} className={styles.option}>
+                  {label}
+                </label>
                 <label className={styles.customRadioContainer}>
                   <input
                     type="radio"
@@ -117,7 +119,9 @@ export default function FilterModal() {
         <label className={styles.label}>Difficulty</label>
         {["East", "Moderate", "Difficult"].map((level) => (
           <div key={level} className={styles.inputItem}>
-            <label htmlFor={level}>{level}</label>
+            <label htmlFor={level} className={styles.option}>
+              {level}
+            </label>
             <div
               className={styles.accessOption}
               onClick={() => handleToggle(level, setDifficulty, difficulty)}
@@ -147,7 +151,9 @@ export default function FilterModal() {
         <label className={styles.label}>Route Type</label>
         {["Circular", "Point To Point"].map((type) => (
           <div key={type} className={styles.inputItem}>
-            <label htmlFor={type}>{type}</label>
+            <label htmlFor={type} className={styles.option}>
+              {type}
+            </label>
             <div
               className={styles.accessOption}
               onClick={() => handleToggle(type, setRouteType, routeType)}
@@ -177,7 +183,9 @@ export default function FilterModal() {
         <label className={styles.label}>Accessibility</label>
         {["Child", "Pet", "Wheelchair", "Pram-friendly"].map((option) => (
           <div key={option} className={styles.inputItem}>
-            <label htmlFor={option}>{option}</label>
+            <label htmlFor={option} className={styles.option}>
+              {option}
+            </label>
             <div
               className={styles.accessOption}
               onClick={() =>
