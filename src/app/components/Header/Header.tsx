@@ -10,7 +10,7 @@ const testOptions = [
   { label: "Zagreb", value: "Zagreb" },
 ];
 
-function Header() {
+function Header({ numberOfRoutes }: { numberOfRoutes?: number }) {
   return (
     <div className={styles.wrapper}>
       <div className={styles.firstRow}>
@@ -19,7 +19,7 @@ function Header() {
             <p className={styles.in}>In</p>
             <Select options={testOptions} style={"city"} />
           </div>
-          <div className={styles.routes}>250 routes</div>
+          <div className={styles.routes}>{numberOfRoutes || 0} routes</div>
         </div>
         <UserMenu />
       </div>

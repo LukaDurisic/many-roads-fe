@@ -1,17 +1,15 @@
+"use client";
 import React from "react";
 import styles from "./RoutesContainer.module.css";
-import { routesMock } from "./utils";
+// import { routesMock } from "./utils";
 import RouteCard from "../RouteCard/RouteCard";
+import { Route } from "@/app/_types";
 
-function RoutesContainer() {
+function RoutesContainer({ routes }: { routes: Route[] }) {
   return (
     <div className={styles.temp}>
-      {routesMock.map((route) => (
-        <RouteCard
-          key={route.routeId}
-          routeData={route}
-          isProfileShowing={true}
-        />
+      {routes.map((route: Route) => (
+        <RouteCard key={route.id} routeData={route} isProfileShowing={true} />
       ))}
     </div>
   );

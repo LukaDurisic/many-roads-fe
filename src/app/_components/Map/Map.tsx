@@ -11,8 +11,8 @@ import {
 import { type Libraries } from "@react-google-maps/api";
 import { Tour, Location } from "@/app/_types";
 import { tours as initialTours } from "@/app/_mock-data/tours";
-import RouteCard from "@/app/components/RouteCard/RouteCard";
-import { routesMock } from "@/app/components/RoutesContainer/utils";
+// import RouteCard from "@/app/components/RouteCard/RouteCard";
+// import { routesMock } from "@/app/components/RoutesContainer/utils";
 import { createSvgIcon } from "@/app/_lib/utils/create-svg";
 
 const mapContainerStyle = {
@@ -145,9 +145,7 @@ const Map = () => {
                 }}
                 mapPaneName={OverlayView.OVERLAY_MOUSE_TARGET}
               >
-                <div>
-                  <RouteCard isProfileShowing routeData={routesMock[1]} />
-                </div>
+                <div>{/* <RouteCard isProfileShowing routeData={} /> */}</div>
               </OverlayView>
             )
           );
