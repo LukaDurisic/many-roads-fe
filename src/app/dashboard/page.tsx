@@ -13,8 +13,8 @@ import { useTours } from "../_hooks/tours";
 
 function Dashboard() {
   const [isMapActive, setIsMapActive] = useState(false);
-  const { data } = useTours();
-  console.log(data);
+  // const { data } = useTours();
+  // console.log(data);
 
   return (
     <div className={styles.wrapper}>
