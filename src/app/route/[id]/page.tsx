@@ -71,7 +71,7 @@ function formatDate(dateString: string): string {
   }`;
 }
 
-export const sampleRoute: RouteType = {
+const sampleRoute: RouteType = {
   id: 1,
   name: "Historic Victoria Walk",
   description:
