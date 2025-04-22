@@ -1,4 +1,4 @@
-import { Coordinate, Tour } from "@/app/_types";
+import { Coordinate, Route } from "@/app/_types";
 
 export const findCenter = (coordinates: Coordinate[]): Coordinate => {
   if (coordinates.length === 0) return { lat: 0, lng: 0 };
@@ -19,11 +19,14 @@ export const findCenter = (coordinates: Coordinate[]): Coordinate => {
   };
 };
 
-export const extractLocations = (tours: Tour[]) => {
+export const extractLocations = (tours: Route[]) => {
   const tourCoordinates: Coordinate[] = [];
   tours.forEach((tour) => {
-    tour.locations.forEach(({ lat, lng }) => {
-      tourCoordinates.push({ lat, lng });
+    tour.attractions.forEach((attraction) => {
+      tourCoordinates.push({
+        lat: attraction.poi.latitude,
+        lng: attraction.poi.longitude,
+      });
     });
   });
 

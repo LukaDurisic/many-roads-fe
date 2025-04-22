@@ -20,7 +20,7 @@ export type Coordinate = {
 };
 
 export interface MapComponentProps {
-  tourList: Tour[];
+  tourList: Route[];
 }
 export interface Creator {
   id: number;
@@ -42,8 +42,8 @@ export interface Image {
 
 export interface Poi {
   id: number;
-  latitude: string;
-  longitude: string;
+  latitude: number;
+  longitude: number;
   name: string;
 }
 export interface Attraction {

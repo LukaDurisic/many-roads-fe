@@ -1,6 +1,15 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: process.env.NEXT_PUBLIC_MANY_ROADS_IMG as string,
+        port: "",
+      },
+    ],
+  },
   async headers() {
     return [
       {
