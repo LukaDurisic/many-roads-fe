@@ -4,7 +4,7 @@ import styles from "./UserMenu.module.css";
 import Image from "next/image";
 import BurgerMenuIcon from "../../assets/burgerMenu.svg";
 import ProfileIcon from "../../assets/profile.svg";
-import Select from "../Select/Select";
+// import Select from "../Select/Select";
 import Link from "next/link";
 
 const languageOptions = [
@@ -45,9 +45,9 @@ function UserMenu() {
 
   return (
     <div className={styles.wrapper}>
-      <div className={styles.langSelect}>
+      {/* <div className={styles.langSelect}>
         <Select options={languageOptions} style="lang" />
-      </div>
+      </div> */}
       <div className={styles.userSelect}>
         <Image
           alt="burger menu"

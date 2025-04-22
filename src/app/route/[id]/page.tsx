@@ -14,6 +14,7 @@ import Link from "next/link";
 import ShareModal from "@/app/components/ShareModal/ShareModal";
 import CheckpointModal from "@/app/components/CheckpointModal/CheckpointModal";
 import Modal from "@/app/components/Modal/Modal";
+import { Route as RouteType } from "@/app/_types";
 
 const accessOptions = [
   { name: "child", checked: true },
@@ -43,6 +44,149 @@ const checkpointsData = [
 //{ params }: RouteParams
 
 //const { id } = await params;
+
+function formatDate(dateString: string): string {
+  const date = new Date(dateString);
+
+  const options: Intl.DateTimeFormatOptions = {
+    month: "long",
+    year: "numeric",
+  };
+
+  const day = date.getDate();
+  const dayWithSuffix =
+    day +
+    (day % 10 === 1 && day !== 11
+      ? "st"
+      : day % 10 === 2 && day !== 12
+      ? "nd"
+      : day % 10 === 3 && day !== 13
+      ? "rd"
+      : "th");
+
+  const formattedMonthYear = date.toLocaleDateString("en-US", options);
+
+  return `${formattedMonthYear.split(" ")[0]} ${dayWithSuffix}, ${
+    formattedMonthYear.split(" ")[1]
+  }`;
+}
+
+export const sampleRoute: RouteType = {
+  id: 1,
+  name: "Historic Victoria Walk",
+  description:
+    "This small fairytale island will leave you breathless at first sight. Only a few minutes drive from the island of Vis, is a place that should be in your travel plan. Its name is Host and it is located at the very entrance to the Gulf of Vis. It offers a view of the open sea and the port of Vis. Arriving on this unique island, either by private boat or organized transfer, where the view reaches the crystal clear sea, you will feel the peace that will make your vacation unforgettable.",
+  start: "Victoria Harbour",
+  end: "Beacon Hill Park",
+  transport_mode: "walking",
+  duration_est: "1h 30m",
+  num_of_completed_routes: 234,
+  total_attractions: 3,
+  distance: "3.2 km",
+  difficulty: "easy",
+  language: "en",
+  country: "Canada",
+  audio: "https://example.com/audio/route_intro.mp3",
+  categories: ["History", "Culture", "Walking Tour"],
+  category: [1, 3],
+  tags: ["victoria", "historic", "sightseeing"],
+  accessibility: "Wheelchair accessible",
+  date_added: "2024-06-15T12:00:00Z",
+  type: "Point To Point",
+  creator: {
+    id: 101,
+    username: "historybuff88",
+    email: "historybuff@example.com",
+    profile_image: "https://example.com/profiles/user101.jpg",
+    first_name: "Sean",
+    last_name: "Kwok",
+  },
+  images: [
+    {
+      id: 1,
+      route: 1,
+      caption: "Scenic view from the harbor",
+      source: "user-uploaded",
+      url: "/media/images/156-year_History_of_the_City_of_Victoria-image_3H6uIjj.jpg",
+    },
+  ],
+  attractions: [
+    {
+      id: 10,
+      address: "501 Belleville St, Victoria, BC",
+      audio: "https://example.com/audio/attraction_legislature.mp3",
+      content:
+        "The British Columbia Parliament Buildings are a group of historic buildings in downtown Victoria.",
+      name: "BC Legislature",
+      needs_upload: false,
+      poi: {
+        id: 100,
+        latitude: "48.4202",
+        longitude: "-123.3681",
+        name: "BC Legislature",
+      },
+      images: [
+        {
+          id: 2,
+          attraction: 10,
+          caption: "Parliament Building at dusk",
+          source: "user-uploaded",
+          url: "/media/images/156-year_History_of_the_City_of_Victoria-image_3H6uIjj.jpg",
+        },
+      ],
+    },
+    {
+      id: 11,
+      address: "1070 Joan Crescent, Victoria, BC",
+      audio: "https://example.com/audio/attraction_craigdarroch.mp3",
+      content:
+        "Craigdarroch Castle is a historic, Victorian-era Scottish Baronial mansion.",
+      name: "Craigdarroch Castle",
+      needs_upload: false,
+      poi: {
+        id: 101,
+        latitude: "48.4261",
+        longitude: "-123.3415",
+        name: "Craigdarroch Castle",
+      },
+      images: [
+        {
+          id: 3,
+          attraction: 11,
+          caption: "Front view of Craigdarroch Castle",
+          source: "user-uploaded",
+          url: "/media/images/156-year_History_of_the_City_of_Victoria-image_3H6uIjj.jpg",
+        },
+      ],
+    },
+  ],
+  directions: [
+    {
+      id: 1,
+      origin: 100,
+      destination: 101,
+      points: "encodedPolylineHere",
+    },
+  ],
+  ratings: [
+    {
+      id: 5001,
+      value: "5",
+      comment: "Amazing route, well organized and informative!",
+      date_added: "2024-06-18T15:23:00Z",
+      first_name: "Jamie",
+      lastName: "Lee",
+      author: {
+        id: 202,
+        username: "jamielee23",
+        email: "jamie@example.com",
+        profile_image: "https://example.com/profiles/jamie.jpg",
+        first_name: "Jamie",
+        last_name: "Lee",
+      },
+    },
+  ],
+};
 
 function Route() {
   const [isShareOpen, setIsShareOpen] = useState(false);
@@ -81,26 +225,39 @@ function Route() {
             </div>
           </div>
           <div className={styles.imageSection}>
-            <div className={styles.imageContainer}></div>
+            <div className={styles.imageContainer}>
+              <Image
+                src={
+                  process.env.NEXT_PUBLIC_MANY_ROADS_IMG +
+                  sampleRoute.images[0].url
+                }
+                alt="background image"
+                width={1000}
+                height={1000}
+                className={styles.bgImage}
+              />
+            </div>
             <div className={styles.infoContainer}>
               <div className={styles.info}>
                 <div className={styles.infoRow}>
                   <div className={styles.infoItem}>
-                    <div className={styles.data}>5.75 km</div>
+                    <div className={styles.data}>{sampleRoute.distance}</div>
                     <div className={styles.infoLabel}>Distance</div>
                   </div>
                   <div className={styles.infoItem}>
-                    <div className={styles.data}>3.5 - 4 hours</div>
+                    <div className={styles.data}>
+                      {sampleRoute.duration_est}
+                    </div>
                     <div className={styles.infoLabel}>Estimated Duration</div>
                   </div>
                 </div>
                 <div className={styles.infoRow}>
                   <div className={styles.infoItem}>
-                    <div className={styles.data}>Point to Point</div>
+                    <div className={styles.data}>{sampleRoute.type}</div>
                     <div className={styles.infoLabel}>Route Type</div>
                   </div>
                   <div className={styles.infoItem}>
-                    <div className={styles.data}>Easy</div>
+                    <div className={styles.data}>{sampleRoute.difficulty}</div>
                     <div className={styles.infoLabel}>Difficulty</div>
                   </div>
                 </div>
@@ -128,30 +285,19 @@ function Route() {
             </div>
           </div>
           <div className={styles.descriptionSection}>
-            <div className={styles.routeTitle}>
-              Architecture Walk from Central to Wan Chai
-            </div>
+            <div className={styles.routeTitle}>{sampleRoute.name}</div>
             <div className={styles.city}>
-              {/* {routeData.city} | {routeData.start} –&gt; {routeData.end} */}
-              Hong Kong | Central –&gt; Wan Chai
+              {sampleRoute.country} | {sampleRoute.start} –&gt;{" "}
+              {sampleRoute.end}
             </div>
             <div className={styles.steps}>
               <Image alt="person" src={PersonIcon} height={22} width={22} />
-              250
+              250 {/*Steps? */}
             </div>
             <div className={styles.fullDescription}>
               <div className={styles.descTitle}>Description</div>
               <div className={styles.audioBox}></div>
-              <div className={styles.descText}>
-                This small fairytale island will leave you breathless at first
-                sight. Only a few minutes drive from the island of Vis, is a
-                place that should be in your travel plan. Its name is Host and
-                it is located at the very entrance to the Gulf of Vis. It offers
-                a view of the open sea and the port of Vis. Arriving on this
-                unique island, either by private boat or organized transfer,
-                where the view reaches the crystal clear sea, you will feel the
-                peace that will make your vacation unforgettable.
-              </div>
+              <div className={styles.descText}>{sampleRoute.description}</div>
               <div className={styles.textToggle}>More</div>
             </div>
           </div>
@@ -160,10 +306,13 @@ function Route() {
           </div>
           <div className={styles.checkpointSection}>
             <div className={styles.checkpointTitle}>
-              <span className={styles.checkPointNum}>5</span> Checkpoints
+              <span className={styles.checkPointNum}>
+                {sampleRoute.attractions.length}
+              </span>{" "}
+              Checkpoints
             </div>
             <div className={styles.checkpointsContainer}>
-              {checkpointsData.map((checkpoint, index) => (
+              {sampleRoute.attractions.map((checkpoint, index) => (
                 <CheckpointCard
                   key={index}
                   checkpointData={checkpoint}
@@ -176,10 +325,15 @@ function Route() {
             </div>
           </div>
           <div className={styles.userSection}>
-            <div className={styles.publishDate}>Published 31 October, 2024</div>
+            <div className={styles.publishDate}>
+              Published {formatDate(sampleRoute.date_added)}
+            </div>
             <div className={styles.userProfile}>
               <div className={styles.profile}>
-                <Image alt="profile" src={ProfileIcon} /> Sean Kwok
+                <Image alt="profile" src={ProfileIcon} />{" "}
+                {sampleRoute.creator.first_name +
+                  " " +
+                  sampleRoute.creator.last_name}
                 <Image alt="verify" src={VerifyIcon} />
               </div>
             </div>

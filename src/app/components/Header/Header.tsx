@@ -19,7 +19,9 @@ function Header({ numberOfRoutes }: { numberOfRoutes?: number }) {
             <p className={styles.in}>In</p>
             <Select options={testOptions} style={"city"} />
           </div>
-          <div className={styles.routes}>{numberOfRoutes || 0} routes</div>
+          {!!numberOfRoutes === true && (
+            <div className={styles.routes}>{numberOfRoutes || 0} routes</div>
+          )}
         </div>
         <UserMenu />
       </div>

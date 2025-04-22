@@ -93,3 +93,18 @@ export interface Route {
   date_added: string;
   type: string;
 }
+
+export interface RouteCardProps {
+  id: number;
+  name: string;
+  start: string;
+  end: string;
+  duration_est: string;
+  num_of_completed_routes: number;
+  total_attractions: number;
+  distance: string;
+  tags: string[];
+  creator: Creator;
+  images: Image[];
+  country: string;
+}

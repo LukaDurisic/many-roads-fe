@@ -1,7 +1,6 @@
 .wrapper {
   width: 300px;
   padding: 10px;
-  cursor: pointer;
   background-color: #f3f3f3;
   color: #0d0d0d;
 }
@@ -69,6 +68,7 @@
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
+  text-align: left;
 }
 
 .city,
