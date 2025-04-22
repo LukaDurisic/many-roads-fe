@@ -8,18 +8,31 @@
 
 .fakeImage {
   height: 200px;
-  background-color: #d9d9d9;
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
+}
+
+.bgImage {
+  height: 100%;
+  width: 100%;
+}
+
+.tagContainer {
+  position: absolute;
+  display: flex;
+  justify-content: center;
   padding: 5px;
+  gap: 15px;
 }
 
 .tags {
   display: flex;
-  justify-content: center;
+  flex-wrap: wrap;
+  justify-content: flex-start;
   align-items: center;
   gap: 5px;
+  width: 200px;
 }
 
 .tag,
@@ -34,6 +47,10 @@
   padding: 7px;
   border-radius: 5px;
   text-transform: uppercase;
+}
+
+.checkpointNumber {
+  height: fit-content;
 }
 
 .descriptionContainer {
