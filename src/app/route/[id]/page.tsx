@@ -23,17 +23,17 @@ const accessOptions = [
   { name: "pram-friendly", checked: false },
 ];
 
-const checkpointsData = [
-  {
-    name: "The Henderson",
-    imageUrl: "",
-    address: "2 Murray Road, Central",
-    checkpointNumber: 1,
-  },
-  { name: "Second", imageUrl: "", address: "Ipsum", checkpointNumber: 2 },
-  { name: "Third", imageUrl: "", address: "Lorem", checkpointNumber: 3 },
-  { name: "Fourth", imageUrl: "", address: "Ipsum", checkpointNumber: 4 },
-];
+// const checkpointsData = [
+//   {
+//     name: "The Henderson",
+//     imageUrl: "",
+//     address: "2 Murray Road, Central",
+//     checkpointNumber: 1,
+//   },
+//   { name: "Second", imageUrl: "", address: "Ipsum", checkpointNumber: 2 },
+//   { name: "Third", imageUrl: "", address: "Lorem", checkpointNumber: 3 },
+//   { name: "Fourth", imageUrl: "", address: "Ipsum", checkpointNumber: 4 },
+// ];
 
 // interface RouteParams {
 //   params: {

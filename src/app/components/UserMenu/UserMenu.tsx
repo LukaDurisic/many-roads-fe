@@ -7,20 +7,20 @@ import ProfileIcon from "../../assets/profile.svg";
 // import Select from "../Select/Select";
 import Link from "next/link";
 
-const languageOptions = [
-  {
-    label: "English",
-    value: "Eng",
-  },
-  {
-    label: "繁體中文",
-    value: "traditional",
-  },
-  {
-    label: "简体中文",
-    value: "simplified",
-  },
-];
+// const languageOptions = [
+//   {
+//     label: "English",
+//     value: "Eng",
+//   },
+//   {
+//     label: "繁體中文",
+//     value: "traditional",
+//   },
+//   {
+//     label: "简体中文",
+//     value: "simplified",
+//   },
+// ];
 
 const userOptions = [
   {
