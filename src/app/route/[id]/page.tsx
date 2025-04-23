@@ -116,7 +116,7 @@ const sampleRoute: RouteType = {
       address: "501 Belleville St, Victoria, BC",
       audio: "https://example.com/audio/attraction_legislature.mp3",
       content:
-        "The British Columbia Parliament Buildings are a group of historic buildings in downtown Victoria.",
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
       name: "BC Legislature",
       needs_upload: false,
       poi: {
@@ -129,7 +129,21 @@ const sampleRoute: RouteType = {
         {
           id: 2,
           attraction: 10,
-          caption: "Parliament Building at dusk",
+          caption: "Parliament Building at dusk 1",
+          source: "user-uploaded",
+          url: "/media/images/156-year_History_of_the_City_of_Victoria-image_3H6uIjj.jpg",
+        },
+        {
+          id: 66,
+          attraction: 10,
+          caption: "Parliament Building at dusk 2",
+          source: "user-uploaded",
+          url: "/media/images/156-year_History_of_the_City_of_Victoria-image_3H6uIjj.jpg",
+        },
+        {
+          id: 45,
+          attraction: 10,
+          caption: "Parliament Building at dusk 3",
           source: "user-uploaded",
           url: "/media/images/156-year_History_of_the_City_of_Victoria-image_3H6uIjj.jpg",
         },
@@ -156,6 +170,27 @@ const sampleRoute: RouteType = {
           caption: "Front view of Craigdarroch Castle",
           source: "user-uploaded",
           url: "/media/images/156-year_History_of_the_City_of_Victoria-image_3H6uIjj.jpg",
+        },
+        {
+          id: 5,
+          attraction: 11,
+          caption: "Front view of Craigdarroch Castle2",
+          source: "user-uploaded",
+          url: "/media/images/POI00-01C_H7LWTzx.jpg",
+        },
+        {
+          id: 39,
+          attraction: 11,
+          caption: "Front view of Craigdarroch Castle3",
+          source: "user-uploaded",
+          url: "/media/images/156-year_History_of_the_City_of_Victoria-image_3H6uIjj.jpg",
+        },
+        {
+          id: 49,
+          attraction: 11,
+          caption: "Front view of Craigdarroch Castle 4",
+          source: "user-uploaded",
+          url: "/media/images/POI00-01C_H7LWTzx.jpg",
         },
       ],
     },
@@ -205,7 +240,11 @@ function Route() {
           isOpen={isCheckpointOpen}
           onClose={() => setIsCheckpointOpen(false)}
         >
-          <CheckpointModal checkpointNumber={activeCheckpoint} />
+          <CheckpointModal
+            checkpointNumber={activeCheckpoint}
+            setCheckpointNumber={setActiveCheckpoint}
+            checkpointData={sampleRoute.attractions}
+          />
         </Modal>
       )}
       <Navbar />

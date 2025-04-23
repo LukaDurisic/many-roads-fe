@@ -3,7 +3,7 @@ import styles from "./CheckpointCardDetailed.module.css";
 import Image from "next/image";
 import PlayIcon from "../../assets/play.svg";
 import LocationIcon from "../../assets/location";
-import Gallery from "../Gallery/Gallery";
+// import Gallery from "../Gallery/Gallery";
 
 interface GalleryImage {
   url: string;
@@ -54,7 +54,7 @@ function CheckpointCardDetailed({
         </div>
       </div>
       <div className={styles.gallery}>
-        <Gallery isNumberShowing={false} isSliderLeft={false} />
+        {/* <Gallery isNumberShowing={false} isSliderLeft={false} images={[]} /> */}
       </div>
     </div>
   );
