@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "./Step3.module.css";
-import CheckpointCardDetailed from "@/app/components/CheckpointCardDetailed/CheckpointCardDetailed";
+import CheckpointCardDetailed from "@/app/_components/CheckpointCardDetailed/CheckpointCardDetailed";
 
 const classifications = ["History", "Adventure"];
 const accessibilities = ["Child", "Pet"];

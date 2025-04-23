@@ -24,6 +24,7 @@ const RouteCard: React.FC<RouteCardProps> = ({
             <Image
               className={styles.bgImage}
               alt="Background"
+              fill
               src={
                 process.env.NEXT_PUBLIC_MANY_ROADS_IMG +
                 routeData?.images[0]?.url

@@ -14,6 +14,14 @@ export interface Tour {
   locations: Location[];
 }
 
+export type Coordinate = {
+  lat: number;
+  lng: number;
+};
+
+export interface MapComponentProps {
+  tourList: Route[];
+}
 export interface Creator {
   id: number;
   username: string;
@@ -34,8 +42,8 @@ export interface Image {
 
 export interface Poi {
   id: number;
-  latitude: string;
-  longitude: string;
+  latitude: number;
+  longitude: number;
   name: string;
 }
 export interface Attraction {
