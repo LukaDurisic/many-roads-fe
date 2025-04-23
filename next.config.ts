@@ -5,7 +5,7 @@ const nextConfig: NextConfig = {
     remotePatterns: [
       {
         protocol: "https",
-        hostname: process.env.NEXT_PUBLIC_MANY_ROADS_IMG as string,
+        hostname: "https://subway.pythonanywhere.com",
         port: "",
       },
     ],
