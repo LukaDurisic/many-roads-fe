@@ -5,8 +5,9 @@ const nextConfig: NextConfig = {
     remotePatterns: [
       {
         protocol: "https",
-        hostname: "https://subway.pythonanywhere.com",
+        hostname: "subway.pythonanywhere.com",
         port: "",
+        pathname: "/media/images/**",
       },
     ],
   },
