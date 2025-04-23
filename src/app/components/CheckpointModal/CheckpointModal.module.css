@@ -23,6 +23,8 @@
   flex-direction: column;
   gap: 50px;
   align-items: flex-start;
+  max-height: 420px;
+  overflow-y: auto;
 }
 
 .nameContainer {
@@ -53,6 +55,18 @@
   display: flex;
   justify-content: baseline;
   text-align: start;
+}
+
+.description.close {
+  display: -webkit-box;
+  -webkit-line-clamp: 5;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.audioPlayer {
+  min-height: 54px;
 }
 
 .more {

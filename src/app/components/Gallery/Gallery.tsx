@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React from "react";
 import styles from "./Gallery.module.css";
 import LocationIcon from "@/app/assets/location";
 import { Image as ImageInterface } from "@/app/_types";

@@ -15,6 +15,7 @@ function CheckpointModal({
   checkpointData: Attraction[];
 }) {
   const [activeImage, setActiveImage] = useState<number>(0);
+  const [isDescriptionOpen, setIsDescriptionOpen] = useState<boolean>(false);
   return (
     <div className={styles.wrapper}>
       <div className={styles.content}>
@@ -37,19 +38,27 @@ function CheckpointModal({
               {checkpointData[checkpointNumber]?.address}
             </div>
           </div>
-          {checkpointData[checkpointNumber]?.audio && (
-            <audio
-              controls
-              src={
-                process.env.NEXT_PUBLIC_MANY_ROADS_IMG +
-                "/media/route_audio/156-year_History_of_the_City_of_Victoria-audio_ugh1ZvF.mp3"
-              }
-            ></audio>
-          )}
-          <div className={styles.description}>
+          <audio
+            controls
+            src={
+              process.env.NEXT_PUBLIC_MANY_ROADS_IMG +
+              "/media/route_audio/156-year_History_of_the_City_of_Victoria-audio_ugh1ZvF.mp3"
+            }
+            className={styles.audioPlayer}
+          ></audio>
+          <div
+            className={`${styles.description}  ${
+              isDescriptionOpen ? null : styles.close
+            }`}
+          >
             {checkpointData[checkpointNumber]?.content}
           </div>
-          <div className={styles.more}>More</div>
+          <div
+            className={styles.more}
+            onClick={() => setIsDescriptionOpen(!isDescriptionOpen)}
+          >
+            {!isDescriptionOpen ? "More" : "Less"}
+          </div>
         </div>
       </div>
       <div className={styles.btnsContainer}>
@@ -59,6 +68,7 @@ function CheckpointModal({
             if (checkpointNumber > 0) {
               setCheckpointNumber(checkpointNumber - 1);
               setActiveImage(0);
+              setIsDescriptionOpen(false);
             }
           }}
         >
@@ -81,6 +91,7 @@ function CheckpointModal({
             if (checkpointNumber < checkpointData.length - 1) {
               setCheckpointNumber(checkpointNumber + 1);
               setActiveImage(0);
+              setIsDescriptionOpen(false);
             }
           }}
         >
