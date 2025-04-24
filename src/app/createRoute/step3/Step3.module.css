@@ -24,6 +24,12 @@
 .name {
   display: flex;
   flex-direction: column;
+  gap: 30px;
+}
+
+.leftInfo {
+  display: flex;
+  flex-direction: column;
   gap: 10px;
 }
 
@@ -78,13 +84,18 @@
   padding: 20px 0px;
 }
 
+.tags {
+  display: flex;
+  gap: 10px;
+  margin-top: 15px;
+}
+
 .tag {
-  padding: 0.4rem 1rem;
+  padding: 0.5rem 1rem;
   border: 1px solid #ececec;
   border-radius: 8px;
   background-color: #000;
   color: white;
-  cursor: pointer;
   font-family: Inter;
   font-weight: 600;
   font-size: 16px;

@@ -124,6 +124,7 @@
 .textarea {
   resize: none;
   padding-bottom: 0px;
+  height: 100px;
 }
 
 .charCount {

@@ -5,6 +5,13 @@ import styles from "./Step1.module.css";
 import Image from "next/image";
 import AddImgIcon from "../../assets/addImage.svg";
 import ArrowIconCity from "../../assets/arrowDownCity";
+import {
+  UseFormRegister,
+  UseFormGetValues,
+  UseFormWatch,
+  UseFormSetValue,
+} from "react-hook-form";
+import { Route } from "@/app/_types";
 
 const classifications = [
   "History",
@@ -15,31 +22,47 @@ const classifications = [
 ];
 const accessibilities = ["Child", "Pet", "Wheelchair", "Pram-friendly"];
 
-const Step1: React.FC = () => {
-  const [routeName, setRouteName] = useState("");
-  const [description, setDescription] = useState("");
-  const [duration, setDuration] = useState("");
-  const [createAudio, setCreateAudio] = useState(false);
-  const [routeType, setRouteType] = useState("Point To Point");
-  const [country, setCountry] = useState("Hong Kong");
-  const [province, setProvince] = useState("NA");
-  const [difficulty, setDifficulty] = useState("Easy");
-  const [selectedClassifications, setSelectedClassifications] = useState<
-    string[]
-  >([]);
-  const [accessibility, setAccessibility] = useState<string[]>([]);
+const routeTypeOptions = ["Point To Point", "Loop"];
+
+const countryOptions = ["Hong Kong", "USA", "UK"];
+
+const provinceOptions = ["NA", "Central", "Island"];
+
+const difficultyOptions = ["Hard", "Medium", "Easy"];
+
+const Step1 = ({
+  register,
+  getValues,
+  setValue,
+  watch,
+}: {
+  register: UseFormRegister<Route>;
+  getValues: UseFormGetValues<Route>;
+  setValue: UseFormSetValue<Route>;
+  watch: UseFormWatch<Route>;
+}) => {
+  const selectedClassifications = watch("categories", []);
+  const selectedAccessibilities = watch("accessibility", []);
 
   const toggleClassification = (value: string) => {
-    setSelectedClassifications((prev) =>
-      prev.includes(value) ? prev.filter((v) => v !== value) : [...prev, value]
-    );
+    const current = getValues("categories") || [];
+    const updated = current.includes(value)
+      ? current.filter((v) => v !== value)
+      : [...current, value];
+
+    setValue("categories", updated);
   };
 
   const toggleAccessibility = (value: string) => {
-    setAccessibility((prev) =>
-      prev.includes(value) ? prev.filter((v) => v !== value) : [...prev, value]
-    );
+    const current = getValues("accessibility") || [];
+    const updated = current.includes(value)
+      ? current.filter((v) => v !== value)
+      : [...current, value];
+
+    setValue("accessibility", updated);
   };
+
+  const isAudio = watch("isAudio", false);
 
   return (
     <div className={styles.container}>
@@ -55,33 +78,33 @@ const Step1: React.FC = () => {
           type="text"
           placeholder="Type Here"
           className={styles.input}
-          value={routeName}
-          onChange={(e) => setRouteName(e.target.value)}
+          {...register("name")}
         />
 
-        <label className={styles.label}>Description</label>
+        <label className={styles.labelBold}>Description</label>
         <textarea
           placeholder="Type Here"
           className={styles.textarea}
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
           maxLength={1000}
+          {...register("description")}
         />
-        <div className={styles.charCount}>{description.length} / 1000</div>
+        <div className={styles.charCount}>
+          {watch("description", "").length} / 1000
+        </div>
 
         <label className={styles.checkbox}>
           <input
             type="checkbox"
-            checked={createAudio}
-            onChange={() => setCreateAudio(!createAudio)}
+            checked={isAudio}
             className={styles.hiddenCheckbox}
+            {...register("isAudio")}
           />
           <span
             className={`${
-              createAudio ? styles.customCheckbox : styles.customCheckboxNot
+              isAudio ? styles.customCheckbox : styles.customCheckboxNot
             } ${styles.bigCheckbox}`}
           >
-            {createAudio ? "✔" : ""}
+            {isAudio ? "✔" : ""}
           </span>
           Create audio from my description.
         </label>
@@ -91,11 +114,17 @@ const Step1: React.FC = () => {
           <div className={styles.selectItem}>
             <select
               className={styles.select}
-              value={routeType}
-              onChange={(e) => setRouteType(e.target.value)}
+              value={watch("type", "")}
+              {...register("type")}
             >
-              <option>Point To Point</option>
-              <option>Loop</option>
+              <option key={0} value={""} disabled>
+                Select
+              </option>
+              {routeTypeOptions.map((option, index) => (
+                <option value={option} key={index + 1}>
+                  {option}
+                </option>
+              ))}
             </select>
             <ArrowIconCity
               fill={"#757575"}
@@ -111,12 +140,17 @@ const Step1: React.FC = () => {
           <div className={styles.selectItem}>
             <select
               className={styles.select}
-              value={country}
-              onChange={(e) => setCountry(e.target.value)}
+              value={watch("country", "")}
+              {...register("country")}
             >
-              <option>Hong Kong</option>
-              <option>USA</option>
-              <option>UK</option>
+              <option key={0} value={""} disabled>
+                Select
+              </option>
+              {countryOptions.map((option, index) => (
+                <option value={option} key={index + 1}>
+                  {option}
+                </option>
+              ))}
             </select>
             <ArrowIconCity
               fill={"#757575"}
@@ -132,12 +166,17 @@ const Step1: React.FC = () => {
           <div className={styles.selectItem}>
             <select
               className={styles.select}
-              value={province}
-              onChange={(e) => setProvince(e.target.value)}
+              value={watch("province", "")}
+              {...register("province")}
             >
-              <option>NA</option>
-              <option>Central</option>
-              <option>Island</option>
+              <option key={0} value={""} disabled>
+                Select
+              </option>
+              {provinceOptions.map((option, index) => (
+                <option value={option} key={index + 1}>
+                  {option}
+                </option>
+              ))}
             </select>
             <ArrowIconCity
               fill={"#757575"}
@@ -157,10 +196,19 @@ const Step1: React.FC = () => {
               type="text"
               placeholder="3.75 – 4 hours"
               className={styles.input}
-              value={duration}
-              onChange={(e) => setDuration(e.target.value)}
+              {...register("duration_est")}
             />
           </div>
+        </div>
+
+        <div className={styles.duration}>
+          <label className={styles.labelBold}>Total distance</label>
+          <input
+            type="text"
+            placeholder="9999 km"
+            className={styles.input}
+            {...register("distance")}
+          />
         </div>
 
         <div className={styles.fieldGroupSelect}>
@@ -168,12 +216,17 @@ const Step1: React.FC = () => {
           <div className={styles.selectItem}>
             <select
               className={styles.select}
-              value={difficulty}
-              onChange={(e) => setDifficulty(e.target.value)}
+              value={watch("difficulty", "")}
+              {...register("difficulty")}
             >
-              <option>Easy</option>
-              <option>Medium</option>
-              <option>Hard</option>
+              <option key={0} value={""} disabled>
+                Select
+              </option>
+              {difficultyOptions.map((option, index) => (
+                <option value={option} key={index + 1}>
+                  {option}
+                </option>
+              ))}
             </select>
             <ArrowIconCity
               fill={"#757575"}
@@ -213,18 +266,18 @@ const Step1: React.FC = () => {
               </span>
               <input
                 type="checkbox"
-                checked={accessibility.includes(option)}
+                checked={selectedAccessibilities.includes(option)}
                 onChange={() => toggleAccessibility(option)}
                 className={styles.hiddenCheckbox}
               />
               <span
                 className={
-                  accessibility.includes(option)
+                  selectedAccessibilities.includes(option)
                     ? styles.customCheckbox
                     : styles.customCheckboxNot
                 }
               >
-                {accessibility.includes(option) ? "✔" : ""}
+                {selectedAccessibilities.includes(option) ? "✔" : ""}
               </span>
             </label>
           ))}

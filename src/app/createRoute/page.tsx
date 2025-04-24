@@ -7,9 +7,67 @@ import Step1 from "./step1/Step1";
 import Step2 from "./step2/Step2";
 import Step3 from "./step3/Step3";
 import Button from "../_components/Button/Button";
+import { useForm, SubmitHandler, useFieldArray } from "react-hook-form";
+import { Route } from "../_types";
 
 function CreateRoute() {
   const [currentStep, setCurrentStep] = useState(1);
+  const { register, handleSubmit, setValue, watch, getValues, control } =
+    useForm<Route>({
+      defaultValues: {
+        name: "",
+        accessibility: [],
+        attractions: [
+          {
+            id: 0,
+            address: "",
+            audio: "",
+            content: "",
+            images: [],
+            name: "",
+            needs_upload: false,
+            poi: {
+              latitude: 0,
+              longitude: 0,
+              name: "",
+              id: 0,
+            },
+          },
+        ],
+        audio: "",
+        categories: [],
+        category: [],
+        country: "",
+        creator: {},
+        date_added: "",
+        description: "",
+        difficulty: "",
+        directions: [],
+        distance: "",
+        duration_est: "",
+        end: "",
+        images: [],
+        language: "",
+        num_of_completed_routes: 0,
+        ratings: [],
+        start: "",
+        tags: [],
+        total_attractions: 0,
+        transport_mode: "",
+        type: "",
+        province: "",
+      },
+    });
+
+  const onSubmit: SubmitHandler<Route> = (data) => {
+    console.log(data);
+  };
+
+  const { fields, append, remove } = useFieldArray({
+    control,
+    name: "attractions",
+  });
+
   return (
     <div className={styles.wrapper}>
       <Navbar />
@@ -50,11 +108,22 @@ function CreateRoute() {
         </div>
         <div className={styles.stepContentContainer}>
           {currentStep === 1 ? (
-            <Step1 />
+            <Step1
+              register={register}
+              getValues={getValues}
+              watch={watch}
+              setValue={setValue}
+            />
           ) : currentStep === 2 ? (
-            <Step2 />
+            <Step2
+              register={register}
+              getValues={getValues}
+              watch={watch}
+              appendAttraction={append}
+              remove={remove}
+            />
           ) : currentStep === 3 ? (
-            <Step3 />
+            <Step3 getValues={getValues} />
           ) : (
             "Invalid step"
           )}
@@ -91,7 +160,8 @@ function CreateRoute() {
               <Button
                 label="Publish"
                 className={styles.nextBtn}
-                href="/dashboard"
+                // href="/dashboard"
+                onClick={handleSubmit(onSubmit)}
               />
             </div>
           ) : null}
