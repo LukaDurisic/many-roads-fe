@@ -3,7 +3,7 @@ import { getEndpointPathWith } from "./common/util";
 
 export enum API_PATHS {
   /* I used https://api.restful-api.dev just to test the hook and it has /objects path */
-  tours = "/objects",
+  tours = "routes",
   login = "/accounts/login/",
 }
 

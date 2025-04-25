@@ -9,19 +9,23 @@ import MapIcon from "../assets/map.svg";
 import ListIcon from "../assets/list.svg";
 import MapContainer from "../_components/MapContainer/MapContainer";
 import RoutesContainer from "../_components/RoutesContainer/RoutesContainer";
-import { getAllRoutes } from "../_services/client-api-requests";
+
 import { Route } from "../_types";
-// import { useTours } from "../_hooks/tours";
+
+import { getAllTours } from "../_services/client-api-requests";
+
+
 
 function Dashboard() {
   const [isMapActive, setIsMapActive] = useState(false);
   const [routes, setRoutes] = useState<Route[]>([]);
 
+  
   console.log(routes);
 
   useEffect(() => {
     const fetchRoutes = async () => {
-      const response = await getAllRoutes();
+      const response = await getAllTours();
       setRoutes(response.data);
     };
 
