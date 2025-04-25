@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import styles from "./Step1.module.css";
 import Image from "next/image";
 import AddImgIcon from "../../assets/addImage.svg";
@@ -41,6 +41,12 @@ const Step1 = ({
   setValue: UseFormSetValue<Route>;
   watch: UseFormWatch<Route>;
 }) => {
+  const [imagePreviews, setImagePreviews] = useState<string[]>([]);
+  const [routeName, setRouteName] = useState<string>("");
+  const [duration, setDuration] = useState<string>("");
+  const [distance, setDistance] = useState<string>("");
+  const [description, setDescription] = useState<string>("");
+
   const selectedClassifications = watch("categories", []);
   const selectedAccessibilities = watch("accessibility", []);
 
@@ -64,34 +70,119 @@ const Step1 = ({
 
   const isAudio = watch("isAudio", false);
 
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
+  const handleImageBoxClick = () => {
+    fileInputRef.current?.click();
+  };
+
+  const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const files = event.target.files;
+    if (files) {
+      const newPreviews = Array.from(files).map((file) =>
+        URL.createObjectURL(file)
+      );
+      setImagePreviews((prev) => [...prev, ...newPreviews].slice(0, 10));
+    }
+  };
+
+  const handleImageDelete = (index: number) => {
+    setImagePreviews((prev) => prev.filter((_, i) => i !== index));
+  };
+
   return (
     <div className={styles.container}>
       <div className={styles.left}>
         <div className={styles.imageUpload}>
-          <div className={styles.imageBox}>
-            <Image alt="add image icon" src={AddImgIcon} /> Add image
+          <div className={styles.imageGrid}>
+            {imagePreviews.map((preview, index) => (
+              <div
+                key={index}
+                className={styles.imageBox}
+                onClick={() => handleImageDelete(index)}
+              >
+                <Image
+                  src={preview}
+                  alt={`uploaded preview ${index}`}
+                  width={300}
+                  height={200}
+                  className={styles.previewImage}
+                />
+              </div>
+            ))}
+
+            {imagePreviews.length < 10 && (
+              <div
+                className={`${styles.imageBox} ${styles.noAfter}`}
+                onClick={handleImageBoxClick}
+              >
+                <div className={styles.addImageBox}>
+                  <Image alt="add image icon" src={AddImgIcon} />
+                  Add image
+                </div>
+              </div>
+            )}
           </div>
+
+          <input
+            type="file"
+            id="imageUpload"
+            accept="image/*"
+            multiple
+            style={{ display: "none" }}
+            ref={fileInputRef}
+            onChange={handleImageUpload}
+          />
         </div>
 
-        <label className={styles.labelBold}>Route Name</label>
+        <label className={routeName === "" ? styles.hidden : styles.labelBold}>
+          Route Name
+        </label>
         <input
           type="text"
-          placeholder="Type Here"
+          placeholder="Route Name"
           className={styles.input}
           {...register("name")}
+          onChange={(e) => setRouteName(e.target.value)}
         />
 
-        <label className={styles.labelBold}>Description</label>
+        <label className={duration === "" ? styles.hidden : styles.labelBold}>
+          Estimated Duration
+        </label>
+        <input
+          type="text"
+          placeholder="Estimated Duration"
+          className={styles.input}
+          {...register("duration_est")}
+          onChange={(e) => setDuration(e.target.value)}
+        />
+
+        <label className={distance === "" ? styles.hidden : styles.labelBold}>
+          Total distance
+        </label>
+        <input
+          type="text"
+          placeholder="Total distance"
+          className={styles.input}
+          {...register("distance")}
+          onChange={(e) => setDistance(e.target.value)}
+        />
+
+        <label
+          className={description === "" ? styles.hidden : styles.labelBold}
+        >
+          Description
+        </label>
         <textarea
-          placeholder="Type Here"
+          placeholder="Description"
           className={styles.textarea}
           maxLength={1000}
           {...register("description")}
+          onChange={(e) => setDescription(e.target.value)}
         />
         <div className={styles.charCount}>
           {watch("description", "").length} / 1000
         </div>
-
         <label className={styles.checkbox}>
           <input
             type="checkbox"
@@ -108,7 +199,54 @@ const Step1 = ({
           </span>
           Create audio from my description.
         </label>
+      </div>
 
+      <div className={styles.right}>
+        <div className={styles.fieldGroup}>
+          <label className={styles.labelBold}>Classification</label>
+          <div className={styles.tags}>
+            {classifications.map((item) => (
+              <button
+                type="button"
+                key={item}
+                className={`${styles.tag} ${
+                  selectedClassifications.includes(item)
+                    ? styles.tagSelected
+                    : ""
+                }`}
+                onClick={() => toggleClassification(item)}
+              >
+                {item}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        <div className={styles.accessibility}>
+          <div className={styles.accessTitle}>Accessibility</div>
+          {accessibilities.map((option, index) => (
+            <label key={index} className={styles.accessOption}>
+              <span className={styles.label}>
+                {option.charAt(0).toUpperCase() + option.slice(1)}
+              </span>
+              <input
+                type="checkbox"
+                checked={selectedAccessibilities.includes(option)}
+                onChange={() => toggleAccessibility(option)}
+                className={styles.hiddenCheckbox}
+              />
+              <span
+                className={
+                  selectedAccessibilities.includes(option)
+                    ? styles.customCheckbox
+                    : styles.customCheckboxNot
+                }
+              >
+                {selectedAccessibilities.includes(option) ? "✔" : ""}
+              </span>
+            </label>
+          ))}
+        </div>
         <div className={styles.fieldGroupSelect}>
           <label className={styles.labelSelect}>Route Type</label>
           <div className={styles.selectItem}>
@@ -186,31 +324,6 @@ const Step1 = ({
             />
           </div>
         </div>
-      </div>
-
-      <div className={styles.right}>
-        <div className={styles.duration}>
-          <label className={styles.labelBold}>Estimated Duration</label>
-          <div className={styles.inputContainer}>
-            <input
-              type="text"
-              placeholder="3.75 – 4 hours"
-              className={styles.input}
-              {...register("duration_est")}
-            />
-          </div>
-        </div>
-
-        <div className={styles.duration}>
-          <label className={styles.labelBold}>Total distance</label>
-          <input
-            type="text"
-            placeholder="9999 km"
-            className={styles.input}
-            {...register("distance")}
-          />
-        </div>
-
         <div className={styles.fieldGroupSelect}>
           <label className={styles.labelSelect}>Difficulty</label>
           <div className={styles.selectItem}>
@@ -235,52 +348,6 @@ const Step1 = ({
               // style={isOpen ? { rotate: " 180deg" } : {}}
             />
           </div>
-        </div>
-
-        <div className={styles.fieldGroup}>
-          <label className={styles.labelBold}>Classification</label>
-          <div className={styles.tags}>
-            {classifications.map((item) => (
-              <button
-                type="button"
-                key={item}
-                className={`${styles.tag} ${
-                  selectedClassifications.includes(item)
-                    ? styles.tagSelected
-                    : ""
-                }`}
-                onClick={() => toggleClassification(item)}
-              >
-                {item}
-              </button>
-            ))}
-          </div>
-        </div>
-
-        <div className={styles.accessibility}>
-          <div className={styles.accessTitle}>Accessibility</div>
-          {accessibilities.map((option, index) => (
-            <label key={index} className={styles.accessOption}>
-              <span className={styles.label}>
-                {option.charAt(0).toUpperCase() + option.slice(1)}
-              </span>
-              <input
-                type="checkbox"
-                checked={selectedAccessibilities.includes(option)}
-                onChange={() => toggleAccessibility(option)}
-                className={styles.hiddenCheckbox}
-              />
-              <span
-                className={
-                  selectedAccessibilities.includes(option)
-                    ? styles.customCheckbox
-                    : styles.customCheckboxNot
-                }
-              >
-                {selectedAccessibilities.includes(option) ? "✔" : ""}
-              </span>
-            </label>
-          ))}
         </div>
       </div>
     </div>

@@ -1,0 +1,77 @@
+.wrapperLeft {
+  height: 100%;
+  background-color: #fff;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  flex-direction: row-reverse;
+  padding-top: 25px;
+}
+
+.slider {
+  width: 17%;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.sliderImageSmall {
+  height: 60px;
+  width: 40px;
+  border-radius: 8px;
+  background-color: #d9d9d9;
+}
+
+.imageContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.image {
+  width: 150px;
+  height: 200px;
+  background-color: #d9d9d9;
+  border-radius: 16px;
+}
+.caption {
+  font-family: Inter;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 100%;
+  letter-spacing: 0px;
+  vertical-align: middle;
+  color: #757575;
+  max-width: 150px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.countBg {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.countBg::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(36, 36, 36, 0.4);
+  border-radius: 8px;
+  z-index: 1;
+}
+
+.countText {
+  font-family: Inter;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 20px;
+  letter-spacing: 0px;
+  color: #ffffff;
+}

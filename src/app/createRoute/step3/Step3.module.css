@@ -84,6 +84,15 @@
   padding: 20px 0px;
 }
 
+.checkTitle {
+  font-family: Inter;
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 32px;
+  letter-spacing: 0px;
+  color: #757575;
+}
+
 .tags {
   display: flex;
   gap: 10px;

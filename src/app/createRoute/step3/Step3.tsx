@@ -1,39 +1,11 @@
 import React from "react";
 import styles from "./Step3.module.css";
 import CheckpointCardDetailed from "@/app/_components/CheckpointCardDetailed/CheckpointCardDetailed";
-import { UseFormRegister, UseFormGetValues } from "react-hook-form";
+import { UseFormGetValues } from "react-hook-form";
 import { Route } from "@/app/_types";
 
-const classifications = ["History", "Adventure"];
-const accessibilities = ["Child", "Pet"];
-const checkpoints = [
-  {
-    name: "The Henderson",
-    address: "2 Murray Road, Central",
-    isAudio: true,
-    description:
-      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
-    heroImageUrl: "",
-    galleryImages: [
-      { url: "", caption: "Test caption" },
-      { url: "", caption: "Test caption 2" },
-    ],
-  },
-  {
-    name: "The Henderson",
-    address: "2 Murray Road, Central",
-    isAudio: true,
-    description:
-      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
-    heroImageUrl: "",
-    galleryImages: [
-      { url: "", caption: "Test caption" },
-      { url: "", caption: "Test caption 2" },
-    ],
-  },
-];
-
 function Step3({ getValues }: { getValues: UseFormGetValues<Route> }) {
+  const checkpoints = getValues().attractions;
   return (
     <div className={styles.stepWrapper}>
       <div className={styles.mainInfoContainer}>
@@ -78,25 +50,39 @@ function Step3({ getValues }: { getValues: UseFormGetValues<Route> }) {
           <div className={styles.classification}>
             <div className={styles.label}>Classification</div>
             <div className={styles.tags}>
-              {getValues().categories.map((item) => (
-                <button type="button" key={item} className={styles.tag}>
-                  {item}
-                </button>
-              ))}
+              {getValues().categories.length > 0 ? (
+                getValues().categories.map((item) => (
+                  <button type="button" key={item} className={styles.tag}>
+                    {item}
+                  </button>
+                ))
+              ) : (
+                <div className={styles.info} style={{ marginTop: 10 }}>
+                  No classifications selected!
+                </div>
+              )}
             </div>
           </div>
           <div className={styles.accessibility}>
             <div className={styles.label}>Accessibility</div>
-            {getValues().accessibility.length > 0
-              ? getValues().accessibility.map((item, index) => (
-                  <div className={styles.infoItemAcc} key={index}>
-                    <div className={styles.info}>{item}</div>
-                    <div className={styles.info}>✔</div>
-                  </div>
-                ))
-              : "No accessibilities selected!"}
+            {getValues().accessibility.length > 0 ? (
+              getValues().accessibility.map((item, index) => (
+                <div className={styles.infoItemAcc} key={index}>
+                  <div className={styles.info}>{item}</div>
+                  <div className={styles.info}>✔</div>
+                </div>
+              ))
+            ) : (
+              <div className={styles.info} style={{ marginTop: 20 }}>
+                No accessibilities selected!
+              </div>
+            )}
           </div>
         </div>
+      </div>
+      <div className={styles.checkTitle}>
+        <span style={{ color: "black" }}>{checkpoints.length} </span>{" "}
+        Checkpoints
       </div>
       {checkpoints?.map((checkpoint, index) => (
         <CheckpointCardDetailed
