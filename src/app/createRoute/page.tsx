@@ -63,7 +63,7 @@ function CreateRoute() {
     console.log(data);
   };
 
-  const { fields, append, remove } = useFieldArray({
+  const { append, remove } = useFieldArray({
     control,
     name: "attractions",
   });

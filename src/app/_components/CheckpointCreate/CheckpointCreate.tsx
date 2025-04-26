@@ -34,6 +34,7 @@ function CheckpointCreate({
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState<boolean>(false);
   const heroFileInputRef = useRef<HTMLInputElement>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
+  console.log(getValues);
 
   const handleHeroImageBoxClick = () => {
     heroFileInputRef.current?.click();
