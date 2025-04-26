@@ -1,4 +1,5 @@
-import React from "react";
+"use client";
+import React, { useState, useRef } from "react";
 import styles from "./CheckpointCreate.module.css";
 import Image from "next/image";
 import {
@@ -12,6 +13,8 @@ import TrashIcon from "../../assets/trash.svg";
 import InfoIcon from "../../assets/info";
 import LocationIcon from "@/app/assets/location";
 import AddImageIcon from "../../assets/addImage.svg";
+import Modal from "../Modal/Modal";
+import DeleteCheckpointModal from "../DeleteCheckpointModal/DeleteCheckpointModal";
 
 function CheckpointCreate({
   index,
@@ -26,9 +29,64 @@ function CheckpointCreate({
   watch: UseFormWatch<Route>;
   remove: UseFieldArrayRemove;
 }) {
+  const [imagePreviews, setImagePreviews] = useState<string[]>([]);
+  const [heroImagePreviews, setHeroImagePreviews] = useState<string[]>([]);
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState<boolean>(false);
+  const heroFileInputRef = useRef<HTMLInputElement>(null);
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
+  const handleHeroImageBoxClick = () => {
+    heroFileInputRef.current?.click();
+  };
+
+  const handleImageBoxClick = () => {
+    fileInputRef.current?.click();
+  };
+
+  const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const files = event.target.files;
+    if (files) {
+      const newPreviews = Array.from(files).map((file) =>
+        URL.createObjectURL(file)
+      );
+      setImagePreviews((prev) => [...prev, ...newPreviews].slice(0, 10));
+    }
+  };
+
+  const handleHeroImageUpload = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    const files = event.target.files;
+    if (files) {
+      const newPreviews = Array.from(files).map((file) =>
+        URL.createObjectURL(file)
+      );
+      setHeroImagePreviews((prev) => [...prev, ...newPreviews].slice(0, 10));
+    }
+  };
+
+  const handleImageDelete = (index: number) => {
+    setImagePreviews((prev) => prev.filter((_, i) => i !== index));
+  };
+
+  const handleHeroImageDelete = (index: number) => {
+    setHeroImagePreviews((prev) => prev.filter((_, i) => i !== index));
+  };
+
   return (
     <>
       <div>
+        <Modal
+          isOpen={isDeleteModalOpen}
+          onClose={() => {
+            setIsDeleteModalOpen(false);
+          }}
+        >
+          <DeleteCheckpointModal
+            remove={() => remove(index)}
+            close={() => setIsDeleteModalOpen(false)}
+          />
+        </Modal>
         <div className={styles.inputGroup}>
           <div className={styles.checkpointNumber}>{index + 1}</div>
           <input
@@ -40,7 +98,7 @@ function CheckpointCreate({
             src={TrashIcon}
             alt="Trash"
             className={styles.deleteIcon}
-            onClick={() => remove(index)}
+            onClick={() => setIsDeleteModalOpen(true)}
           />
         </div>
         <div className={styles.inputGroup}>
@@ -55,8 +113,39 @@ function CheckpointCreate({
         </div>
       </div>
       <div className={styles.imageUpload}>
-        <div className={styles.imageBox}>
-          <Image src={AddImageIcon} alt="add image" /> Intro image
+        <div className={styles.imageGrid}>
+          {heroImagePreviews.map((preview, index) => (
+            <div
+              key={index}
+              className={styles.imageBox}
+              onClick={() => handleHeroImageDelete(index)}
+            >
+              <Image
+                src={preview}
+                alt={`uploaded preview ${index}`}
+                width={300}
+                height={200}
+                className={styles.previewImage}
+              />
+            </div>
+          ))}
+          {!heroImagePreviews[index] && (
+            <div
+              className={`${styles.imageBox} ${styles.noAfter}`}
+              onClick={handleHeroImageBoxClick}
+            >
+              <Image src={AddImageIcon} alt="add image" /> Intro image
+              <input
+                type="file"
+                id="imageUpload"
+                accept="image/*"
+                multiple
+                style={{ display: "none" }}
+                ref={heroFileInputRef}
+                onChange={handleHeroImageUpload}
+              />
+            </div>
+          )}{" "}
         </div>
         <div className={styles.imageNote}>
           <InfoIcon height={35} width={35} stroke="#CCCCCC" /> Intro image is
@@ -64,7 +153,6 @@ function CheckpointCreate({
           that are shown on checkpoint view.
         </div>
       </div>
-
       <div className={styles.descriptionBox}>
         <label className={styles.descTitle}>Write a Description</label>
         <textarea
@@ -78,13 +166,13 @@ function CheckpointCreate({
         </div>
       </div>
 
-      <label className={styles.checkbox}>
+      {/* <label className={styles.checkbox}>
         <input
           type="checkbox"
           {...register(`attractions.${index}.needs_upload`)}
           className={styles.hiddenCheckbox}
         />
-        {/*vjv treba promjenit prop checkpointa al za sad ok*/}
+        vjv treba promjenit prop checkpointa al za sad ok
         <span
           className={`${
             watch(`attractions.${index}.needs_upload`, false)
@@ -95,15 +183,46 @@ function CheckpointCreate({
           {watch(`attractions.${index}.needs_upload`, false) ? "✔" : ""}
         </span>
         Create audio from my description.
-      </label>
-
+      </label> */}
       <div className={styles.galleryBox}>
         <div className={styles.descTitle}>Gallery</div>
-        {/*slike rješim kasnije */}
-        <div className={styles.imageBoxGallery}>
-          <Image src={AddImageIcon} alt="add image" />
+        <div className={styles.galleryImageUpload}>
+          <div className={styles.galleryImageGrid}>
+            {imagePreviews.map((preview, index) => (
+              <div
+                key={index}
+                className={styles.imageBoxGallery}
+                onClick={() => handleImageDelete(index)}
+              >
+                <Image
+                  src={preview}
+                  alt={`uploaded preview ${index}`}
+                  width={300}
+                  height={200}
+                  className={styles.previewImage}
+                />
+              </div>
+            ))}
+            {imagePreviews.length < 10 && (
+              <div
+                className={`${styles.imageBoxGallery} ${styles.noAfter}`}
+                onClick={handleImageBoxClick}
+              >
+                <Image src={AddImageIcon} alt="add image" />
+                <input
+                  type="file"
+                  id="imageUpload"
+                  accept="image/*"
+                  multiple
+                  style={{ display: "none" }}
+                  ref={fileInputRef}
+                  onChange={handleImageUpload}
+                />
+              </div>
+            )}{" "}
+          </div>
         </div>
-        <div className={styles.imageDescriptionBox}>
+        {/* <div className={styles.imageDescriptionBox}>
           <label className={styles.descTitle}>Image 1 description</label>
           <textarea
             placeholder="Type Here"
@@ -113,9 +232,10 @@ function CheckpointCreate({
             maxLength={100}
           />
           <div className={styles.charCount}>
-            {/* {imageDescription.length} / 100 */}
+             {imageDescription.length} / 100 }
           </div>
         </div>
+         */}
       </div>
     </>
   );

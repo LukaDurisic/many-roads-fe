@@ -10,6 +10,8 @@ import {
 } from "react-hook-form";
 import { Route } from "@/app/_types";
 import CheckpointCreate from "@/app/_components/CheckpointCreate/CheckpointCreate";
+import PlusIcon from "../../assets/plus.svg";
+import Image from "next/image";
 
 function Step2({
   register,
@@ -60,7 +62,8 @@ function Step2({
           className={styles.addCheckpointBtn}
           onClick={() => addCheckpoint()}
         >
-          + Add checkpoint
+          <Image src={PlusIcon} alt="add" height={22} width={22} /> Add
+          checkpoint
         </div>
       </div>
 

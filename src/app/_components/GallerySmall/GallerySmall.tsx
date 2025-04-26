@@ -2,7 +2,7 @@ import React from "react";
 import styles from "./GallerySmall.module.css";
 import { Image } from "@/app/_types";
 
-function Gallery({ images }: { images: Image[] }) {
+function GallerySmall({ images }: { images: Image[] }) {
   images = [
     {
       caption: "Test test test etste etsets ets ",
@@ -42,9 +42,7 @@ function Gallery({ images }: { images: Image[] }) {
       <div className={styles.slider}>
         {images.length > 0 && images.length < 4
           ? images.map((image, index) => (
-              <>
-                <div className={styles.sliderImageSmall} key={index}></div>
-              </>
+              <div className={styles.sliderImageSmall} key={index}></div>
             ))
           : images.slice(0, 3).map((image, index) => (
               <>
@@ -73,4 +71,4 @@ function Gallery({ images }: { images: Image[] }) {
   );
 }
 
-export default Gallery;
+export default GallerySmall;
