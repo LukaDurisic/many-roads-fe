@@ -15,7 +15,8 @@ const getEndpointPath = getEndpointPathWith(
 export const getAllTours = async () =>
   axiosClient.get(getEndpointPath(API_PATHS.tours));
 
-export const getAllRoutes = async () => axiosClient.get("/api/routes");
+export const getAllRoutes = async () =>
+  axiosClient.get("https://subway.pythonanywhere.com/api/routes/");
 
 export const userLogIn = async (email: string, password: string) =>
   axiosClient.post("/api/login", { email, password });
