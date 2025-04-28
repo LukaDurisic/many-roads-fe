@@ -50,6 +50,7 @@
 
 .checkpointNumber {
   height: fit-content;
+  width: max-content;
 }
 
 .descriptionContainer {

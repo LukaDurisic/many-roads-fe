@@ -90,7 +90,9 @@ const sampleRoute: RouteType = {
   categories: ["History", "Culture", "Walking Tour"],
   category: [1, 3],
   tags: ["victoria", "historic", "sightseeing"],
-  accessibility: "Wheelchair accessible",
+  accessibility: [],
+  province: "",
+  isAudio: true,
   date_added: "2024-06-15T12:00:00Z",
   type: "Point To Point",
   creator: {

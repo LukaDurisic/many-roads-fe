@@ -3,28 +3,15 @@ import styles from "./CheckpointCardDetailed.module.css";
 import Image from "next/image";
 import PlayIcon from "../../assets/play.svg";
 import LocationIcon from "../../assets/location";
-// import Gallery from "../Gallery/Gallery";
+import GallerySmall from "../GallerySmall/GallerySmall";
+import { Attraction } from "@/app/_types";
 
-
-interface GalleryImage {
-  url: string;
-  caption: string;
-}
-
-interface Checkpoint {
-  name: string;
-  address: string;
-  isAudio: boolean;
-  description: string;
-  heroImageUrl: string;
-  galleryImages: GalleryImage[];
-}
 
 function CheckpointCardDetailed({
   checkpointData,
   index,
 }: {
-  checkpointData: Checkpoint;
+  checkpointData: Attraction;
   index: number;
 }) {
   return (
@@ -48,14 +35,16 @@ function CheckpointCardDetailed({
             Description
             <div className={styles.audio}>
               <Image src={PlayIcon} alt="play icon" />{" "}
-              {checkpointData.isAudio ? "Audio included" : "Audio not included"}
+              {checkpointData.needs_upload
+                ? "Audio included"
+                : "Audio not included"}
             </div>{" "}
           </div>
-          <div className={styles.description}>{checkpointData.description}</div>
+          <div className={styles.description}>{checkpointData.content}</div>
         </div>
       </div>
       <div className={styles.gallery}>
-        {/* <Gallery isNumberShowing={false} isSliderLeft={false} images={[]} /> */}
+        <GallerySmall images={checkpointData.images} />
 
       </div>
     </div>

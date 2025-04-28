@@ -89,6 +89,8 @@ export interface Route {
   language: string;
   country: string;
   audio: string;
+  province: string;
+  isAudio: boolean;
   categories: string[];
   category: number[];
   tags: string[];
@@ -97,7 +99,7 @@ export interface Route {
   directions: Direction[];
   images: Image[];
   ratings: Rating[];
-  accessibility: string;
+  accessibility: string[];
   date_added: string;
   type: string;
 }
