@@ -5,30 +5,33 @@ import ProfileIcon from "../../assets/profile.svg";
 import DistanceIcon from "../../assets/distance.svg";
 import TimeIcon from "../../assets/time.svg";
 import Link from "next/link";
-import { Route } from "@/app/_types";
+import { RouteCardProps } from "@/app/_types";
 
-interface RouteCardProps {
-  routeData: Route;
+interface RouteCardCompProps {
+  routeData: RouteCardProps;
   isProfileShowing: boolean;
+  isClickable: boolean;
 }
 
-const RouteCard: React.FC<RouteCardProps> = ({
+const RouteCard: React.FC<RouteCardCompProps> = ({
   routeData,
   isProfileShowing,
+  isClickable,
 }) => {
   return (
-    <Link href={`/route/${routeData.id}`}>
+    <Link href={isClickable ? `/route/${routeData.id}` : "#"}>
       <div className={styles.wrapper}>
         <div className={styles.imgContainer}>
           <div className={styles.fakeImage}>
             <Image
               className={styles.bgImage}
               alt="Background"
-              fill
               src={
                 process.env.NEXT_PUBLIC_MANY_ROADS_IMG +
-                routeData?.images[0]?.url
+                routeData?.images[0].url
               }
+              width={1000}
+              height={1000}
             />
             <div className={styles.tagContainer}>
               <div className={styles.tags}>
@@ -39,7 +42,10 @@ const RouteCard: React.FC<RouteCardProps> = ({
                 ))}
               </div>
               <div className={styles.checkpointNumber}>
-                {routeData.attractions.length} / {routeData.total_attractions}
+                {routeData.num_of_completed_routes} /{" "}
+                {routeData.total_attractions}
+                {/*vjv nije dobro treba ovaj broj za completed */}
+
               </div>
             </div>
           </div>
