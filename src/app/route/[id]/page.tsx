@@ -352,7 +352,7 @@ function Route() {
             </div>
           </div>
           <div className={styles.mapSection}>
-            <div className={styles.map}>Map goes here</div>
+            <div className={styles.map}>Map goes here!</div>
           </div>
           <div className={styles.checkpointSection}>
             <div className={styles.checkpointTitle}>
