@@ -14,6 +14,14 @@ export interface Tour {
   locations: Location[];
 }
 
+export type Coordinate = {
+  lat: number;
+  lng: number;
+};
+
+export interface MapComponentProps {
+  tourList: Route[];
+}
 export interface Creator {
   id: number;
   username: string;
@@ -34,8 +42,8 @@ export interface Image {
 
 export interface Poi {
   id: number;
-  latitude: string;
-  longitude: string;
+  latitude: number;
+  longitude: number;
   name: string;
 }
 export interface Attraction {
@@ -92,4 +100,19 @@ export interface Route {
   accessibility: string;
   date_added: string;
   type: string;
+}
+
+export interface RouteCardProps {
+  id: number;
+  name: string;
+  start: string;
+  end: string;
+  duration_est: string;
+  num_of_completed_routes: number;
+  total_attractions: number;
+  distance: string;
+  tags: string[];
+  creator: Creator;
+  images: Image[];
+  country: string;
 }

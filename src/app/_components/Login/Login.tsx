@@ -1,7 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import styles from "./Login.module.css";
-import Button from "@/app/components/Button/Button";
+import Button from "@/app/_components/Button/Button";
 import Image from "next/image";
 import ShowIcon from "../../assets/show";
 import HideIcon from "../../assets/hide";
