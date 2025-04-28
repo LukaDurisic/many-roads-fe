@@ -144,7 +144,7 @@ const Map: React.FC<MapComponentProps> = ({ tourList }) => {
                 mapPaneName={OverlayView.OVERLAY_MOUSE_TARGET}
               >
                 <div>
-                  <RouteCard isProfileShowing routeData={tour} />
+                  {/* <RouteCard isProfileShowing routeData={tour} /> */}
                 </div>
               </OverlayView>
             )
