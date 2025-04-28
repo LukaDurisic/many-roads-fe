@@ -333,7 +333,7 @@ function Route() {
             </div>
             {/* <div className={styles.steps}>
               <Image alt="person" src={PersonIcon} height={22} width={22} />
-              250
+              2500
             </div> */}
 
             <div className={styles.fullDescription}>
