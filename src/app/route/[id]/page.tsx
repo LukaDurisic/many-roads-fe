@@ -121,8 +121,8 @@ const sampleRoute: RouteType = {
       needs_upload: false,
       poi: {
         id: 100,
-        latitude: "48.4202",
-        longitude: "-123.3681",
+        latitude: 48.4202,
+        longitude: -123.3681,
         name: "BC Legislature",
       },
       images: [
@@ -159,8 +159,8 @@ const sampleRoute: RouteType = {
       needs_upload: false,
       poi: {
         id: 101,
-        latitude: "48.4261",
-        longitude: "-123.3415",
+        latitude: 48.4261,
+        longitude: -123.3415,
         name: "Craigdarroch Castle",
       },
       images: [
