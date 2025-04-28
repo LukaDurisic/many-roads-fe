@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "./Header.module.css";
-import UserMenu from "../UserMenu/UserMenu";
+import UserMenu from "../../_components/UserMenu/UserMenu";
 import Select from "../Select/Select";
 import Search from "../Search/Search";
 import Filters from "../Filters/Filters";

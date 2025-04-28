@@ -2,7 +2,14 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   images: {
-    domains: ["subway.pythonanywhere.com"],
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "subway.pythonanywhere.com",
+        port: "",
+        pathname: "/media/images/**",
+      },
+    ],
   },
   async headers() {
     return [

@@ -1,19 +1,19 @@
 "use client";
 import React, { useState } from "react";
 import styles from "./Route.module.css";
-import Navbar from "../../components/Navbar/Navbar";
-import Header from "@/app/components/Header/Header";
+import Navbar from "../../_components/Navbar/Navbar";
+import Header from "@/app/_components/Header/Header";
 import Image from "next/image";
 import ArrowIcon from "../../assets/arrowRight";
 import ShareIcon from "../../assets/share.svg";
 import PersonIcon from "../../assets/person.svg";
-import CheckpointCard from "@/app/components/CheckpointCard/CheckpointCard";
+import CheckpointCard from "@/app/_components/CheckpointCard/CheckpointCard";
 import ProfileIcon from "../../assets/profile.svg";
 import VerifyIcon from "../../assets/verify.svg";
 import Link from "next/link";
-import ShareModal from "@/app/components/ShareModal/ShareModal";
-import CheckpointModal from "@/app/components/CheckpointModal/CheckpointModal";
-import Modal from "@/app/components/Modal/Modal";
+import ShareModal from "@/app/_components/ShareModal/ShareModal";
+import CheckpointModal from "@/app/_components/CheckpointModal/CheckpointModal";
+import Modal from "@/app/_components/Modal/Modal";
 import { Route as RouteType } from "@/app/_types";
 
 const accessOptions = [
