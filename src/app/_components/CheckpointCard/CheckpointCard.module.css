@@ -8,19 +8,37 @@
 
 .fakeImage {
   height: 200px;
-  background-color: #d9d9d9;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  border-radius: 8px;
+}
+
+.bgImage {
+  height: 100%;
+  width: 100%;
+  border-radius: 16px;
+}
+
+.tagContainer {
+  position: absolute;
+  display: flex;
+  justify-content: flex-end;
+  padding: 10px;
+  padding-left: 220px;
+  gap: 15px;
+  /*background-color: #d9d9d9;
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
   padding: 10px;
-  border-radius: 8px;
+  border-radius: 8px;*/
 }
 
-.tagContainer {
+/*.tagContainer {
   width: 100%;
   display: flex;
-  justify-content: end;
-}
+  justify-content: end;*/
 
 .checkpointNumber {
   background-color: #9c9c9c;

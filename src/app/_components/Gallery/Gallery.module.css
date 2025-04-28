@@ -16,6 +16,24 @@
   display: flex;
   flex-direction: column;
   gap: 10px;
+  max-height: 425px;
+  overflow: auto;
+}
+
+.slider::-webkit-scrollbar {
+  width: 1px; /*scrollbar is small and white so it is invisible*/
+}
+
+.slider::-webkit-scrollbar-thumb {
+  background-color: #fff;
+  border-radius: 2px;
+}
+
+.slider::-webkit-scrollbar-track {
+  background: transparent;
+  margin-top: 20px;
+  margin-bottom: 20px;
+
 }
 
 .sliderImageSmall {
@@ -24,11 +42,17 @@
   border-radius: 8px;
   background-color: #d9d9d9;
   cursor: pointer;
+
+  min-height: 45px;
+  min-width: 35;
+
 }
 
 .slideImage {
   height: 80px;
+  min-height: 70px;
   width: 100%;
+  min-width: 55px;
   border-radius: 16px;
   background-color: #d9d9d9;
   cursor: pointer;
@@ -38,20 +62,68 @@
   display: flex;
   flex-direction: column;
   gap: 10px;
+  width: 400px;
+
 }
 
 .image {
   width: 100%;
   height: 100%;
+  border-radius: 16px;
+}
+
+.sliderBg {
+  width: 100%;
+  height: 100%;
+  border-radius: 16px;
+  object-fit: cover;
+}
+
+.active {
+  position: relative;
+}
+
+.active::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  border-radius: 16px;
+  z-index: 1;
+}
+
+.imageChangeContainer {
+  color: #fff;
+  font-size: 35px;
+  font-family: "Courier New", Courier, monospace;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 45px;
+  position: relative;
+  bottom: 50px;
+}
+
+.imageChangeContainer div {
+  cursor: pointer;
+}
+
+.bigImg {
+  height: 100%;
+  width: 100%;
   background-color: #d9d9d9;
   border-radius: 16px;
 }
 
 .numContainer {
-  width: 100%;
+  width: 375px;
   display: flex;
   justify-content: end;
   padding: 15px;
+  position: absolute;
 }
 
 .checkpointNumber {

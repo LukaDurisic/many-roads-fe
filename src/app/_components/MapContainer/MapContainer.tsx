@@ -6,6 +6,7 @@ import { Route } from "@/app/_types";
 function MapContainer({ routes }: { routes: Route[] }) {
   return (
     <div className={styles.temp}>
+      {" "}
       <Map tourList={routes} />
     </div>
   );

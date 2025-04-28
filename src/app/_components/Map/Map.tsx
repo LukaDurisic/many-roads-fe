@@ -10,7 +10,7 @@ import {
 } from "@react-google-maps/api";
 import { type Libraries } from "@react-google-maps/api";
 import { MapComponentProps, Route, Attraction } from "@/app/_types";
-import RouteCard from "@/app/_components/RouteCard/RouteCard";
+// import RouteCard from "@/app/_components/RouteCard/RouteCard";
 import { createSvgIcon } from "@/app/_lib/utils/create-svg";
 import { extractLocations, findCenter } from "@/app/_lib/utils/find-map-center";
 
@@ -144,7 +144,7 @@ const Map: React.FC<MapComponentProps> = ({ tourList }) => {
                 mapPaneName={OverlayView.OVERLAY_MOUSE_TARGET}
               >
                 <div>
-                  <RouteCard isProfileShowing routeData={tour} />
+                  {/* <RouteCard isProfileShowing routeData={tour} /> */}
                 </div>
               </OverlayView>
             )

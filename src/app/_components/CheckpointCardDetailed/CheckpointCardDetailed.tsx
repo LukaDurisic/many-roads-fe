@@ -6,6 +6,7 @@ import LocationIcon from "../../assets/location";
 import GallerySmall from "../GallerySmall/GallerySmall";
 import { Attraction } from "@/app/_types";
 
+
 function CheckpointCardDetailed({
   checkpointData,
   index,
@@ -44,6 +45,7 @@ function CheckpointCardDetailed({
       </div>
       <div className={styles.gallery}>
         <GallerySmall images={checkpointData.images} />
+
       </div>
     </div>
   );
