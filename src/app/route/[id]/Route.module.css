@@ -226,9 +226,9 @@
 
 .audioBox {
   height: 54px;
-  background-color: #d9d9d9;
   border-radius: 16px;
   margin: 20px 0px;
+  width: 100%;
 }
 
 .descTitle {

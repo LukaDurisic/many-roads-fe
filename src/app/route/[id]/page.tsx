@@ -6,7 +6,7 @@ import Header from "@/app/_components/Header/Header";
 import Image from "next/image";
 import ArrowIcon from "../../assets/arrowRight";
 import ShareIcon from "../../assets/share.svg";
-import PersonIcon from "../../assets/person.svg";
+// import PersonIcon from "../../assets/person.svg";
 import CheckpointCard from "@/app/_components/CheckpointCard/CheckpointCard";
 import ProfileIcon from "../../assets/profile.svg";
 import VerifyIcon from "../../assets/verify.svg";
@@ -329,14 +329,23 @@ function Route() {
               {sampleRoute.country} | {sampleRoute.start} –&gt;{" "}
               {sampleRoute.end}
             </div>
-            <div className={styles.steps}>
+            {/* <div className={styles.steps}>
               <Image alt="person" src={PersonIcon} height={22} width={22} />
-              250 {/*Steps? */}
-            </div>
+              250
+            </div> */}
+
             <div className={styles.fullDescription}>
               <div className={styles.descTitle}>Description</div>
-              <div className={styles.audioBox}></div>
+              <audio
+                className={styles.audioBox}
+                controls
+                src={
+                  process.env.NEXT_PUBLIC_MANY_ROADS_IMG +
+                  "/media/route_audio/156-year_History_of_the_City_of_Victoria-audio_ugh1ZvF.mp3"
+                }
+              ></audio>
               <div className={styles.descText}>{sampleRoute.description}</div>
+
               <div className={styles.textToggle}>More</div>
             </div>
           </div>
