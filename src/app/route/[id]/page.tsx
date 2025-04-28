@@ -7,7 +7,7 @@ import Image from "next/image";
 import ArrowIcon from "../../assets/arrowRight";
 import ShareIcon from "../../assets/share.svg";
 // import PersonIcon from "../../assets/person.svg";
-import CheckpointCard from "@/app/components/CheckpointCard/CheckpointCard";
+import CheckpointCard from "@/app/_components/CheckpointCard/CheckpointCard";
 import ProfileIcon from "../../assets/profile.svg";
 import VerifyIcon from "../../assets/verify.svg";
 import Link from "next/link";
@@ -333,7 +333,7 @@ function Route() {
               <Image alt="person" src={PersonIcon} height={22} width={22} />
               250
             </div> */}
-           
+
             <div className={styles.fullDescription}>
               <div className={styles.descTitle}>Description</div>
               <audio
