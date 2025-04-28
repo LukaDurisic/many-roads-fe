@@ -2,7 +2,7 @@ import { axiosClient } from "./common/axios-client";
 import { getEndpointPathWith } from "./common/util";
 
 export enum API_PATHS {
-  /* I used https://api.restful-api.dev just to test the hook and it has /objects path */
+  /* I used https://api.restful-api.dev just to test the hook and it has /objects path. */
   tours = "/objects",
   login = "/accounts/login/",
   routes = "/routes/",
