@@ -333,7 +333,7 @@ function Route() {
             </div>
             {/* <div className={styles.steps}>
               <Image alt="person" src={PersonIcon} height={22} width={22} />
-              250
+              2500
             </div> */}
 
             <div className={styles.fullDescription}>
@@ -352,7 +352,7 @@ function Route() {
             </div>
           </div>
           <div className={styles.mapSection}>
-            <div className={styles.map}>Map goes here</div>
+            <div className={styles.map}>Map goes here!</div>
           </div>
           <div className={styles.checkpointSection}>
             <div className={styles.checkpointTitle}>
