@@ -33,6 +33,7 @@
   background: transparent;
   margin-top: 20px;
   margin-bottom: 20px;
+
 }
 
 .sliderImageSmall {
@@ -41,8 +42,10 @@
   border-radius: 8px;
   background-color: #d9d9d9;
   cursor: pointer;
+
   min-height: 45px;
   min-width: 35;
+
 }
 
 .slideImage {
@@ -60,6 +63,7 @@
   flex-direction: column;
   gap: 10px;
   width: 400px;
+
 }
 
 .image {
@@ -110,6 +114,7 @@
 .bigImg {
   height: 100%;
   width: 100%;
+  background-color: #d9d9d9;
   border-radius: 16px;
 }
 

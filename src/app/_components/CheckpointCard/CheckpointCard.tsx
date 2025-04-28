@@ -6,6 +6,7 @@ import Image from "next/image";
 
 interface CheckpointCardProps {
   checkpointData: Attraction;
+
   onClick?: () => void;
 }
 
@@ -32,6 +33,7 @@ const CheckpointCard: React.FC<CheckpointCardProps> = ({
               <LocationIcon height={17} width={17} fill="white" />
               {checkpointData.id}
               {/*Treba nam ovaj podatak sa BE za sad samo id */}
+
             </div>
           </div>
         </div>

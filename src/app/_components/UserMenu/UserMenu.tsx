@@ -48,6 +48,7 @@ function UserMenu() {
       {/* <div className={styles.langSelect}>
         <Select options={languageOptions} style="lang" />
       </div> */}
+
       <div className={styles.userSelect}>
         <Image
           alt="burger menu"

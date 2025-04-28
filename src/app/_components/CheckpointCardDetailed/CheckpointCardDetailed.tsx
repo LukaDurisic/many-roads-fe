@@ -5,6 +5,7 @@ import PlayIcon from "../../assets/play.svg";
 import LocationIcon from "../../assets/location";
 // import Gallery from "../Gallery/Gallery";
 
+
 interface GalleryImage {
   url: string;
   caption: string;
@@ -55,6 +56,7 @@ function CheckpointCardDetailed({
       </div>
       <div className={styles.gallery}>
         {/* <Gallery isNumberShowing={false} isSliderLeft={false} images={[]} /> */}
+
       </div>
     </div>
   );

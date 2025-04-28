@@ -17,6 +17,8 @@ function Dashboard() {
   const [isMapActive, setIsMapActive] = useState(false);
   const [routes, setRoutes] = useState<Route[]>([]);
 
+  console.log(routes);
+
   useEffect(() => {
     const fetchRoutes = async () => {
       const response = await getAllRoutes();
@@ -33,7 +35,11 @@ function Dashboard() {
       <Navbar />
       <div className={styles.contentWrapper}>
         <Header numberOfRoutes={routes.length} />
-        {isMapActive ? <MapContainer /> : <RoutesContainer routes={routes} />}
+        {isMapActive ? (
+          <MapContainer routes={routes} />
+        ) : (
+          <RoutesContainer routes={routes} />
+        )}
         <div
           className={styles.mapToggle}
           onClick={() => setIsMapActive(!isMapActive)}

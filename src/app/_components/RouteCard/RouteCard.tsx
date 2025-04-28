@@ -45,6 +45,7 @@ const RouteCard: React.FC<RouteCardCompProps> = ({
                 {routeData.num_of_completed_routes} /{" "}
                 {routeData.total_attractions}
                 {/*vjv nije dobro treba ovaj broj za completed */}
+
               </div>
             </div>
           </div>

@@ -1,3 +1,4 @@
+
 "use client";
 import React, { useState } from "react";
 import styles from "./CheckpointModal.module.css";
@@ -27,6 +28,7 @@ function CheckpointModal({
             images={checkpointData[checkpointNumber]?.images}
             activeImage={activeImage}
             setActiveImage={setActiveImage}
+
           />
         </div>
         <div className={styles.info}>
@@ -77,6 +79,7 @@ function CheckpointModal({
               height={16}
               width={16}
               fill={checkpointNumber === 0 ? "#5c5c5c4d" : "0d0d0dff"}
+
             />
           </span>
           Previous
