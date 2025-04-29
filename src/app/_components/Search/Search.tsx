@@ -47,7 +47,7 @@ function Search({
           setIsFilterOpen(false);
           sessionStorage.clear();
           handleClear();
-          setRoutes && routes && setRoutes(routes);
+          if (setRoutes && routes) setRoutes(routes);
           if (setIsReload) setIsReload(!isReload);
         }}
       >
