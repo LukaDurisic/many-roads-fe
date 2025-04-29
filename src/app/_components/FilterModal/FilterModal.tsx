@@ -1,22 +1,53 @@
 "use client";
 
-import { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styles from "./FilterModal.module.css";
 import Button from "../Button/Button";
 import Select from "../Select/Select";
+import { Route } from "@/app/_types";
+import { usePathname, useRouter } from "next/navigation";
 
-const cityOptions = [
-  { value: "HongKong", label: "Hong Kong" },
-  { value: "Zagreb", label: "Zagreb" },
-];
+const cityOptions = [{ value: "Hong Kong SAR", label: "Hong Kong SAR" }];
 
-export default function FilterModal() {
-  const [sort, setSort] = useState("bestmatch");
-  const [classification, setClassification] = useState<string[]>([]);
-  const [distance, setDistance] = useState(50);
-  const [difficulty, setDifficulty] = useState<string[]>([]);
-  const [routeType, setRouteType] = useState<string[]>([]);
-  const [accessibility, setAccessibility] = useState<string[]>([]);
+export default function FilterModal({
+  routes,
+  setRoutes,
+  onClose,
+  sort,
+  setSort,
+  classification,
+  setClassification,
+  distance,
+  setDistance,
+  difficulty,
+  setDifficulty,
+  routeType,
+  setRouteType,
+  accessibility,
+  setAccessibility,
+  handleClear,
+}: {
+  routes?: Route[];
+  setRoutes?: React.Dispatch<React.SetStateAction<Route[]>>;
+  onClose: () => void;
+  sort: string;
+  setSort: React.Dispatch<React.SetStateAction<string>>;
+  classification: string[];
+  setClassification: React.Dispatch<React.SetStateAction<string[]>>;
+  distance: number;
+  setDistance: React.Dispatch<React.SetStateAction<number>>;
+  difficulty: string[];
+  setDifficulty: React.Dispatch<React.SetStateAction<string[]>>;
+  routeType: string[];
+  setRouteType: React.Dispatch<React.SetStateAction<string[]>>;
+  accessibility: string[];
+  setAccessibility: React.Dispatch<React.SetStateAction<string[]>>;
+  handleClear: () => void;
+}) {
+  const [numOfRoutes, setNumOfRoutes] = useState<number>(routes?.length || 0);
+  const [filteredRoutes, setFilteredRoutes] = useState<Route[]>([]);
+  const pathname = usePathname();
+  const router = useRouter();
 
   const handleToggle = (
     value: string,
@@ -30,14 +61,44 @@ export default function FilterModal() {
     );
   };
 
-  const handleClear = () => {
-    setSort("bestmatch");
-    setClassification([]);
-    setDistance(50);
-    setDifficulty([]);
-    setRouteType([]);
-    setAccessibility([]);
+  const filterRoutes = () => {
+    if (!routes || !setRoutes) return;
+
+    const newRoutes = routes.filter((route: Route) => {
+      const distanceValue = parseFloat(
+        route.distance.match(/[\d.]+/)?.[0] || "0"
+      );
+
+      const matchesDistance =
+        distance !== 50 ? distanceValue > 0 && distanceValue < distance : true;
+
+      const matchesDifficulty =
+        difficulty.length > 0 ? difficulty.includes(route.difficulty) : true;
+
+      const matchesType =
+        routeType.length > 0 ? routeType.includes(route.type) : true;
+
+      const matchesAccessibility =
+        accessibility.length > 0
+          ? accessibility.some((acc) => route.accessibility.includes(acc))
+          : true;
+
+      return (
+        matchesDistance &&
+        matchesDifficulty &&
+        matchesType &&
+        matchesAccessibility
+      );
+    });
+
+    setNumOfRoutes(newRoutes.length);
+    setFilteredRoutes(newRoutes);
+    setRoutes(newRoutes);
   };
+
+  useEffect(() => {
+    filterRoutes();
+  }, [sort, classification, distance, difficulty, routeType, accessibility]);
 
   return (
     <div className={styles.modal}>
@@ -117,7 +178,7 @@ export default function FilterModal() {
 
       <div className={styles.section}>
         <label className={styles.label}>Difficulty</label>
-        {["East", "Moderate", "Difficult"].map((level) => (
+        {["Easy", "Moderate", "Difficult"].map((level) => (
           <div key={level} className={styles.inputItem}>
             <label htmlFor={level} className={styles.option}>
               {level}
@@ -149,7 +210,7 @@ export default function FilterModal() {
 
       <div className={styles.section}>
         <label className={styles.label}>Route Type</label>
-        {["Circular", "Point To Point"].map((type) => (
+        {["Linear", "Circular", "Point To Point"].map((type) => (
           <div key={type} className={styles.inputItem}>
             <label htmlFor={type} className={styles.option}>
               {type}
@@ -218,7 +279,20 @@ export default function FilterModal() {
           Clear
         </div>
         <div className={styles.btnContainer}>
-          <Button label="Show 25 routes" />
+          <Button
+            label={`Show ${numOfRoutes} routes`}
+            onClick={() => {
+              if (pathname === "/dashboard") {
+                onClose();
+              } else {
+                sessionStorage.setItem(
+                  "filteredRoutes",
+                  JSON.stringify(filteredRoutes)
+                );
+                router.push("/dashboard");
+              }
+            }}
+          />
         </div>
       </div>
     </div>

@@ -28,7 +28,7 @@ const countryOptions = ["Hong Kong", "USA", "UK"];
 
 const provinceOptions = ["NA", "Central", "Island"];
 
-const difficultyOptions = ["Hard", "Medium", "Easy"];
+const difficultyOptions = ["Easy", "Moderate", "Difficult"];
 
 const Step1 = ({
   register,
@@ -183,7 +183,7 @@ const Step1 = ({
         <div className={styles.charCount}>
           {watch("description", "").length} / 1000
         </div>
-        <label className={styles.checkbox}>
+        {/* <label className={styles.checkbox}>
           <input
             type="checkbox"
             checked={isAudio}
@@ -198,7 +198,7 @@ const Step1 = ({
             {isAudio ? "✔" : ""}
           </span>
           Create audio from my description.
-        </label>
+        </label> */}
       </div>
 
       <div className={styles.right}>
