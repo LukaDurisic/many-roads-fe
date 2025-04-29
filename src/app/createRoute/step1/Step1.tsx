@@ -35,11 +35,13 @@ const Step1 = ({
   getValues,
   setValue,
   watch,
+  setRouteImages,
 }: {
   register: UseFormRegister<Route>;
   getValues: UseFormGetValues<Route>;
   setValue: UseFormSetValue<Route>;
   watch: UseFormWatch<Route>;
+  setRouteImages: React.Dispatch<React.SetStateAction<File[]>>;
 }) => {
   const [imagePreviews, setImagePreviews] = useState<string[]>([]);
   const [routeName, setRouteName] = useState<string>("");
@@ -79,10 +81,12 @@ const Step1 = ({
   const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     const files = event.target.files;
     if (files) {
-      const newPreviews = Array.from(files).map((file) =>
-        URL.createObjectURL(file)
-      );
+      const fileArray = Array.from(files);
+
+      const newPreviews = fileArray.map((file) => URL.createObjectURL(file));
+
       setImagePreviews((prev) => [...prev, ...newPreviews].slice(0, 10));
+      setRouteImages((prev) => [...prev, ...fileArray].slice(0, 10));
     }
   };
 

@@ -47,7 +47,7 @@ export interface Poi {
   name: string;
 }
 export interface Attraction {
-  id: number;
+  id?: number;
   address: string;
   audio: string;
   content: string;
@@ -117,4 +117,10 @@ export interface RouteCardProps {
   creator: Creator;
   images: Image[];
   country: string;
+}
+
+export interface AttractionImages {
+  attractionIndex: number;
+  heroImage?: File;
+  images: File[];
 }

@@ -45,20 +45,18 @@ function GallerySmall({ images }: { images: Image[] }) {
               <div className={styles.sliderImageSmall} key={index}></div>
             ))
           : images.slice(0, 3).map((image, index) => (
-              <>
-                <div
-                  className={`${styles.sliderImageSmall} ${
-                    index === 2 && styles.countBg
-                  }`}
-                  key={index}
-                >
-                  {index === 2 && (
-                    <span className={styles.countText}>
-                      + {images.length - 3}
-                    </span>
-                  )}
-                </div>
-              </>
+              <div
+                className={`${styles.sliderImageSmall} ${
+                  index === 2 && styles.countBg
+                }`}
+                key={index}
+              >
+                {index === 2 && (
+                  <span className={styles.countText}>
+                    + {images.length - 3}
+                  </span>
+                )}
+              </div>
             ))}
       </div>
       <div className={styles.imageContainer}>

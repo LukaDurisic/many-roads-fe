@@ -6,6 +6,8 @@ export enum API_PATHS {
   tours = "/objects",
   login = "/accounts/login/",
   routes = "/routes/",
+  imageUpload = "/routes/images/upload/",
+  routeCreate = "/routes/create/",
 }
 
 //TODO add zod validation and env.mjs for handling env vars
@@ -21,3 +23,26 @@ export const getAllRoutes = async () =>
 
 export const userLogIn = async (email: string, password: string) =>
   axiosClient.post(getEndpointPath(API_PATHS.login), { email, password });
+
+export const uploadImage = async (image: FormData, authToken: string) => {
+  try {
+    const response = await axiosClient.post(
+      getEndpointPath(API_PATHS.imageUpload),
+      image,
+      {
+        headers: {
+          Authorization: `Bearer ${authToken}`,
+          "Content-Type": "multipart/form-data",
+        },
+      }
+    );
+
+    return response.data;
+  } catch (error) {
+    console.error("Image upload failed:", error);
+    throw error;
+  }
+};
+
+export const createRoute = async (routeData: any) =>
+  axiosClient.post(getEndpointPath(API_PATHS.routeCreate), { routeData });

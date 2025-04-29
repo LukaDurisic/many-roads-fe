@@ -8,7 +8,7 @@ import {
   UseFieldArrayAppend,
   UseFieldArrayRemove,
 } from "react-hook-form";
-import { Route } from "@/app/_types";
+import { Route, AttractionImages } from "@/app/_types";
 import CheckpointCreate from "@/app/_components/CheckpointCreate/CheckpointCreate";
 import PlusIcon from "../../assets/plus.svg";
 import Image from "next/image";
@@ -19,16 +19,17 @@ function Step2({
   watch,
   appendAttraction,
   remove,
+  setAttractionImages,
 }: {
   register: UseFormRegister<Route>;
   getValues: UseFormGetValues<Route>;
   watch: UseFormWatch<Route>;
   appendAttraction: UseFieldArrayAppend<Route, "attractions">;
   remove: UseFieldArrayRemove;
+  setAttractionImages: React.Dispatch<React.SetStateAction<AttractionImages[]>>;
 }) {
   const addCheckpoint = () => {
     appendAttraction({
-      id: 0,
       address: "",
       audio: "",
       content: "",
@@ -55,6 +56,7 @@ function Step2({
             watch={watch}
             remove={remove}
             index={index}
+            setAttractionImages={setAttractionImages}
             key={index}
           />
         ))}

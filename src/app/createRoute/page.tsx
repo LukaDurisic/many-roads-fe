@@ -8,10 +8,16 @@ import Step2 from "./step2/Step2";
 import Step3 from "./step3/Step3";
 import Button from "../_components/Button/Button";
 import { useForm, SubmitHandler, useFieldArray } from "react-hook-form";
-import { Route } from "../_types";
+import { Image, Route, AttractionImages } from "../_types";
+import { uploadImage, createRoute } from "../_services/client-api-requests";
 
 function CreateRoute() {
-  const [currentStep, setCurrentStep] = useState(1);
+  const [currentStep, setCurrentStep] = useState<number>(1);
+  const [routeImages, setRouteImages] = useState<File[]>([]);
+  const [attractionImages, setAttractionImages] = useState<AttractionImages[]>(
+    []
+  );
+  const authToken = localStorage.getItem("accessToken") || "";
   const { register, handleSubmit, setValue, watch, getValues, control } =
     useForm<Route>({
       defaultValues: {
@@ -19,7 +25,6 @@ function CreateRoute() {
         accessibility: [],
         attractions: [
           {
-            id: 0,
             address: "",
             audio: "",
             content: "",
@@ -59,8 +64,53 @@ function CreateRoute() {
       },
     });
 
-  const onSubmit: SubmitHandler<Route> = (data) => {
-    console.log(data);
+  const onSubmit: SubmitHandler<Route> = async () => {
+    let routeImgs: Image[] = [];
+    routeImages.map(async (img, index) => {
+      let formData = new FormData();
+      formData.append("image", img);
+      const upload = await uploadImage(formData, authToken);
+      console.log(upload);
+      const newImage = {
+        caption: "",
+        id: upload.data.id || 1, //treba testat kad fixaju
+        source: "user", //nez šta im treba ovdje
+        url: "",
+      };
+      routeImgs.push(newImage);
+    });
+    setValue("images", routeImgs);
+
+    let attractionImgs: Image[] = [];
+    attractionImages.map(async (img, index) => {
+      if (img.heroImage) {
+        let formDataHero = new FormData();
+        formDataHero.append("image", img.heroImage);
+        const upload = await uploadImage(formDataHero, authToken);
+        console.log(upload);
+        const newImage = {
+          caption: "",
+          id: upload.data.id || 1, //treba testat kad fixaju
+          source: "user", //nez šta im treba ovdje
+          url: "",
+        };
+        attractionImgs.push(newImage);
+      }
+      img.images.map(async (img, index) => {
+        let formData = new FormData();
+        formData.append("image", img);
+        const upload = await uploadImage(formData, authToken);
+        console.log(upload);
+        const newImage = {
+          caption: "",
+          id: upload.data.id || 1, //treba testat kad fixaju
+          source: "user", //nez šta im treba ovdje
+          url: "",
+        };
+        attractionImgs.push(newImage);
+      });
+    });
+    //dodat slike u svaki checkpoint
   };
 
   const { append, remove } = useFieldArray({
@@ -113,6 +163,7 @@ function CreateRoute() {
               getValues={getValues}
               watch={watch}
               setValue={setValue}
+              setRouteImages={setRouteImages}
             />
           ) : currentStep === 2 ? (
             <Step2
@@ -121,6 +172,7 @@ function CreateRoute() {
               watch={watch}
               appendAttraction={append}
               remove={remove}
+              setAttractionImages={setAttractionImages}
             />
           ) : currentStep === 3 ? (
             <Step3 getValues={getValues} />

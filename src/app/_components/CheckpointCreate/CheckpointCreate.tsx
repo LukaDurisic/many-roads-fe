@@ -8,7 +8,7 @@ import {
   UseFormGetValues,
   UseFieldArrayRemove,
 } from "react-hook-form";
-import { Route } from "@/app/_types";
+import { Route, AttractionImages } from "@/app/_types";
 import TrashIcon from "../../assets/trash.svg";
 import InfoIcon from "../../assets/info";
 import LocationIcon from "@/app/assets/location";
@@ -22,12 +22,14 @@ function CheckpointCreate({
   getValues,
   watch,
   remove,
+  setAttractionImages,
 }: {
   index: number;
   register: UseFormRegister<Route>;
   getValues: UseFormGetValues<Route>;
   watch: UseFormWatch<Route>;
   remove: UseFieldArrayRemove;
+  setAttractionImages: React.Dispatch<React.SetStateAction<AttractionImages[]>>;
 }) {
   const [imagePreviews, setImagePreviews] = useState<string[]>([]);
   const [heroImagePreviews, setHeroImagePreviews] = useState<string[]>([]);
@@ -47,10 +49,37 @@ function CheckpointCreate({
   const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     const files = event.target.files;
     if (files) {
-      const newPreviews = Array.from(files).map((file) =>
-        URL.createObjectURL(file)
-      );
+      const fileArray = Array.from(files);
+      const newPreviews = fileArray.map((file) => URL.createObjectURL(file));
       setImagePreviews((prev) => [...prev, ...newPreviews].slice(0, 10));
+
+      setAttractionImages((prev) => {
+        const existing = [...prev];
+
+        const foundIndex = existing.findIndex(
+          (item) => item.attractionIndex === index
+        );
+
+        if (foundIndex !== -1) {
+          const updatedImages = [
+            ...existing[foundIndex].images,
+            ...fileArray,
+          ].slice(0, 10);
+
+          existing[foundIndex] = {
+            ...existing[foundIndex],
+            images: updatedImages,
+          };
+        } else {
+          existing.push({
+            attractionIndex: index,
+            heroImage: undefined,
+            images: fileArray.slice(0, 10),
+          });
+        }
+
+        return existing;
+      });
     }
   };
 
@@ -58,11 +87,32 @@ function CheckpointCreate({
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
     const files = event.target.files;
-    if (files) {
-      const newPreviews = Array.from(files).map((file) =>
-        URL.createObjectURL(file)
-      );
-      setHeroImagePreviews((prev) => [...prev, ...newPreviews].slice(0, 10));
+    if (files && files[0]) {
+      const heroFile = files[0];
+      const newPreview = URL.createObjectURL(heroFile);
+      setHeroImagePreviews([newPreview]);
+
+      setAttractionImages((prev) => {
+        const existing = [...prev];
+        const foundIndex = existing.findIndex(
+          (item) => item.attractionIndex === index
+        );
+
+        if (foundIndex !== -1) {
+          existing[foundIndex] = {
+            ...existing[foundIndex],
+            heroImage: heroFile,
+          };
+        } else {
+          existing.push({
+            attractionIndex: index,
+            heroImage: heroFile,
+            images: [],
+          });
+        }
+
+        return existing;
+      });
     }
   };
 
