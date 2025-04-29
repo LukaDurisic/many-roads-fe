@@ -68,7 +68,7 @@ const Step1 = ({
     setValue("accessibility", updated);
   };
 
-  const isAudio = watch("isAudio", false);
+  // const isAudio = watch("isAudio", false);
 
   const fileInputRef = useRef<HTMLInputElement>(null);
 
