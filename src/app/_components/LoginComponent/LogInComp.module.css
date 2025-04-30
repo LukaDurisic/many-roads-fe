@@ -2,8 +2,8 @@
   width: 100%;
   display: flex;
   align-items: center;
-  padding: 20px;
-  background-image: url("../../assets/loginBG.png");
+  padding: 40px;
+  background-image: url("../../../../public/assets/Background\ -\ XL.png");
   background-size: cover;
   background-position: right;
   height: 100vh;

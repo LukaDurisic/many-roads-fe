@@ -11,13 +11,12 @@ import MapContainer from "../_components/MapContainer/MapContainer";
 import RoutesContainer from "../_components/RoutesContainer/RoutesContainer";
 import { getAllRoutes } from "../_services/client-api-requests";
 import { Route } from "../_types";
-// import { useTours } from "../_hooks/tours";
+//import { useTours } from "../_hooks/tours";
+import ProtectedRoute from "../_components/ProtectedRoutes/ProtectedRoute";
 
 function Dashboard() {
   const [isMapActive, setIsMapActive] = useState(false);
   const [routes, setRoutes] = useState<Route[]>([]);
-
-  console.log(routes);
 
   useEffect(() => {
     const fetchRoutes = async () => {
@@ -31,27 +30,29 @@ function Dashboard() {
   // console.log(data);
 
   return (
-    <div className={styles.wrapper}>
-      <Navbar />
-      <div className={styles.contentWrapper}>
-        <Header numberOfRoutes={routes.length} />
-        {isMapActive ? (
-          <MapContainer routes={routes} />
-        ) : (
-          <RoutesContainer routes={routes} />
-        )}
-        <div
-          className={styles.mapToggle}
-          onClick={() => setIsMapActive(!isMapActive)}
-        >
-          <Image
-            alt=""
-            src={isMapActive ? ListIcon : MapIcon}
-            className={styles.toggleImg}
-          />
+    <ProtectedRoute>
+      <div className={styles.wrapper}>
+        <Navbar />
+        <div className={styles.contentWrapper}>
+          <Header numberOfRoutes={routes.length} />
+          {isMapActive ? (
+            <MapContainer routes={routes} />
+          ) : (
+            <RoutesContainer routes={routes} />
+          )}
+          <div
+            className={styles.mapToggle}
+            onClick={() => setIsMapActive(!isMapActive)}
+          >
+            <Image
+              alt=""
+              src={isMapActive ? ListIcon : MapIcon}
+              className={styles.toggleImg}
+            />
+          </div>
         </div>
       </div>
-    </div>
+    </ProtectedRoute>
   );
 }
 
