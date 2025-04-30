@@ -64,53 +64,92 @@ function CreateRoute() {
       },
     });
 
-  const onSubmit: SubmitHandler<Route> = async () => {
-    let routeImgs: Image[] = [];
-    routeImages.map(async (img, index) => {
-      let formData = new FormData();
-      formData.append("image", img);
-      const upload = await uploadImage(formData, authToken);
-      console.log(upload);
-      const newImage = {
-        caption: "",
-        id: upload.data.id || 1, //treba testat kad fixaju
-        source: "user", //nez šta im treba ovdje
-        url: "",
-      };
-      routeImgs.push(newImage);
-    });
-    setValue("images", routeImgs);
-
-    let attractionImgs: Image[] = [];
-    attractionImages.map(async (img, index) => {
-      if (img.heroImage) {
-        let formDataHero = new FormData();
-        formDataHero.append("image", img.heroImage);
-        const upload = await uploadImage(formDataHero, authToken);
-        console.log(upload);
-        const newImage = {
-          caption: "",
-          id: upload.data.id || 1, //treba testat kad fixaju
-          source: "user", //nez šta im treba ovdje
-          url: "",
-        };
-        attractionImgs.push(newImage);
-      }
-      img.images.map(async (img, index) => {
-        let formData = new FormData();
+  const onSubmit: SubmitHandler<Route> = async (data) => {
+    const uploads = await Promise.all(
+      routeImages.map(async (img) => {
+        const formData = new FormData();
         formData.append("image", img);
         const upload = await uploadImage(formData, authToken);
-        console.log(upload);
-        const newImage = {
-          caption: "",
-          id: upload.data.id || 1, //treba testat kad fixaju
-          source: "user", //nez šta im treba ovdje
-          url: "",
+        return {
+          caption: ".",
+          image_id: upload.image_id || 1,
+          source: "user",
+          url: ".",
         };
-        attractionImgs.push(newImage);
-      });
+      })
+    );
+    data.images = uploads;
+
+    const updatedAttractions = await Promise.all(
+      attractionImages.map(async (img, index) => {
+        let heroImg: Image | null = null;
+
+        if (img.heroImage) {
+          const formDataHero = new FormData();
+          formDataHero.append("image", img.heroImage);
+          const upload = await uploadImage(formDataHero, authToken);
+          heroImg = {
+            caption: ".",
+            image_id: upload.image_id || 1,
+            source: "userHero",
+            url: ".",
+          };
+        }
+
+        const galleryImgs = await Promise.all(
+          img.images.map(async (image) => {
+            const formData = new FormData();
+            formData.append("image", image);
+            const upload = await uploadImage(formData, authToken);
+            return {
+              caption: ".",
+              image_id: upload.image_id || 1,
+              source: "user",
+              url: ".",
+            };
+          })
+        );
+
+        return heroImg ? [heroImg, ...galleryImgs] : galleryImgs;
+      })
+    );
+
+    updatedAttractions.forEach((images, index) => {
+      data.attractions[index].images = images;
     });
-    //dodat slike u svaki checkpoint
+
+    //sada ide jedan ružni dio
+    const createBody = {
+      name: data.name,
+      language: data.language || "",
+      type: data.type,
+      country: data.country,
+      difficulty: data.difficulty,
+      route_gallery: data.images,
+      duration: data.duration_est,
+      categories: data.categories,
+      accessibility: data.accessibility.join(","),
+      description: data.description,
+      distance: data.distance,
+      checkpoints: data.attractions.map((attraction) => ({
+        name: attraction.name,
+        content: attraction.content,
+        address: attraction.address,
+        checkpoint_gallery: attraction.images.map((img) => ({
+          caption: img.caption,
+          image_id: img.image_id,
+          source: img.source,
+          url: img.url,
+        })),
+        coordinates: {
+          latitude: 22.28617588, //attraction.poi.latitude
+          longitude: 114.14866131, //attraction.poi.longitude
+        },
+      })),
+    };
+    console.log(createBody);
+    const newRoute = await createRoute(createBody, authToken);
+    console.log(newRoute);
   };
 
   const { append, remove } = useFieldArray({

@@ -70,7 +70,7 @@ const Step1 = ({
     setValue("accessibility", updated);
   };
 
-  const isAudio = watch("isAudio", false);
+  // const isAudio = watch("isAudio", false);
 
   const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -184,10 +184,8 @@ const Step1 = ({
           {...register("description")}
           onChange={(e) => setDescription(e.target.value)}
         />
-        <div className={styles.charCount}>
-          {watch("description", "").length} / 1000
-        </div>
-        <label className={styles.checkbox}>
+        <div className={styles.charCount}>{description.length} / 1000</div>
+        {/* <label className={styles.checkbox}>
           <input
             type="checkbox"
             checked={isAudio}
@@ -202,7 +200,7 @@ const Step1 = ({
             {isAudio ? "✔" : ""}
           </span>
           Create audio from my description.
-        </label>
+        </label> */}
       </div>
 
       <div className={styles.right}>

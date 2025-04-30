@@ -7,7 +7,7 @@ export enum API_PATHS {
   login = "/accounts/login/",
   routes = "/routes/",
   imageUpload = "/routes/images/upload/",
-  routeCreate = "/routes/create/",
+  routeCreate = "/routes/create",
 }
 
 //TODO add zod validation and env.mjs for handling env vars
@@ -44,5 +44,9 @@ export const uploadImage = async (image: FormData, authToken: string) => {
   }
 };
 
-export const createRoute = async (routeData: any) =>
-  axiosClient.post(getEndpointPath(API_PATHS.routeCreate), { routeData });
+export const createRoute = async (routeData: any, authToken: string) =>
+  axiosClient.post(getEndpointPath(API_PATHS.routeCreate), routeData, {
+    headers: {
+      Authorization: `Bearer ${authToken}`,
+    },
+  });

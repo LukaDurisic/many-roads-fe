@@ -34,7 +34,7 @@ export interface Creator {
 export interface Image {
   attraction?: number;
   route?: number;
-  id: number;
+  image_id: number;
   caption: string;
   source: string;
   url: string;
@@ -90,7 +90,7 @@ export interface Route {
   country: string;
   audio: string;
   province: string;
-  isAudio: boolean;
+  // isAudio: boolean;
   categories: string[];
   category: number[];
   tags: string[];
