@@ -92,7 +92,7 @@ function CreateRoute() {
     data.images = uploads;
 
     const updatedAttractions = await Promise.all(
-      attractionImages.map(async (img, index) => {
+      attractionImages.map(async (img) => {
         let heroImg: Image | null = null;
 
         if (img.heroImage) {
