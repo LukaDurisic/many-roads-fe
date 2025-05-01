@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styles from "./CreateRoute.module.css";
 import Navbar from "../_components/Navbar/Navbar";
 import UserMenu from "../_components/UserMenu/UserMenu";
@@ -23,11 +23,19 @@ function CreateRoute() {
   const [attractionImages, setAttractionImages] = useState<AttractionImages[]>(
     []
   );
+  const [authToken, setAuthToken] = useState("");
   const [previewRoute, setPreviewRoute] = useState<string[]>([]);
   const [previewAttractions, setPreviewAttractions] = useState<
     PreviewAttraction[]
   >([]);
-  const authToken = localStorage.getItem("accessToken") || "";
+
+  useEffect(() => {
+    const storedValue = localStorage.getItem("accessToken");
+    if (storedValue) {
+      setAuthToken(storedValue);
+    }
+  }, []);
+
   const { register, handleSubmit, setValue, watch, getValues, control } =
     useForm<Route>({
       defaultValues: {
