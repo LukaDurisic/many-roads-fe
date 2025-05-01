@@ -160,7 +160,7 @@ const Map: React.FC<MapComponentProps> = ({ tourList }) => {
                 lng: attraction.poi.longitude,
               }}
               title={attraction.name}
-              icon={createSvgIcon(attraction.id)}
+              icon={createSvgIcon(attraction.id || 1)}
               label={{
                 text: attraction.name,
                 color: "#000000",
