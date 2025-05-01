@@ -47,7 +47,6 @@ const Step1 = ({
   previewRoute: string[];
   setPreviewRoute: React.Dispatch<React.SetStateAction<string[]>>;
 }) => {
-  const [imagePreviews, setImagePreviews] = useState<string[]>([]);
   const [routeName, setRouteName] = useState<string>("");
   const [duration, setDuration] = useState<string>("");
   const [distance, setDistance] = useState<string>("");
@@ -89,14 +88,12 @@ const Step1 = ({
 
       const newPreviews = fileArray.map((file) => URL.createObjectURL(file));
 
-      setImagePreviews((prev) => [...prev, ...newPreviews].slice(0, 10));
       setPreviewRoute((prev) => [...prev, ...newPreviews].slice(0, 10));
       setRouteImages((prev) => [...prev, ...fileArray].slice(0, 10));
     }
   };
 
   const handleImageDelete = (index: number) => {
-    setImagePreviews((prev) => prev.filter((_, i) => i !== index));
     setPreviewRoute((prev) => prev.filter((_, i) => i !== index));
     setRouteImages((prev) => prev.filter((_, i) => i !== index));
   };

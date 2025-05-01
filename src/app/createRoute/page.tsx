@@ -8,7 +8,13 @@ import Step2 from "./step2/Step2";
 import Step3 from "./step3/Step3";
 import Button from "../_components/Button/Button";
 import { useForm, SubmitHandler, useFieldArray } from "react-hook-form";
-import { Image, Route, AttractionImages, PreviewAttraction } from "../_types";
+import {
+  Image,
+  Route,
+  AttractionImages,
+  PreviewAttraction,
+  CreateRouteBody,
+} from "../_types";
 import { uploadImage, createRoute } from "../_services/client-api-requests";
 
 function CreateRoute() {
@@ -85,7 +91,7 @@ function CreateRoute() {
     data.images = uploads;
 
     const updatedAttractions = await Promise.all(
-      attractionImages.map(async (img, index) => {
+      attractionImages.map(async (img) => {
         let heroImg: Image | null = null;
 
         if (img.heroImage) {
@@ -123,7 +129,7 @@ function CreateRoute() {
     });
 
     //sada ide jedan ružni dio
-    const createBody = {
+    const createBody: CreateRouteBody = {
       name: data.name,
       language: data.language || "",
       type: data.type,

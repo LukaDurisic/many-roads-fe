@@ -180,7 +180,7 @@ function CheckpointCreate({
     });
   };
 
-  const handleHeroImageDelete = (imgIndex: number) => {
+  const handleHeroImageDelete = () => {
     setPreviewAttractions((prev) => {
       const updated = [...prev];
       const foundIndex = updated.findIndex((item) => item.index === index);
@@ -241,7 +241,7 @@ function CheckpointCreate({
             <div
               key={index}
               className={styles.imageBox}
-              onClick={() => handleHeroImageDelete(index)}
+              onClick={() => handleHeroImageDelete()}
             >
               <Image
                 src={previewAttractions?.heroImage}

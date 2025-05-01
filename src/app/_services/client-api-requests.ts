@@ -1,3 +1,4 @@
+import { CreateRouteBody } from "../_types";
 import { axiosClient } from "./common/axios-client";
 import { getEndpointPathWith } from "./common/util";
 
@@ -44,7 +45,10 @@ export const uploadImage = async (image: FormData, authToken: string) => {
   }
 };
 
-export const createRoute = async (routeData: any, authToken: string) =>
+export const createRoute = async (
+  routeData: CreateRouteBody,
+  authToken: string
+) =>
   axiosClient.post(getEndpointPath(API_PATHS.routeCreate), routeData, {
     headers: {
       Authorization: `Bearer ${authToken}`,

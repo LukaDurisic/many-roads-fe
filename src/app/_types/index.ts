@@ -130,3 +130,38 @@ export interface PreviewAttraction {
   heroImage: string;
   images: string[];
 }
+
+export interface CreateRouteBody {
+  name: string;
+  language: string;
+  type: string;
+  country: string;
+  difficulty: string;
+  route_gallery: Image[];
+  duration: string;
+  categories: string[];
+  accessibility: string;
+  description: string;
+  distance: string;
+  checkpoints: Checkpoint[];
+}
+
+export interface Checkpoint {
+  name: string;
+  content: string;
+  address: string;
+  checkpoint_gallery: Image[];
+  coordinates: Coordinates;
+}
+
+export interface Coordinates {
+  latitude: number;
+  longitude: number;
+}
+
+export interface Image {
+  image_id: number;
+  caption: string;
+  source: string;
+  url: string;
+}
