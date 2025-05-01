@@ -8,15 +8,8 @@ import Step2 from "./step2/Step2";
 import Step3 from "./step3/Step3";
 import Button from "../_components/Button/Button";
 import { useForm, SubmitHandler, useFieldArray } from "react-hook-form";
-import {
-  Image,
-  Route,
-  AttractionImages,
-  PreviewAttraction,
-  CreateRouteBody,
-} from "../_types";
+import { Image, Route, AttractionImages, PreviewAttraction } from "../_types";
 import { uploadImage, createRoute } from "../_services/client-api-requests";
-import ProtectedRoute from "../_components/ProtectedRoutes/ProtectedRoute";
 
 function CreateRoute() {
   const [currentStep, setCurrentStep] = useState<number>(1);
@@ -29,14 +22,6 @@ function CreateRoute() {
   const [previewAttractions, setPreviewAttractions] = useState<
     PreviewAttraction[]
   >([]);
-
-  useEffect(() => {
-    const storedValue = localStorage.getItem("accessToken");
-    if (storedValue) {
-      setAuthToken(storedValue);
-    }
-  }, []);
-
   const { register, handleSubmit, setValue, watch, getValues, control } =
     useForm<Route>({
       defaultValues: {
@@ -83,6 +68,13 @@ function CreateRoute() {
       },
     });
 
+  useEffect(() => {
+    const storedValue = localStorage.getItem("accessToken");
+    if (storedValue) {
+      setAuthToken(storedValue);
+    }
+  }, []);
+
   const onSubmit: SubmitHandler<Route> = async (data) => {
     const uploads = await Promise.all(
       routeImages.map(async (img) => {
@@ -100,7 +92,7 @@ function CreateRoute() {
     data.images = uploads;
 
     const updatedAttractions = await Promise.all(
-      attractionImages.map(async (img) => {
+      attractionImages.map(async (img, index) => {
         let heroImg: Image | null = null;
 
         if (img.heroImage) {
@@ -137,8 +129,7 @@ function CreateRoute() {
       data.attractions[index].images = images;
     });
 
-    //sada ide jedan ružni dio
-    const createBody: CreateRouteBody = {
+    const createBody = {
       name: data.name,
       language: data.language || "",
       type: data.type,
@@ -177,31 +168,39 @@ function CreateRoute() {
   });
 
   return (
-    <ProtectedRoute>
-      <div className={styles.wrapper}>
-        <Navbar />
-        <div className={styles.contentWrapper}>
-          <div className={styles.createHeader}>
-            <div className={styles.createTitle}>Create new route</div>
-            <UserMenu />
+    <div className={styles.wrapper}>
+      <Navbar />
+      <div className={styles.contentWrapper}>
+        <div className={styles.createHeader}>
+          <div className={styles.createTitle}>Create new route</div>
+          <UserMenu />
+        </div>
+        <div className={styles.stepsPreview}>
+          <div className={styles.stepItem}>
+            <div className={styles.stepNumber}>
+              {currentStep === 1 ? "1" : "✔"}
+            </div>{" "}
+            General info
           </div>
-          <div className={styles.stepsPreview}>
-            <div className={styles.stepItem}>
-              <div className={styles.stepNumber}>
-                {currentStep === 1 ? "1" : "✔"}
-              </div>{" "}
-              General info
+          <div className={styles.line}></div>
+          <div className={styles.stepItem}>
+            <div
+              className={
+                currentStep === 1 ? styles.notActive : styles.stepNumber
+              }
+            >
+              {currentStep !== 3 ? "2" : "✔"}
             </div>
-            <div className={styles.line}></div>
-            <div className={styles.stepItem}>
-              <div
-                className={
-                  currentStep === 1 ? styles.notActive : styles.stepNumber
-                }
-              >
-                {currentStep !== 3 ? "2" : "✔"}
-              </div>
-              Checkpoints
+            Checkpoints
+          </div>
+          <div className={styles.line}></div>
+          <div className={styles.stepItem}>
+            <div
+              className={
+                currentStep !== 3 ? styles.notActive : styles.stepNumber
+              }
+            >
+              3
             </div>
             Overview
           </div>
@@ -247,70 +246,37 @@ function CreateRoute() {
                 onClick={() => setCurrentStep(2)}
               />
             </div>
-          </div>
-          <div className={styles.stepContentContainer}>
-            {currentStep === 1 ? (
-              <Step1
-                register={register}
-                getValues={getValues}
-                watch={watch}
-                setValue={setValue}
+          ) : currentStep === 2 ? (
+            <div className={styles.step23Btn}>
+              <Button
+                label="<- Previous"
+                onClick={() => setCurrentStep(1)}
+                className={styles.prevBtn}
               />
-            ) : currentStep === 2 ? (
-              <Step2
-                register={register}
-                getValues={getValues}
-                watch={watch}
-                appendAttraction={append}
-                remove={remove}
+              <Button
+                label="Next ->"
+                onClick={() => setCurrentStep(3)}
+                className={styles.nextBtn}
               />
-            ) : currentStep === 3 ? (
-              <Step3 getValues={getValues} />
-            ) : (
-              "Invalid step"
-            )}
-          </div>
-          <div className={styles.routing}>
-            {currentStep === 1 ? (
-              <div className={styles.step1Btn}>
-                <Button
-                  label="Next ->"
-                  className={styles.nextBtn}
-                  onClick={() => setCurrentStep(2)}
-                />
-              </div>
-            ) : currentStep === 2 ? (
-              <div className={styles.step23Btn}>
-                <Button
-                  label="<- Previous"
-                  onClick={() => setCurrentStep(1)}
-                  className={styles.prevBtn}
-                />
-                <Button
-                  label="Next ->"
-                  onClick={() => setCurrentStep(3)}
-                  className={styles.nextBtn}
-                />
-              </div>
-            ) : currentStep === 3 ? (
-              <div className={styles.step23Btn}>
-                <Button
-                  label="<- Previous"
-                  className={styles.prevBtn}
-                  onClick={() => setCurrentStep(2)}
-                />
-                <Button
-                  label="Publish"
-                  className={styles.nextBtn}
-                  // href="/dashboard"
-                  onClick={handleSubmit(onSubmit)}
-                />
-              </div>
-            ) : null}
-          </div>
+            </div>
+          ) : currentStep === 3 ? (
+            <div className={styles.step23Btn}>
+              <Button
+                label="<- Previous"
+                className={styles.prevBtn}
+                onClick={() => setCurrentStep(2)}
+              />
+              <Button
+                label="Publish"
+                className={styles.nextBtn}
+                // href="/dashboard"
+                onClick={handleSubmit(onSubmit)}
+              />
+            </div>
+          ) : null}
         </div>
       </div>
-    </ProtectedRoute>
+    </div>
   );
 }
 
