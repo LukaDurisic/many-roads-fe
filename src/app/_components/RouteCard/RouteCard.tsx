@@ -23,16 +23,18 @@ const RouteCard: React.FC<RouteCardCompProps> = ({
       <div className={styles.wrapper}>
         <div className={styles.imgContainer}>
           <div className={styles.fakeImage}>
-            <Image
-              className={styles.bgImage}
-              alt="Background"
-              src={
-                process.env.NEXT_PUBLIC_MANY_ROADS_IMG +
-                routeData?.images[0].url
-              }
-              width={1000}
-              height={1000}
-            />
+            {routeData?.images[0] && (
+              <Image
+                className={styles.bgImage}
+                alt="Background"
+                src={
+                  process.env.NEXT_PUBLIC_MANY_ROADS_IMG +
+                  routeData?.images[0].url
+                }
+                width={1000}
+                height={1000}
+              />
+            )}
             <div className={styles.tagContainer}>
               <div className={styles.tags}>
                 {routeData.tags.map((tag, index) => (
@@ -45,7 +47,6 @@ const RouteCard: React.FC<RouteCardCompProps> = ({
                 {routeData.num_of_completed_routes} /{" "}
                 {routeData.total_attractions}
                 {/*vjv nije dobro treba ovaj broj za completed */}
-
               </div>
             </div>
           </div>
