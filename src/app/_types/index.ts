@@ -69,7 +69,7 @@ export interface Rating {
   comment: string;
   date_added: string;
   first_name: string;
-  lastName: string;
+  last_name: string;
   id: number;
   value: string;
 }

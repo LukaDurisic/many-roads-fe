@@ -211,7 +211,7 @@ const sampleRoute: RouteType = {
       comment: "Amazing route, well organized and informative!",
       date_added: "2024-06-18T15:23:00Z",
       first_name: "Jamie",
-      lastName: "Lee",
+      last_name: "Lee",
       author: {
         id: 202,
         username: "jamielee23",
