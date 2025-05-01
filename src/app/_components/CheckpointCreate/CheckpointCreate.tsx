@@ -8,7 +8,7 @@ import {
   UseFormGetValues,
   UseFieldArrayRemove,
 } from "react-hook-form";
-import { Route, AttractionImages } from "@/app/_types";
+import { Route, AttractionImages, PreviewAttraction } from "@/app/_types";
 import TrashIcon from "../../assets/trash.svg";
 import InfoIcon from "../../assets/info";
 import LocationIcon from "@/app/assets/location";
@@ -23,6 +23,8 @@ function CheckpointCreate({
   watch,
   remove,
   setAttractionImages,
+  previewAttractions,
+  setPreviewAttractions,
 }: {
   index: number;
   register: UseFormRegister<Route>;
@@ -30,9 +32,11 @@ function CheckpointCreate({
   watch: UseFormWatch<Route>;
   remove: UseFieldArrayRemove;
   setAttractionImages: React.Dispatch<React.SetStateAction<AttractionImages[]>>;
+  previewAttractions: PreviewAttraction | undefined;
+  setPreviewAttractions: React.Dispatch<
+    React.SetStateAction<PreviewAttraction[]>
+  >;
 }) {
-  const [imagePreviews, setImagePreviews] = useState<string[]>([]);
-  const [heroImagePreviews, setHeroImagePreviews] = useState<string[]>([]);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState<boolean>(false);
   const heroFileInputRef = useRef<HTMLInputElement>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -51,8 +55,30 @@ function CheckpointCreate({
     if (files) {
       const fileArray = Array.from(files);
       const newPreviews = fileArray.map((file) => URL.createObjectURL(file));
-      setImagePreviews((prev) => [...prev, ...newPreviews].slice(0, 10));
+      setPreviewAttractions((prev) => {
+        const updated = [...prev];
+        const foundIndex = updated.findIndex((item) => item.index === index);
 
+        if (foundIndex !== -1) {
+          const combinedImages = [
+            ...updated[foundIndex].images,
+            ...newPreviews,
+          ].slice(0, 10);
+
+          updated[foundIndex] = {
+            ...updated[foundIndex],
+            images: combinedImages,
+          };
+        } else {
+          updated.push({
+            index,
+            heroImage: "",
+            images: newPreviews.slice(0, 10),
+          });
+        }
+
+        return updated;
+      });
       setAttractionImages((prev) => {
         const existing = [...prev];
 
@@ -90,7 +116,26 @@ function CheckpointCreate({
     if (files && files[0]) {
       const heroFile = files[0];
       const newPreview = URL.createObjectURL(heroFile);
-      setHeroImagePreviews([newPreview]);
+
+      setPreviewAttractions((prev) => {
+        const updated = [...prev];
+        const foundIndex = updated.findIndex((item) => item.index === index);
+
+        if (foundIndex !== -1) {
+          updated[foundIndex] = {
+            ...updated[foundIndex],
+            heroImage: newPreview,
+          };
+        } else {
+          updated.push({
+            index,
+            heroImage: newPreview,
+            images: [],
+          });
+        }
+
+        return updated;
+      });
 
       setAttractionImages((prev) => {
         const existing = [...prev];
@@ -116,12 +161,39 @@ function CheckpointCreate({
     }
   };
 
-  const handleImageDelete = (index: number) => {
-    setImagePreviews((prev) => prev.filter((_, i) => i !== index));
+  const handleImageDelete = (imgIndex: number) => {
+    setPreviewAttractions((prev) => {
+      const updated = [...prev];
+      const foundIndex = updated.findIndex((item) => item.index === index);
+
+      if (foundIndex !== -1) {
+        const newImages = updated[foundIndex].images.filter(
+          (_, i) => i !== imgIndex
+        );
+        updated[foundIndex] = {
+          ...updated[foundIndex],
+          images: newImages,
+        };
+      }
+
+      return updated;
+    });
   };
 
-  const handleHeroImageDelete = (index: number) => {
-    setHeroImagePreviews((prev) => prev.filter((_, i) => i !== index));
+  const handleHeroImageDelete = (imgIndex: number) => {
+    setPreviewAttractions((prev) => {
+      const updated = [...prev];
+      const foundIndex = updated.findIndex((item) => item.index === index);
+
+      if (foundIndex !== -1) {
+        updated[foundIndex] = {
+          ...updated[foundIndex],
+          heroImage: "",
+        };
+      }
+
+      return updated;
+    });
   };
 
   return (
@@ -165,22 +237,22 @@ function CheckpointCreate({
       </div>
       <div className={styles.imageUpload}>
         <div className={styles.imageGrid}>
-          {heroImagePreviews.map((preview, index) => (
+          {previewAttractions?.heroImage && (
             <div
               key={index}
               className={styles.imageBox}
               onClick={() => handleHeroImageDelete(index)}
             >
               <Image
-                src={preview}
+                src={previewAttractions?.heroImage}
                 alt={`uploaded preview ${index}`}
                 width={300}
                 height={200}
                 className={styles.previewImage}
               />
             </div>
-          ))}
-          {!heroImagePreviews[index] && (
+          )}
+          {!previewAttractions?.heroImage && (
             <div
               className={`${styles.imageBox} ${styles.noAfter}`}
               onClick={handleHeroImageBoxClick}
@@ -190,7 +262,6 @@ function CheckpointCreate({
                 type="file"
                 id="imageUpload"
                 accept="image/*"
-                multiple
                 style={{ display: "none" }}
                 ref={heroFileInputRef}
                 onChange={handleHeroImageUpload}
@@ -239,7 +310,7 @@ function CheckpointCreate({
         <div className={styles.descTitle}>Gallery</div>
         <div className={styles.galleryImageUpload}>
           <div className={styles.galleryImageGrid}>
-            {imagePreviews.map((preview, index) => (
+            {previewAttractions?.images.map((preview, index) => (
               <div
                 key={index}
                 className={styles.imageBoxGallery}
@@ -254,7 +325,7 @@ function CheckpointCreate({
                 />
               </div>
             ))}
-            {imagePreviews.length < 10 && (
+            {previewAttractions && previewAttractions?.images?.length < 10 && (
               <div
                 className={`${styles.imageBoxGallery} ${styles.noAfter}`}
                 onClick={handleImageBoxClick}

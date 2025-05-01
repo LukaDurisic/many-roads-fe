@@ -8,7 +8,7 @@ import Step2 from "./step2/Step2";
 import Step3 from "./step3/Step3";
 import Button from "../_components/Button/Button";
 import { useForm, SubmitHandler, useFieldArray } from "react-hook-form";
-import { Image, Route, AttractionImages } from "../_types";
+import { Image, Route, AttractionImages, PreviewAttraction } from "../_types";
 import { uploadImage, createRoute } from "../_services/client-api-requests";
 
 function CreateRoute() {
@@ -17,6 +17,10 @@ function CreateRoute() {
   const [attractionImages, setAttractionImages] = useState<AttractionImages[]>(
     []
   );
+  const [previewRoute, setPreviewRoute] = useState<string[]>([]);
+  const [previewAttractions, setPreviewAttractions] = useState<
+    PreviewAttraction[]
+  >([]);
   const authToken = localStorage.getItem("accessToken") || "";
   const { register, handleSubmit, setValue, watch, getValues, control } =
     useForm<Route>({
@@ -203,6 +207,8 @@ function CreateRoute() {
               watch={watch}
               setValue={setValue}
               setRouteImages={setRouteImages}
+              previewRoute={previewRoute}
+              setPreviewRoute={setPreviewRoute}
             />
           ) : currentStep === 2 ? (
             <Step2
@@ -212,9 +218,15 @@ function CreateRoute() {
               appendAttraction={append}
               remove={remove}
               setAttractionImages={setAttractionImages}
+              previewAttractions={previewAttractions}
+              setPreviewAttractions={setPreviewAttractions}
             />
           ) : currentStep === 3 ? (
-            <Step3 getValues={getValues} />
+            <Step3
+              getValues={getValues}
+              previewRoute={previewRoute}
+              previewAttractions={previewAttractions}
+            />
           ) : (
             "Invalid step"
           )}

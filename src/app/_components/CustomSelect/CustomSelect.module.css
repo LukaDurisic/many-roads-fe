@@ -1,0 +1,71 @@
+.fieldGroupSelect {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 15px;
+  padding-bottom: 10px;
+  border: none;
+  border-bottom: 1px solid #f2f2f2;
+  width: 100%;
+}
+
+.labelSelect {
+  font-family: Inter;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 24px;
+  letter-spacing: 0.2px;
+  color: #0d0d0d;
+}
+
+.dropdown {
+  position: relative;
+  width: 200px;
+}
+
+.dropdownHeader {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  background: #fff;
+  padding: 8px 0px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-family: Inter;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 24px;
+  letter-spacing: 0.2px;
+  color: #9e9e9e;
+  text-align: right;
+  gap: 8px;
+}
+
+.arrow.open {
+  transform: rotate(-135deg);
+}
+
+.dropdownList {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  width: 100%;
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.08);
+  z-index: 10;
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+.dropdownItem {
+  padding: 10px 12px;
+  cursor: pointer;
+  font-size: 16px;
+  color: #333;
+}
+
+.dropdownItem:hover {
+  background-color: #f0f0f0;
+}

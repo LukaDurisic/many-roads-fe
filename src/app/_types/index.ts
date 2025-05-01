@@ -124,3 +124,9 @@ export interface AttractionImages {
   heroImage?: File;
   images: File[];
 }
+
+export interface PreviewAttraction {
+  index: number;
+  heroImage: string;
+  images: string[];
+}
