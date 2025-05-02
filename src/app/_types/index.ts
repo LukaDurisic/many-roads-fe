@@ -21,6 +21,11 @@ export type Coordinate = {
 
 export interface MapComponentProps {
   tourList: Route[];
+  isSingleRoute: boolean;
+}
+
+export interface SingleRouteMarkerProps {
+  tour: Route;
 }
 export interface Creator {
   id: number;

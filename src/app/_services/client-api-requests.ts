@@ -16,5 +16,8 @@ const getEndpointPath = getEndpointPathWith(
 export const getAllRoutes = async () =>
   axiosClient.get<Route[]>(getEndpointPath(API_PATHS.routes));
 
+export const getSingleRoute = async (id: string) =>
+  axiosClient.get<Route>(getEndpointPath(`${API_PATHS.routes + id}`));
+
 export const userLogIn = async (email: string, password: string) =>
   axiosClient.post(getEndpointPath(API_PATHS.login), { email, password });
