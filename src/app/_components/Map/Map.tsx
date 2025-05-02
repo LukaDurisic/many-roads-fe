@@ -10,7 +10,7 @@ import {
 } from "@react-google-maps/api";
 import { type Libraries } from "@react-google-maps/api";
 import { MapComponentProps, Route, Attraction } from "@/app/_types";
-// import RouteCard from "@/app/_components/RouteCard/RouteCard";
+import RouteCard from "@/app/_components/RouteCard/RouteCard";
 import { createSvgIcon } from "@/app/_lib/utils/create-svg";
 import { extractLocations, findCenter } from "@/app/_lib/utils/find-map-center";
 
@@ -18,6 +18,8 @@ const mapContainerStyle = {
   width: "100%",
   height: "100%",
 };
+
+const libraries: Libraries = ["places", "drawing", "geometry", "visualization"];
 
 const Map: React.FC<MapComponentProps> = ({ tourList }) => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -27,13 +29,6 @@ const Map: React.FC<MapComponentProps> = ({ tourList }) => {
     useState<google.maps.DirectionsResult | null>(null);
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [map, setMap] = useState<google.maps.Map | null>(null);
-
-  const libraries: Libraries = [
-    "places",
-    "drawing",
-    "geometry",
-    "visualization",
-  ];
 
   const locationCoordinates = extractLocations(tourList);
 
@@ -52,6 +47,13 @@ const Map: React.FC<MapComponentProps> = ({ tourList }) => {
   const onUnmount = useCallback(() => {
     setMap(null);
   }, []);
+
+  const handleMapClick = useCallback(() => {
+    if (selectedTour != null) {
+      setSelectedTour(null);
+      setDirections(null);
+    }
+  }, [selectedTour]);
 
   const handleTourClick = useCallback(
     async (tour: Route) => {
@@ -105,6 +107,7 @@ const Map: React.FC<MapComponentProps> = ({ tourList }) => {
         center={{ lat, lng }}
         zoom={14}
         onLoad={onLoad}
+        onClick={handleMapClick}
         onUnmount={onUnmount}
         options={{
           zoomControl: true,
@@ -132,41 +135,39 @@ const Map: React.FC<MapComponentProps> = ({ tourList }) => {
           />
         ))}
         {/* Card generation */}
-        {tours.map((tour) => {
-          return (
+        {tours.map(
+          (tour) =>
             selectedTour?.id === tour.id && (
               <OverlayView
                 key={`overlay-${tour.id}`}
                 position={{
                   lat: tour.attractions[0].poi.latitude,
-                  lng: tour.attractions[0].poi.latitude,
+                  lng: tour.attractions[0].poi.longitude,
                 }}
                 mapPaneName={OverlayView.OVERLAY_MOUSE_TARGET}
               >
                 <div>
-                  {/* <RouteCard isProfileShowing routeData={tour} /> */}
+                  <RouteCard isProfileShowing isClickable routeData={tour} />
                 </div>
               </OverlayView>
             )
-          );
-        })}
+        )}
 
         {selectedTour &&
-          selectedTour.attractions.slice(1).map((attraction: Attraction) => (
-            <Marker
-              key={attraction.id}
-              position={{
-                lat: attraction.poi.latitude,
-                lng: attraction.poi.longitude,
-              }}
-              title={attraction.name}
-              icon={createSvgIcon(attraction.id)}
-              label={{
-                text: attraction.name,
-                color: "#000000",
-              }}
-            />
-          ))}
+
+          selectedTour.attractions
+            .slice(1)
+            .map((attraction: Attraction, index) => (
+              <Marker
+                key={attraction.id}
+                position={{
+                  lat: attraction.poi.latitude,
+                  lng: attraction.poi.longitude,
+                }}
+                title={attraction.name}
+                icon={createSvgIcon(index + 2)}
+              />
+            ))}
 
         {directions && (
           <DirectionsRenderer

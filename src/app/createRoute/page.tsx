@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styles from "./CreateRoute.module.css";
 import Navbar from "../_components/Navbar/Navbar";
 import UserMenu from "../_components/UserMenu/UserMenu";
@@ -8,10 +8,20 @@ import Step2 from "./step2/Step2";
 import Step3 from "./step3/Step3";
 import Button from "../_components/Button/Button";
 import { useForm, SubmitHandler, useFieldArray } from "react-hook-form";
-import { Route } from "../_types";
+import { Image, Route, AttractionImages, PreviewAttraction } from "../_types";
+import { uploadImage, createRoute } from "../_services/client-api-requests";
 
 function CreateRoute() {
-  const [currentStep, setCurrentStep] = useState(1);
+  const [currentStep, setCurrentStep] = useState<number>(1);
+  const [routeImages, setRouteImages] = useState<File[]>([]);
+  const [attractionImages, setAttractionImages] = useState<AttractionImages[]>(
+    []
+  );
+  const [authToken, setAuthToken] = useState("");
+  const [previewRoute, setPreviewRoute] = useState<string[]>([]);
+  const [previewAttractions, setPreviewAttractions] = useState<
+    PreviewAttraction[]
+  >([]);
   const { register, handleSubmit, setValue, watch, getValues, control } =
     useForm<Route>({
       defaultValues: {
@@ -19,7 +29,6 @@ function CreateRoute() {
         accessibility: [],
         attractions: [
           {
-            id: 0,
             address: "",
             audio: "",
             content: "",
@@ -59,8 +68,99 @@ function CreateRoute() {
       },
     });
 
-  const onSubmit: SubmitHandler<Route> = (data) => {
-    console.log(data);
+  useEffect(() => {
+    const storedValue = localStorage.getItem("accessToken");
+    if (storedValue) {
+      setAuthToken(storedValue);
+    }
+  }, []);
+
+  const onSubmit: SubmitHandler<Route> = async (data) => {
+    const uploads = await Promise.all(
+      routeImages.map(async (img) => {
+        const formData = new FormData();
+        formData.append("image", img);
+        const upload = await uploadImage(formData, authToken);
+        return {
+          caption: ".",
+          image_id: upload.image_id || 1,
+          source: "user",
+          url: ".",
+        };
+      })
+    );
+    data.images = uploads;
+
+    const updatedAttractions = await Promise.all(
+      attractionImages.map(async (img) => {
+        let heroImg: Image | null = null;
+
+        if (img.heroImage) {
+          const formDataHero = new FormData();
+          formDataHero.append("image", img.heroImage);
+          const upload = await uploadImage(formDataHero, authToken);
+          heroImg = {
+            caption: ".",
+            image_id: upload.image_id || 1,
+            source: "userHero",
+            url: ".",
+          };
+        }
+
+        const galleryImgs = await Promise.all(
+          img.images.map(async (image) => {
+            const formData = new FormData();
+            formData.append("image", image);
+            const upload = await uploadImage(formData, authToken);
+            return {
+              caption: ".",
+              image_id: upload.image_id || 1,
+              source: "user",
+              url: ".",
+            };
+          })
+        );
+
+        return heroImg ? [heroImg, ...galleryImgs] : galleryImgs;
+      })
+    );
+
+    updatedAttractions.forEach((images, index) => {
+      data.attractions[index].images = images;
+    });
+
+    const createBody = {
+      name: data.name,
+      language: data.language || "",
+      type: data.type,
+      country: data.country,
+      difficulty: data.difficulty,
+      route_gallery: data.images,
+      duration: data.duration_est,
+      categories: data.categories,
+      classification: data.categories,
+      accessibility: data.accessibility.join(","),
+      description: data.description,
+      distance: data.distance,
+      start: data.attractions[0].address,
+      end: data.attractions[data.attractions.length - 1].address,
+      checkpoints: data.attractions.map((attraction) => ({
+        name: attraction.name,
+        content: attraction.content,
+        address: attraction.address,
+        checkpoint_gallery: attraction.images.map((img) => ({
+          caption: img.caption,
+          image_id: img.image_id,
+          source: img.source,
+          url: img.url,
+        })),
+        coordinates: {
+          latitude: 22.28617588, //attraction.poi.latitude
+          longitude: 114.14866131, //attraction.poi.longitude
+        },
+      })),
+    };
+    await createRoute(createBody, authToken);
   };
 
   const { append, remove } = useFieldArray({
@@ -113,6 +213,9 @@ function CreateRoute() {
               getValues={getValues}
               watch={watch}
               setValue={setValue}
+              setRouteImages={setRouteImages}
+              previewRoute={previewRoute}
+              setPreviewRoute={setPreviewRoute}
             />
           ) : currentStep === 2 ? (
             <Step2
@@ -121,9 +224,16 @@ function CreateRoute() {
               watch={watch}
               appendAttraction={append}
               remove={remove}
+              setAttractionImages={setAttractionImages}
+              previewAttractions={previewAttractions}
+              setPreviewAttractions={setPreviewAttractions}
             />
           ) : currentStep === 3 ? (
-            <Step3 getValues={getValues} />
+            <Step3
+              getValues={getValues}
+              previewRoute={previewRoute}
+              previewAttractions={previewAttractions}
+            />
           ) : (
             "Invalid step"
           )}

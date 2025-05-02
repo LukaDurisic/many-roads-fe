@@ -93,7 +93,6 @@ const sampleRoute: RouteType = {
   tags: ["victoria", "historic", "sightseeing"],
   accessibility: [],
   province: "",
-  isAudio: true,
   date_added: "2024-06-15T12:00:00Z",
   type: "Point To Point",
   creator: {
@@ -106,7 +105,7 @@ const sampleRoute: RouteType = {
   },
   images: [
     {
-      id: 1,
+      image_id: 1,
       route: 1,
       caption: "Scenic view from the harbor",
       source: "user-uploaded",
@@ -130,21 +129,21 @@ const sampleRoute: RouteType = {
       },
       images: [
         {
-          id: 2,
+          image_id: 2,
           attraction: 10,
           caption: "Parliament Building at dusk 1",
           source: "user-uploaded",
           url: "/media/images/156-year_History_of_the_City_of_Victoria-image_3H6uIjj.jpg",
         },
         {
-          id: 66,
+          image_id: 66,
           attraction: 10,
           caption: "Parliament Building at dusk 2",
           source: "user-uploaded",
           url: "/media/images/156-year_History_of_the_City_of_Victoria-image_3H6uIjj.jpg",
         },
         {
-          id: 45,
+          image_id: 45,
           attraction: 10,
           caption: "Parliament Building at dusk 3",
           source: "user-uploaded",
@@ -168,28 +167,28 @@ const sampleRoute: RouteType = {
       },
       images: [
         {
-          id: 3,
+          image_id: 3,
           attraction: 11,
           caption: "Front view of Craigdarroch Castle",
           source: "user-uploaded",
           url: "/media/images/156-year_History_of_the_City_of_Victoria-image_3H6uIjj.jpg",
         },
         {
-          id: 5,
+          image_id: 5,
           attraction: 11,
           caption: "Front view of Craigdarroch Castle2",
           source: "user-uploaded",
           url: "/media/images/POI00-01C_H7LWTzx.jpg",
         },
         {
-          id: 39,
+          image_id: 39,
           attraction: 11,
           caption: "Front view of Craigdarroch Castle3",
           source: "user-uploaded",
           url: "/media/images/156-year_History_of_the_City_of_Victoria-image_3H6uIjj.jpg",
         },
         {
-          id: 49,
+          image_id: 49,
           attraction: 11,
           caption: "Front view of Craigdarroch Castle 4",
           source: "user-uploaded",
@@ -213,7 +212,7 @@ const sampleRoute: RouteType = {
       comment: "Amazing route, well organized and informative!",
       date_added: "2024-06-18T15:23:00Z",
       first_name: "Jamie",
-      lastName: "Lee",
+      last_name: "Lee",
       author: {
         id: 202,
         username: "jamielee23",

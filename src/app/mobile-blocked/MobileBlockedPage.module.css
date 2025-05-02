@@ -1,0 +1,17 @@
+.wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  text-align: center;
+  padding: 1rem;
+}
+
+.content {
+  max-width: 24rem;
+}
+
+.heading {
+  font-size: 1.25rem;
+  font-weight: 600;
+}
