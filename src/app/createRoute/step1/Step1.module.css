@@ -116,7 +116,7 @@
   font-family: Inter;
   font-weight: 400;
   font-size: 16px;
-  line-height: 100%;
+  line-height: 20px;
   letter-spacing: 0px;
   appearance: none;
   -webkit-appearance: none;
@@ -126,7 +126,9 @@
   justify-content: center;
   align-items: center;
   cursor: pointer;
-  height: 20px;
+  height: 22px;
+  width: 100%;
+  text-align: right;
 }
 
 .selectIconCity {
@@ -157,7 +159,7 @@
 
 .selectItem {
   display: flex;
-  width: 100%;
+  width: 200px;
   align-items: center;
   justify-content: flex-end;
   gap: 10px;

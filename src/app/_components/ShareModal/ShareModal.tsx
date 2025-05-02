@@ -26,7 +26,7 @@ export const sampleRoute: RouteCardProps = {
   },
   images: [
     {
-      id: 1,
+      image_id: 1,
       route: 1,
       caption: "Scenic view from the harbor",
       source: "user-uploaded",

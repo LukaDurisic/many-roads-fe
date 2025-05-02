@@ -154,6 +154,7 @@ const Map: React.FC<MapComponentProps> = ({ tourList }) => {
         )}
 
         {selectedTour &&
+
           selectedTour.attractions
             .slice(1)
             .map((attraction: Attraction, index) => (

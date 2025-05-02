@@ -4,19 +4,30 @@ import Image from "next/image";
 import PlayIcon from "../../assets/play.svg";
 import LocationIcon from "../../assets/location";
 import GallerySmall from "../GallerySmall/GallerySmall";
-import { Attraction } from "@/app/_types";
-
+import { Attraction, PreviewAttraction } from "@/app/_types";
 
 function CheckpointCardDetailed({
   checkpointData,
+  images,
   index,
 }: {
   checkpointData: Attraction;
+  images: PreviewAttraction | undefined;
   index: number;
 }) {
   return (
     <div className={styles.cardContainer}>
-      <div className={styles.heroImage}></div>
+      <div className={styles.heroImage}>
+        {images && (
+          <Image
+            src={images.heroImage}
+            alt="Hero image"
+            width={1000}
+            height={1000}
+            className={styles.imagePreview}
+          />
+        )}
+      </div>
       <div className={styles.info}>
         <div>
           <div className={styles.infoItem}>
@@ -44,8 +55,7 @@ function CheckpointCardDetailed({
         </div>
       </div>
       <div className={styles.gallery}>
-        <GallerySmall images={checkpointData.images} />
-
+        <GallerySmall images={images ? images.images : []} />
       </div>
     </div>
   );
