@@ -24,9 +24,9 @@ const accessibilities = ["Child", "Pet", "Wheelchair", "Pram-friendly"];
 
 const routeTypeOptions = ["Point To Point", "Loop"];
 
-const countryOptions = ["Hong Kong", "USA", "UK"];
+const countryOptions = ["Hong Kong SAR"];
 
-const provinceOptions = ["NA", "Central", "Island"];
+const provinceOptions = ["North", "Central", "West"];
 
 const difficultyOptions = ["Hard", "Medium", "Easy"];
 

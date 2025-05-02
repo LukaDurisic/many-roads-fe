@@ -138,9 +138,12 @@ function CreateRoute() {
       route_gallery: data.images,
       duration: data.duration_est,
       categories: data.categories,
+      classification: data.categories,
       accessibility: data.accessibility.join(","),
       description: data.description,
       distance: data.distance,
+      start: data.attractions[0].address,
+      end: data.attractions[data.attractions.length - 1].address,
       checkpoints: data.attractions.map((attraction) => ({
         name: attraction.name,
         content: attraction.content,
@@ -157,9 +160,7 @@ function CreateRoute() {
         },
       })),
     };
-    console.log(createBody);
-    const newRoute = await createRoute(createBody, authToken);
-    console.log(newRoute);
+    await createRoute(createBody, authToken);
   };
 
   const { append, remove } = useFieldArray({
