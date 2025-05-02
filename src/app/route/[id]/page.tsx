@@ -14,7 +14,10 @@ import Link from "next/link";
 import ShareModal from "@/app/_components/ShareModal/ShareModal";
 import CheckpointModal from "@/app/_components/CheckpointModal/CheckpointModal";
 import Modal from "@/app/_components/Modal/Modal";
-import { getSingleRoute } from "@/app/_services/client-api-requests";
+import {
+  getAllRoutes,
+  getSingleRoute,
+} from "@/app/_services/client-api-requests";
 import type { Route } from "@/app/_types";
 import Map from "@/app/_components/Map/Map";
 
@@ -85,6 +88,17 @@ function Route({ params }: RoutePageProps) {
   const [isCheckpointOpen, setIsCheckpointOpen] = useState(false);
   const [activeCheckpoint, setActiveCheckpoint] = useState(0);
 
+  const [routes, setRoutes] = useState<Route[]>([]);
+
+  useEffect(() => {
+    const fetchRoutes = async () => {
+      const response = await getAllRoutes();
+      setRoutes(response.data);
+    };
+
+    fetchRoutes();
+  }, []);
+
   const [data, setData] = useState<Route>();
   const { id } = React.use(params);
 
@@ -126,7 +140,7 @@ function Route({ params }: RoutePageProps) {
       )}
       <Navbar />
       <div className={styles.contentWrapper}>
-        <Header />
+        <Header routes={routes} setRoutes={() => setRoutes} />
         <div className={styles.routeContent}>
           <div className={styles.routeHeader}>
             <Link href={"/dashboard"} className={styles.back}>

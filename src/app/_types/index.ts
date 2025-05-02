@@ -39,7 +39,7 @@ export interface Creator {
 export interface Image {
   attraction?: number;
   route?: number;
-  id: number;
+  image_id: number;
   caption: string;
   source: string;
   url: string;
@@ -52,7 +52,7 @@ export interface Poi {
   name: string;
 }
 export interface Attraction {
-  id: number;
+  id?: number;
   address: string;
   audio: string;
   content: string;
@@ -95,7 +95,7 @@ export interface Route {
   country: string;
   audio: string;
   province: string;
-  isAudio: boolean;
+  // isAudio: boolean;
   categories: string[];
   category: number[];
   tags: string[];
@@ -122,4 +122,51 @@ export interface RouteCardProps {
   creator: Creator;
   images: Image[];
   country: string;
+}
+
+export interface AttractionImages {
+  attractionIndex: number;
+  heroImage?: File;
+  images: File[];
+}
+
+export interface PreviewAttraction {
+  index: number;
+  heroImage: string;
+  images: string[];
+}
+
+export interface CreateRouteBody {
+  name: string;
+  language: string;
+  type: string;
+  country: string;
+  difficulty: string;
+  route_gallery: Image[];
+  duration: string;
+  categories: string[];
+  accessibility: string;
+  description: string;
+  distance: string;
+  checkpoints: Checkpoint[];
+}
+
+export interface Checkpoint {
+  name: string;
+  content: string;
+  address: string;
+  checkpoint_gallery: Image[];
+  coordinates: Coordinates;
+}
+
+export interface Coordinates {
+  latitude: number;
+  longitude: number;
+}
+
+export interface Image {
+  image_id: number;
+  caption: string;
+  source: string;
+  url: string;
 }

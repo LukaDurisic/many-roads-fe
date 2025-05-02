@@ -1,16 +1,47 @@
-import React from "react";
+"use client";
+import React, { useState } from "react";
 import styles from "./Step3.module.css";
 import CheckpointCardDetailed from "@/app/_components/CheckpointCardDetailed/CheckpointCardDetailed";
 import { UseFormGetValues } from "react-hook-form";
-import { Route } from "@/app/_types";
+import { Route, PreviewAttraction } from "@/app/_types";
+import Image from "next/image";
 
-function Step3({ getValues }: { getValues: UseFormGetValues<Route> }) {
+function Step3({
+  getValues,
+  previewRoute,
+  previewAttractions,
+}: {
+  getValues: UseFormGetValues<Route>;
+  previewRoute: string[];
+  previewAttractions: PreviewAttraction[];
+}) {
   const checkpoints = getValues().attractions;
+  const [activeIndex, setActiveIndex] = useState(0);
   return (
     <div className={styles.stepWrapper}>
       <div className={styles.mainInfoContainer}>
-        <div className={styles.mapAndName}>
-          <div className={styles.map}></div>
+        <div className={styles.imagesAndName}>
+          <div className={styles.images}>
+            <Image
+              src={previewRoute[activeIndex]}
+              alt="Route image"
+              width={1000}
+              height={1000}
+              className={styles.imagePreview}
+            />
+
+            <div className={styles.indicators}>
+              {previewRoute.map((_, i) => (
+                <div
+                  key={i}
+                  onClick={() => setActiveIndex(i)}
+                  className={`${styles.indicator} ${
+                    i === activeIndex ? styles.active : ""
+                  }`}
+                />
+              ))}
+            </div>
+          </div>
           <div className={styles.name}>
             <div className={styles.leftInfo}>
               <div className={styles.routeName}>{getValues().name}</div>
@@ -87,6 +118,7 @@ function Step3({ getValues }: { getValues: UseFormGetValues<Route> }) {
       {checkpoints?.map((checkpoint, index) => (
         <CheckpointCardDetailed
           checkpointData={checkpoint}
+          images={previewAttractions.find((att) => att.index === index)}
           index={index}
           key={index}
         />

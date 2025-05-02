@@ -4,7 +4,6 @@ import React, { useState, useRef } from "react";
 import styles from "./Step1.module.css";
 import Image from "next/image";
 import AddImgIcon from "../../assets/addImage.svg";
-import ArrowIconCity from "../../assets/arrowDownCity";
 import {
   UseFormRegister,
   UseFormGetValues,
@@ -12,6 +11,7 @@ import {
   UseFormSetValue,
 } from "react-hook-form";
 import { Route } from "@/app/_types";
+import CustomDropdown from "@/app/_components/CustomSelect/CustomSelect";
 
 const classifications = [
   "History",
@@ -24,24 +24,29 @@ const accessibilities = ["Child", "Pet", "Wheelchair", "Pram-friendly"];
 
 const routeTypeOptions = ["Point To Point", "Loop"];
 
-const countryOptions = ["Hong Kong", "USA", "UK"];
+const countryOptions = ["Hong Kong SAR"];
 
-const provinceOptions = ["NA", "Central", "Island"];
+const provinceOptions = ["North", "Central", "West"];
 
-const difficultyOptions = ["Hard", "Medium", "Easy"];
+const difficultyOptions = ["Easy", "Moderate", "Difficult"];
 
 const Step1 = ({
   register,
   getValues,
   setValue,
   watch,
+  setRouteImages,
+  previewRoute,
+  setPreviewRoute,
 }: {
   register: UseFormRegister<Route>;
   getValues: UseFormGetValues<Route>;
   setValue: UseFormSetValue<Route>;
   watch: UseFormWatch<Route>;
+  setRouteImages: React.Dispatch<React.SetStateAction<File[]>>;
+  previewRoute: string[];
+  setPreviewRoute: React.Dispatch<React.SetStateAction<string[]>>;
 }) => {
-  const [imagePreviews, setImagePreviews] = useState<string[]>([]);
   const [routeName, setRouteName] = useState<string>("");
   const [duration, setDuration] = useState<string>("");
   const [distance, setDistance] = useState<string>("");
@@ -68,7 +73,7 @@ const Step1 = ({
     setValue("accessibility", updated);
   };
 
-  const isAudio = watch("isAudio", false);
+  // const isAudio = watch("isAudio", false);
 
   const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -79,15 +84,18 @@ const Step1 = ({
   const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     const files = event.target.files;
     if (files) {
-      const newPreviews = Array.from(files).map((file) =>
-        URL.createObjectURL(file)
-      );
-      setImagePreviews((prev) => [...prev, ...newPreviews].slice(0, 10));
+      const fileArray = Array.from(files);
+
+      const newPreviews = fileArray.map((file) => URL.createObjectURL(file));
+
+      setPreviewRoute((prev) => [...prev, ...newPreviews].slice(0, 10));
+      setRouteImages((prev) => [...prev, ...fileArray].slice(0, 10));
     }
   };
 
   const handleImageDelete = (index: number) => {
-    setImagePreviews((prev) => prev.filter((_, i) => i !== index));
+    setPreviewRoute((prev) => prev.filter((_, i) => i !== index));
+    setRouteImages((prev) => prev.filter((_, i) => i !== index));
   };
 
   return (
@@ -95,7 +103,7 @@ const Step1 = ({
       <div className={styles.left}>
         <div className={styles.imageUpload}>
           <div className={styles.imageGrid}>
-            {imagePreviews.map((preview, index) => (
+            {previewRoute.map((preview, index) => (
               <div
                 key={index}
                 className={styles.imageBox}
@@ -111,7 +119,7 @@ const Step1 = ({
               </div>
             ))}
 
-            {imagePreviews.length < 10 && (
+            {previewRoute.length < 10 && (
               <div
                 className={`${styles.imageBox} ${styles.noAfter}`}
                 onClick={handleImageBoxClick}
@@ -180,10 +188,8 @@ const Step1 = ({
           {...register("description")}
           onChange={(e) => setDescription(e.target.value)}
         />
-        <div className={styles.charCount}>
-          {watch("description", "").length} / 1000
-        </div>
-        <label className={styles.checkbox}>
+        <div className={styles.charCount}>{description.length} / 1000</div>
+        {/* <label className={styles.checkbox}>
           <input
             type="checkbox"
             checked={isAudio}
@@ -198,7 +204,7 @@ const Step1 = ({
             {isAudio ? "✔" : ""}
           </span>
           Create audio from my description.
-        </label>
+        </label> */}
       </div>
 
       <div className={styles.right}>
@@ -247,7 +253,7 @@ const Step1 = ({
             </label>
           ))}
         </div>
-        <div className={styles.fieldGroupSelect}>
+        {/* <div className={styles.fieldGroupSelect}>
           <label className={styles.labelSelect}>Route Type</label>
           <div className={styles.selectItem}>
             <select
@@ -271,9 +277,16 @@ const Step1 = ({
               // style={isOpen ? { rotate: " 180deg" } : {}}
             />
           </div>
-        </div>
+        </div> */}
 
-        <div className={styles.fieldGroupSelect}>
+        <CustomDropdown
+          label="Route Type"
+          options={routeTypeOptions}
+          value={watch("type")}
+          onChange={(val) => setValue("type", val)}
+        />
+
+        {/* <div className={styles.fieldGroupSelect}>
           <label className={styles.labelSelect}>Country</label>
           <div className={styles.selectItem}>
             <select
@@ -297,9 +310,16 @@ const Step1 = ({
               // style={isOpen ? { rotate: " 180deg" } : {}}
             />
           </div>
-        </div>
+        </div> */}
 
-        <div className={styles.fieldGroupSelect}>
+        <CustomDropdown
+          label="Country"
+          options={countryOptions}
+          value={watch("country")}
+          onChange={(val) => setValue("country", val)}
+        />
+
+        {/* <div className={styles.fieldGroupSelect}>
           <label className={styles.labelSelect}>Province</label>
           <div className={styles.selectItem}>
             <select
@@ -323,8 +343,15 @@ const Step1 = ({
               // style={isOpen ? { rotate: " 180deg" } : {}}
             />
           </div>
-        </div>
-        <div className={styles.fieldGroupSelect}>
+        </div> */}
+
+        <CustomDropdown
+          label="Province"
+          options={provinceOptions}
+          value={watch("province")}
+          onChange={(val) => setValue("province", val)}
+        />
+        {/* <div className={styles.fieldGroupSelect}>
           <label className={styles.labelSelect}>Difficulty</label>
           <div className={styles.selectItem}>
             <select
@@ -348,7 +375,13 @@ const Step1 = ({
               // style={isOpen ? { rotate: " 180deg" } : {}}
             />
           </div>
-        </div>
+        </div> */}
+        <CustomDropdown
+          label="Difficulty"
+          options={difficultyOptions}
+          value={watch("difficulty")}
+          onChange={(val) => setValue("difficulty", val)}
+        />
       </div>
     </div>
   );

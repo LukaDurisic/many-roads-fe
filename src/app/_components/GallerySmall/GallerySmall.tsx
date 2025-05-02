@@ -1,71 +1,61 @@
 import React from "react";
 import styles from "./GallerySmall.module.css";
-import { Image } from "@/app/_types";
+import Image from "next/image";
 
-function GallerySmall({ images }: { images: Image[] }) {
-  images = [
-    {
-      caption: "Test test test etste etsets ets ",
-      id: 1,
-      source: "",
-      url: "",
-      attraction: 1,
-      route: 1,
-    },
-    {
-      caption: "Test test test etste etsets ets ",
-      id: 2,
-      source: "",
-      url: "",
-      attraction: 1,
-      route: 1,
-    },
-    {
-      caption: "Test test test etste etsets ets ",
-      id: 3,
-      source: "",
-      url: "",
-      attraction: 1,
-      route: 1,
-    },
-    {
-      caption: "Test test test etste etsets ets ",
-      id: 4,
-      source: "",
-      url: "",
-      attraction: 1,
-      route: 1,
-    },
-  ];
+function GallerySmall({ images }: { images: string[] | undefined }) {
   return (
     <div className={styles.wrapperLeft}>
       <div className={styles.slider}>
-        {images.length > 0 && images.length < 4
+        {images && images.length > 0 && images.length < 4
           ? images.map((image, index) => (
-              <div className={styles.sliderImageSmall} key={index}></div>
+              <div className={styles.sliderImageSmall} key={index}>
+                <Image
+                  src={image}
+                  alt="Checkpoint image"
+                  width={1000}
+                  height={1000}
+                  className={styles.imagePreview}
+                />
+              </div>
             ))
-          : images.slice(0, 3).map((image, index) => (
-              <>
-                <div
-                  className={`${styles.sliderImageSmall} ${
-                    index === 2 && styles.countBg
-                  }`}
-                  key={index}
-                >
-                  {index === 2 && (
-                    <span className={styles.countText}>
-                      + {images.length - 3}
-                    </span>
-                  )}
-                </div>
-              </>
+          : images &&
+            images.slice(1, 4).map((image, index) => (
+              <div
+                className={`${styles.sliderImageSmall} ${
+                  index === 2 && styles.countBg
+                }`}
+                key={index}
+              >
+                {index === 2 && (
+                  <span className={styles.countText}>
+                    + {images.length - 3}
+                  </span>
+                )}
+                <Image
+                  src={image}
+                  alt="Checkpoint image"
+                  width={1000}
+                  height={1000}
+                  className={styles.imagePreview}
+                />
+              </div>
             ))}
       </div>
       <div className={styles.imageContainer}>
-        <div className={styles.image}></div>
-        <div className={styles.caption}>
-          {images[0]?.caption || "No caption"}
+        <div className={styles.image}>
+          {images && (
+            <Image
+              src={images[0]}
+              alt="Checkpoint image"
+              width={1000}
+              height={1000}
+              className={styles.imagePreview}
+            />
+          )}
         </div>
+        {/* <div className={styles.caption}>
+          {images && images[0]?.caption || "No caption"}
+        </div> */}
       </div>
     </div>
   );
