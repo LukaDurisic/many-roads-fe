@@ -29,7 +29,6 @@ function Step3({
               height={1000}
               className={styles.imagePreview}
             />
-
             <div className={styles.indicators}>
               {previewRoute.map((_, i) => (
                 <div
@@ -44,38 +43,54 @@ function Step3({
           </div>
           <div className={styles.name}>
             <div className={styles.leftInfo}>
-              <div className={styles.routeName}>{getValues().name}</div>
+              <div className={styles.routeName}>
+                {getValues().name || "No name inputed!"}
+              </div>
             </div>
             <div className={styles.leftInfo}>
               <div className={styles.label}>Description</div>
-              <div className={styles.info}>{getValues().description}</div>
+              <div className={styles.info}>
+                {getValues().description || "No description inputed!"}
+              </div>
             </div>
           </div>
         </div>
         <div className={styles.mainInfo}>
           <div className={styles.infoItem}>
             <div className={styles.label}>Route Type</div>
-            <div className={styles.info}>{getValues().type}</div>
+            <div className={styles.info}>
+              {getValues().type || "No type selected!"}
+            </div>
           </div>
           <div className={styles.infoItem}>
             <div className={styles.label}>Country</div>
-            <div className={styles.info}>{getValues().country}</div>
+            <div className={styles.info}>
+              {getValues().country || "No country selected!"}
+            </div>
           </div>
           <div className={styles.infoItem}>
             <div className={styles.label}>Province</div>
-            <div className={styles.info}>{getValues().province}</div>
+            <div className={styles.info}>
+              {getValues().province || "No province selected!"}
+            </div>
           </div>
           <div className={styles.infoItem}>
             <div className={styles.label}>Estimated Duration</div>
-            <div className={styles.info}>{getValues().duration_est}</div>
+            <div className={styles.info}>
+              {getValues().duration_est || "No duration inputed!"}
+            </div>
           </div>
           <div className={styles.infoItem}>
             <div className={styles.label}>Total Distance</div>
-            <div className={styles.info}>{getValues().distance}</div>
+            <div className={styles.info}>
+              {getValues().distance || "No distance inputed!"}
+            </div>
           </div>
           <div className={styles.infoItem}>
             <div className={styles.label}>Difficulty</div>
-            <div className={styles.info}>{getValues().difficulty}</div>
+            <div className={styles.info}>
+              {getValues().difficulty || "No difficulty selected!"}
+            </div>
           </div>
 
           <div className={styles.classification}>

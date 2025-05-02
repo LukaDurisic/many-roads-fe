@@ -10,6 +10,8 @@ import Button from "../_components/Button/Button";
 import { useForm, SubmitHandler, useFieldArray } from "react-hook-form";
 import { Image, Route, AttractionImages, PreviewAttraction } from "../_types";
 import { uploadImage, createRoute } from "../_services/client-api-requests";
+import { ClipLoader } from "react-spinners";
+import { useRouter } from "next/navigation";
 
 function CreateRoute() {
   const [currentStep, setCurrentStep] = useState<number>(1);
@@ -17,7 +19,8 @@ function CreateRoute() {
   const [attractionImages, setAttractionImages] = useState<AttractionImages[]>(
     []
   );
-  const [authToken, setAuthToken] = useState("");
+  const [authToken, setAuthToken] = useState<string>("");
+  const [isLoadingOpen, setIsLoadingOpen] = useState<boolean>(false);
   const [previewRoute, setPreviewRoute] = useState<string[]>([]);
   const [previewAttractions, setPreviewAttractions] = useState<
     PreviewAttraction[]
@@ -68,6 +71,8 @@ function CreateRoute() {
       },
     });
 
+  const router = useRouter();
+
   useEffect(() => {
     const storedValue = localStorage.getItem("accessToken");
     if (storedValue) {
@@ -76,6 +81,7 @@ function CreateRoute() {
   }, []);
 
   const onSubmit: SubmitHandler<Route> = async (data) => {
+    setIsLoadingOpen(true);
     const uploads = await Promise.all(
       routeImages.map(async (img) => {
         const formData = new FormData();
@@ -139,6 +145,7 @@ function CreateRoute() {
       duration: data.duration_est,
       categories: data.categories,
       classification: data.categories,
+      tags: data.categories,
       accessibility: data.accessibility.join(","),
       description: data.description,
       distance: data.distance,
@@ -160,7 +167,13 @@ function CreateRoute() {
         },
       })),
     };
-    await createRoute(createBody, authToken);
+    const newRoute = await createRoute(createBody, authToken);
+    setIsLoadingOpen(false);
+    if (newRoute) {
+      router.push("/dashboard");
+    } else {
+      alert("Route creation failed!");
+    }
   };
 
   const { append, remove } = useFieldArray({
@@ -170,6 +183,11 @@ function CreateRoute() {
 
   return (
     <div className={styles.wrapper}>
+      {isLoadingOpen && (
+        <div className={styles.loadingModal}>
+          <ClipLoader color={"#fff"} size={40} />
+        </div>
+      )}
       <Navbar />
       <div className={styles.contentWrapper}>
         <div className={styles.createHeader}>
