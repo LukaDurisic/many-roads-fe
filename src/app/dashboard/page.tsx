@@ -16,16 +16,25 @@ import ProtectedRoute from "../_components/ProtectedRoutes/ProtectedRoute";
 
 function Dashboard() {
   const [isMapActive, setIsMapActive] = useState(false);
+  const [isReload, setIsReload] = useState(false);
+  const [allRoutes, setAllRoutes] = useState<Route[]>([]);
   const [routes, setRoutes] = useState<Route[]>([]);
 
   useEffect(() => {
     const fetchRoutes = async () => {
       const response = await getAllRoutes();
+      setAllRoutes(response.data);
       setRoutes(response.data);
     };
-
-    fetchRoutes();
-  }, []);
+    const stored = sessionStorage.getItem("filteredRoutes");
+    if (stored) {
+      const parsedRoutes = JSON.parse(stored);
+      setRoutes(parsedRoutes);
+      setAllRoutes(parsedRoutes);
+    } else {
+      fetchRoutes();
+    }
+  }, [isReload]);
   // const { data } = useTours();
   // console.log(data);
 
@@ -34,7 +43,12 @@ function Dashboard() {
       <div className={styles.wrapper}>
         <Navbar />
         <div className={styles.contentWrapper}>
-          <Header numberOfRoutes={routes.length} />
+          <Header numberOfRoutes={routes.length} 
+            routes={allRoutes}
+          setRoutes={setRoutes}
+          isReload={isReload}
+          setIsReload={setIsReload}
+            />
           {isMapActive ? (
             <MapContainer routes={routes} />
           ) : (

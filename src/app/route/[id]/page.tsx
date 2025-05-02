@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styles from "./Route.module.css";
 import Navbar from "../../_components/Navbar/Navbar";
 import Header from "@/app/_components/Header/Header";
@@ -15,6 +15,7 @@ import ShareModal from "@/app/_components/ShareModal/ShareModal";
 import CheckpointModal from "@/app/_components/CheckpointModal/CheckpointModal";
 import Modal from "@/app/_components/Modal/Modal";
 import { Route as RouteType } from "@/app/_types";
+import { getAllRoutes } from "@/app/_services/client-api-requests";
 
 const accessOptions = [
   { name: "child", checked: true },
@@ -228,6 +229,16 @@ function Route() {
   const [isShareOpen, setIsShareOpen] = useState(false);
   const [isCheckpointOpen, setIsCheckpointOpen] = useState(false);
   const [activeCheckpoint, setActiveCheckpoint] = useState(0);
+  const [routes, setRoutes] = useState<RouteType[]>([]);
+
+  useEffect(() => {
+    const fetchRoutes = async () => {
+      const response = await getAllRoutes();
+      setRoutes(response.data);
+    };
+
+    fetchRoutes();
+  }, []);
 
   return (
     <div className={styles.wrapper}>
@@ -250,7 +261,7 @@ function Route() {
       )}
       <Navbar />
       <div className={styles.contentWrapper}>
-        <Header />
+        <Header routes={routes} setRoutes={() => setRoutes} />
         <div className={styles.routeContent}>
           <div className={styles.routeHeader}>
             <Link href={"/dashboard"} className={styles.back}>

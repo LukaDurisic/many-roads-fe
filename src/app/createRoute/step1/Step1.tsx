@@ -28,7 +28,7 @@ const countryOptions = ["Hong Kong SAR"];
 
 const provinceOptions = ["North", "Central", "West"];
 
-const difficultyOptions = ["Hard", "Medium", "Easy"];
+const difficultyOptions = ["Easy", "Moderate", "Difficult"];
 
 const Step1 = ({
   register,
