@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./CheckpointCardDetailed.module.css";
 import Image from "next/image";
-import PlayIcon from "../../assets/play.svg";
+// import PlayIcon from "../../assets/play.svg";
 import LocationIcon from "../../assets/location";
 import GallerySmall from "../GallerySmall/GallerySmall";
 import { Attraction, PreviewAttraction } from "@/app/_types";
