@@ -87,7 +87,6 @@ function Route({ params }: RoutePageProps) {
   const [error, seterror] = useState(false);
   const [isCheckpointOpen, setIsCheckpointOpen] = useState(false);
   const [activeCheckpoint, setActiveCheckpoint] = useState(0);
-
   const [routes, setRoutes] = useState<Route[]>([]);
 
   useEffect(() => {
@@ -123,7 +122,7 @@ function Route({ params }: RoutePageProps) {
     <div className={styles.wrapper}>
       {isShareOpen && (
         <Modal isOpen={isShareOpen} onClose={() => setIsShareOpen(false)}>
-          <ShareModal />
+          <ShareModal data={data} />
         </Modal>
       )}
       {isCheckpointOpen && (

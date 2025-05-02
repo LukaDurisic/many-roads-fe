@@ -3,39 +3,9 @@ import React, { useState } from "react";
 import styles from "./ShareModal.module.css";
 import RouteCard from "../RouteCard/RouteCard";
 import Button from "../Button/Button";
-import { RouteCardProps } from "@/app/_types";
+import { RouteCardProps, Route } from "@/app/_types";
 
-export const sampleRoute: RouteCardProps = {
-  id: 1,
-  name: "Historic Victoria Walk",
-  start: "Victoria Harbour",
-  end: "Beacon Hill Park",
-  duration_est: "1h 30m",
-  num_of_completed_routes: 234,
-  total_attractions: 3,
-  distance: "3.2 km",
-  country: "Canada",
-  tags: ["victoria", "historic", "sightseeing"],
-  creator: {
-    id: 101,
-    username: "historybuff88",
-    email: "historybuff@example.com",
-    profile_image: "https://example.com/profiles/user101.jpg",
-    first_name: "Sean",
-    last_name: "Kwok",
-  },
-  images: [
-    {
-      image_id: 1,
-      route: 1,
-      caption: "Scenic view from the harbor",
-      source: "user-uploaded",
-      url: "/media/images/156-year_History_of_the_City_of_Victoria-image_3H6uIjj.jpg",
-    },
-  ],
-};
-
-function ShareModal() {
+function ShareModal({ data }: { data: Route | undefined }) {
   const [copied, setCopied] = useState(false);
 
   const handleCopy = async () => {
@@ -48,11 +18,42 @@ function ShareModal() {
     }
   };
 
+  const routeInfo: RouteCardProps = {
+    id: data?.id || 1,
+    name: data?.name || "No name",
+    start: data?.start || "No info",
+    end: data?.end || "No info",
+    duration_est: data?.duration_est || "No info",
+    num_of_completed_routes: 1, //vidit šta s tim brojem
+    total_attractions: data?.attractions.length || 0,
+    distance: data?.distance || "No info",
+    country: data?.country || "No info",
+    tags: data?.tags || [],
+    creator: {
+      id: data?.creator.id || 1,
+      username:
+        data?.creator.first_name + " " + data?.creator.last_name || "No info",
+      email: data?.creator.email || "No info",
+      profile_image: data?.creator.profile_image || "No info",
+      first_name: data?.creator.first_name || "No info",
+      last_name: data?.creator.last_name || "No info",
+    },
+    images: [
+      {
+        image_id: data?.images[0].image_id || 1,
+        route: data?.images[0].route || 1,
+        caption: data?.images[0].caption || "No caption",
+        source: data?.images[0].source || "No source",
+        url: data?.images[0].url || "No url",
+      },
+    ],
+  };
+
   return (
     <div className={styles.card}>
       <div className={styles.title}>Share this route</div>
       <RouteCard
-        routeData={sampleRoute}
+        routeData={routeInfo}
         isProfileShowing={true}
         isClickable={false}
       />
