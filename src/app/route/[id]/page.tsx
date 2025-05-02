@@ -229,7 +229,7 @@ function Route() {
   const [isShareOpen, setIsShareOpen] = useState(false);
   const [isCheckpointOpen, setIsCheckpointOpen] = useState(false);
   const [activeCheckpoint, setActiveCheckpoint] = useState(0);
-  const [routes, setRoutes] = useState([]);
+  const [routes, setRoutes] = useState<RouteType[]>([]);
 
   useEffect(() => {
     const fetchRoutes = async () => {
