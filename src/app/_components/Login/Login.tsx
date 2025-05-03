@@ -162,7 +162,7 @@ function Login() {
       </div>
       <div className={styles.logInBtn}>
         <Button variant="primary" onClick={() => logIn()}>
-          {isLoading ? <ClipLoader color={"#fff"} size={30} /> : "Log in"}
+          {isLoading ? <ClipLoader color={"#fff"} size={30} /> : "LOG IN"}
         </Button>
       </div>
     </>

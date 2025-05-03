@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./CheckpointCardDetailed.module.css";
 import Image from "next/image";
-import PlayIcon from "../../assets/play.svg";
+// import PlayIcon from "../../assets/play.svg";
 import LocationIcon from "../../assets/location";
 import GallerySmall from "../GallerySmall/GallerySmall";
 import { Attraction, PreviewAttraction } from "@/app/_types";
@@ -32,26 +32,32 @@ function CheckpointCardDetailed({
         <div>
           <div className={styles.infoItem}>
             <div className={styles.checkpointNumber}>{index + 1}</div>
-            <div className={styles.name}>{checkpointData.name}</div>
+            <div className={styles.name}>
+              {checkpointData.name || "No name inputed!"}
+            </div>
           </div>
           <div className={styles.infoItem}>
             <span className={styles.icon}>
               <LocationIcon height={22} width={24} fill="white" />
             </span>
-            <div className={styles.location}>{checkpointData.address}</div>
+            <div className={styles.location}>
+              {checkpointData.address || "No address inputed!"}
+            </div>
           </div>
         </div>
         <div>
           <div className={styles.descHeading}>
             Description
-            <div className={styles.audio}>
+            {/* <div className={styles.audio}>
               <Image src={PlayIcon} alt="play icon" />{" "}
               {checkpointData.needs_upload
                 ? "Audio included"
                 : "Audio not included"}
-            </div>{" "}
+            </div>{" "} */}
           </div>
-          <div className={styles.description}>{checkpointData.content}</div>
+          <div className={styles.description}>
+            {checkpointData.content || "No description inputed!"}
+          </div>
         </div>
       </div>
       <div className={styles.gallery}>
