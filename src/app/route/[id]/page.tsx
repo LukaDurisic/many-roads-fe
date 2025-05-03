@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./Route.module.css";
 import Navbar from "../../_components/Navbar/Navbar";
 import Header from "@/app/_components/Header/Header";
@@ -14,8 +14,12 @@ import Link from "next/link";
 import ShareModal from "@/app/_components/ShareModal/ShareModal";
 import CheckpointModal from "@/app/_components/CheckpointModal/CheckpointModal";
 import Modal from "@/app/_components/Modal/Modal";
-import { Route as RouteType } from "@/app/_types";
-import { getAllRoutes } from "@/app/_services/client-api-requests";
+import {
+  getAllRoutes,
+  getSingleRoute,
+} from "@/app/_services/client-api-requests";
+import type { Route } from "@/app/_types";
+import Map from "@/app/_components/Map/Map";
 
 const accessOptions = [
   { name: "child", checked: true },
@@ -72,164 +76,18 @@ function formatDate(dateString: string): string {
   }`;
 }
 
-const sampleRoute: RouteType = {
-  id: 1,
-  name: "Historic Victoria Walk",
-  description:
-    "This small fairytale island will leave you breathless at first sight. Only a few minutes drive from the island of Vis, is a place that should be in your travel plan. Its name is Host and it is located at the very entrance to the Gulf of Vis. It offers a view of the open sea and the port of Vis. Arriving on this unique island, either by private boat or organized transfer, where the view reaches the crystal clear sea, you will feel the peace that will make your vacation unforgettable.",
-  start: "Victoria Harbour",
-  end: "Beacon Hill Park",
-  transport_mode: "walking",
-  duration_est: "1h 30m",
-  num_of_completed_routes: 234,
-  total_attractions: 3,
-  distance: "3.2 km",
-  difficulty: "easy",
-  language: "en",
-  country: "Canada",
-  audio: "https://example.com/audio/route_intro.mp3",
-  categories: ["History", "Culture", "Walking Tour"],
-  category: [1, 3],
-  tags: ["victoria", "historic", "sightseeing"],
-  accessibility: [],
-  province: "",
-  date_added: "2024-06-15T12:00:00Z",
-  type: "Point To Point",
-  creator: {
-    id: 101,
-    username: "historybuff88",
-    email: "historybuff@example.com",
-    profile_image: "https://example.com/profiles/user101.jpg",
-    first_name: "Sean",
-    last_name: "Kwok",
-  },
-  images: [
-    {
-      image_id: 1,
-      route: 1,
-      caption: "Scenic view from the harbor",
-      source: "user-uploaded",
-      url: "/media/images/156-year_History_of_the_City_of_Victoria-image_3H6uIjj.jpg",
-    },
-  ],
-  attractions: [
-    {
-      id: 10,
-      address: "501 Belleville St, Victoria, BC",
-      audio: "https://example.com/audio/attraction_legislature.mp3",
-      content:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-      name: "BC Legislature",
-      needs_upload: false,
-      poi: {
-        id: 100,
-        latitude: 48.4202,
-        longitude: -123.3681,
-        name: "BC Legislature",
-      },
-      images: [
-        {
-          image_id: 2,
-          attraction: 10,
-          caption: "Parliament Building at dusk 1",
-          source: "user-uploaded",
-          url: "/media/images/156-year_History_of_the_City_of_Victoria-image_3H6uIjj.jpg",
-        },
-        {
-          image_id: 66,
-          attraction: 10,
-          caption: "Parliament Building at dusk 2",
-          source: "user-uploaded",
-          url: "/media/images/156-year_History_of_the_City_of_Victoria-image_3H6uIjj.jpg",
-        },
-        {
-          image_id: 45,
-          attraction: 10,
-          caption: "Parliament Building at dusk 3",
-          source: "user-uploaded",
-          url: "/media/images/156-year_History_of_the_City_of_Victoria-image_3H6uIjj.jpg",
-        },
-      ],
-    },
-    {
-      id: 11,
-      address: "1070 Joan Crescent, Victoria, BC",
-      audio: "https://example.com/audio/attraction_craigdarroch.mp3",
-      content:
-        "Craigdarroch Castle is a historic, Victorian-era Scottish Baronial mansion.",
-      name: "Craigdarroch Castle",
-      needs_upload: false,
-      poi: {
-        id: 101,
-        latitude: 48.4261,
-        longitude: -123.3415,
-        name: "Craigdarroch Castle",
-      },
-      images: [
-        {
-          image_id: 3,
-          attraction: 11,
-          caption: "Front view of Craigdarroch Castle",
-          source: "user-uploaded",
-          url: "/media/images/156-year_History_of_the_City_of_Victoria-image_3H6uIjj.jpg",
-        },
-        {
-          image_id: 5,
-          attraction: 11,
-          caption: "Front view of Craigdarroch Castle2",
-          source: "user-uploaded",
-          url: "/media/images/POI00-01C_H7LWTzx.jpg",
-        },
-        {
-          image_id: 39,
-          attraction: 11,
-          caption: "Front view of Craigdarroch Castle3",
-          source: "user-uploaded",
-          url: "/media/images/156-year_History_of_the_City_of_Victoria-image_3H6uIjj.jpg",
-        },
-        {
-          image_id: 49,
-          attraction: 11,
-          caption: "Front view of Craigdarroch Castle 4",
-          source: "user-uploaded",
-          url: "/media/images/POI00-01C_H7LWTzx.jpg",
-        },
-      ],
-    },
-  ],
-  directions: [
-    {
-      id: 1,
-      origin: 100,
-      destination: 101,
-      points: "encodedPolylineHere",
-    },
-  ],
-  ratings: [
-    {
-      id: 5001,
-      value: "5",
-      comment: "Amazing route, well organized and informative!",
-      date_added: "2024-06-18T15:23:00Z",
-      first_name: "Jamie",
-      last_name: "Lee",
-      author: {
-        id: 202,
-        username: "jamielee23",
-        email: "jamie@example.com",
-        profile_image: "https://example.com/profiles/jamie.jpg",
-        first_name: "Jamie",
-        last_name: "Lee",
-      },
-    },
-  ],
-};
+interface RoutePageProps {
+  params: Promise<{
+    id: string;
+  }>;
+}
 
-function Route() {
+function Route({ params }: RoutePageProps) {
   const [isShareOpen, setIsShareOpen] = useState(false);
+  const [error, seterror] = useState(false);
   const [isCheckpointOpen, setIsCheckpointOpen] = useState(false);
   const [activeCheckpoint, setActiveCheckpoint] = useState(0);
-  const [routes, setRoutes] = useState<RouteType[]>([]);
+  const [routes, setRoutes] = useState<Route[]>([]);
 
   useEffect(() => {
     const fetchRoutes = async () => {
@@ -240,11 +98,31 @@ function Route() {
     fetchRoutes();
   }, []);
 
+  const [data, setData] = useState<Route>();
+  const { id } = React.use(params);
+
+  useEffect(() => {
+    async function fetchRoute() {
+      try {
+        const { data } = await getSingleRoute(id);
+        seterror(false);
+        setData(data);
+      } catch (error) {
+        console.log(error);
+        seterror(true);
+      }
+    }
+
+    fetchRoute();
+  }, [id]);
+
+  const attractions = data?.attractions || [];
+
   return (
     <div className={styles.wrapper}>
       {isShareOpen && (
         <Modal isOpen={isShareOpen} onClose={() => setIsShareOpen(false)}>
-          <ShareModal />
+          <ShareModal data={data} />
         </Modal>
       )}
       {isCheckpointOpen && (
@@ -255,7 +133,7 @@ function Route() {
           <CheckpointModal
             checkpointNumber={activeCheckpoint}
             setCheckpointNumber={setActiveCheckpoint}
-            checkpointData={sampleRoute.attractions}
+            checkpointData={attractions}
           />
         </Modal>
       )}
@@ -275,40 +153,44 @@ function Route() {
               Share
             </div>
           </div>
+
           <div className={styles.imageSection}>
             <div className={styles.imageContainer}>
-              <Image
-                src={
-                  process.env.NEXT_PUBLIC_MANY_ROADS_IMG +
-                  sampleRoute.images[0].url
-                }
-                alt="background image"
-                width={1000}
-                height={1000}
-                className={styles.bgImage}
-              />
+              {data?.images[0]?.url && (
+                <Image
+                  src={
+                    process.env.NEXT_PUBLIC_MANY_ROADS_IMG + data.images[0].url
+                  }
+                  alt="background image"
+                  width={1000}
+                  height={1000}
+                  className={styles.bgImage}
+                />
+              )}
             </div>
             <div className={styles.infoContainer}>
               <div className={styles.info}>
                 <div className={styles.infoRow}>
                   <div className={styles.infoItem}>
-                    <div className={styles.data}>{sampleRoute.distance}</div>
+                    <div className={styles.data}>{data?.distance || "N/A"}</div>
                     <div className={styles.infoLabel}>Distance</div>
                   </div>
                   <div className={styles.infoItem}>
                     <div className={styles.data}>
-                      {sampleRoute.duration_est}
+                      {data?.duration_est || "N/A"}
                     </div>
                     <div className={styles.infoLabel}>Estimated Duration</div>
                   </div>
                 </div>
                 <div className={styles.infoRow}>
                   <div className={styles.infoItem}>
-                    <div className={styles.data}>{sampleRoute.type}</div>
+                    <div className={styles.data}>{data?.type || "N/A"}</div>
                     <div className={styles.infoLabel}>Route Type</div>
                   </div>
                   <div className={styles.infoItem}>
-                    <div className={styles.data}>{sampleRoute.difficulty}</div>
+                    <div className={styles.data}>
+                      {data?.difficulty || "N/A"}
+                    </div>
                     <div className={styles.infoLabel}>Difficulty</div>
                   </div>
                 </div>
@@ -335,16 +217,18 @@ function Route() {
               </div>
             </div>
           </div>
+
           <div className={styles.descriptionSection}>
-            <div className={styles.routeTitle}>{sampleRoute.name}</div>
+            {error ? (
+              <div className={styles.routeTitle}>Route does not exist</div>
+            ) : (
+              <div className={styles.routeTitle}>{data?.name || "Unnamed"}</div>
+            )}
+
             <div className={styles.city}>
-              {sampleRoute.country} | {sampleRoute.start} –&gt;{" "}
-              {sampleRoute.end}
+              {data?.country || "Unknown"} | {data?.start || "?"} –&gt;{" "}
+              {data?.end || "?"}
             </div>
-            {/* <div className={styles.steps}>
-              <Image alt="person" src={PersonIcon} height={22} width={22} />
-              2500
-            </div> */}
 
             <div className={styles.fullDescription}>
               <div className={styles.descTitle}>Description</div>
@@ -356,23 +240,26 @@ function Route() {
                   "/media/route_audio/156-year_History_of_the_City_of_Victoria-audio_ugh1ZvF.mp3"
                 }
               ></audio>
-              <div className={styles.descText}>{sampleRoute.description}</div>
-
+              <div className={styles.descText}>
+                {data?.description || "No description available."}
+              </div>
               <div className={styles.textToggle}>More</div>
             </div>
           </div>
+
           <div className={styles.mapSection}>
-            <div className={styles.map}>Map goes here!</div>
+            <div className={styles.map}>
+              {data && <Map tourList={[data]} isSingleRoute />}
+            </div>
           </div>
+
           <div className={styles.checkpointSection}>
             <div className={styles.checkpointTitle}>
-              <span className={styles.checkPointNum}>
-                {sampleRoute.attractions.length}
-              </span>{" "}
+              <span className={styles.checkPointNum}>{attractions.length}</span>{" "}
               Checkpoints
             </div>
             <div className={styles.checkpointsContainer}>
-              {sampleRoute.attractions.map((checkpoint, index) => (
+              {attractions.map((checkpoint, index) => (
                 <CheckpointCard
                   key={index}
                   checkpointData={checkpoint}
@@ -384,16 +271,17 @@ function Route() {
               ))}
             </div>
           </div>
+
           <div className={styles.userSection}>
             <div className={styles.publishDate}>
-              Published {formatDate(sampleRoute.date_added)}
+              Published {data?.date_added ? formatDate(data.date_added) : "N/A"}
             </div>
             <div className={styles.userProfile}>
               <div className={styles.profile}>
-                <Image alt="profile" src={ProfileIcon} />{" "}
-                {sampleRoute.creator.first_name +
-                  " " +
-                  sampleRoute.creator.last_name}
+                <Image alt="profile" src={ProfileIcon} />
+                {data?.creator
+                  ? `${data.creator.first_name} ${data.creator.last_name}`
+                  : "Unknown"}
                 <Image alt="verify" src={VerifyIcon} />
               </div>
             </div>

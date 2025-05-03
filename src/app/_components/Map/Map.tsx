@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useCallback } from "react";
+import SingleRouteMarkers from "../SingleRouteMarkers/SingleRouteMarkers";
 import {
   GoogleMap,
   useJsApiLoader,
@@ -21,7 +22,7 @@ const mapContainerStyle = {
 
 const libraries: Libraries = ["places", "drawing", "geometry", "visualization"];
 
-const Map: React.FC<MapComponentProps> = ({ tourList }) => {
+const Map: React.FC<MapComponentProps> = ({ tourList, isSingleRoute }) => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [tours, setTours] = useState<Route[]>(tourList);
   const [selectedTour, setSelectedTour] = useState<Route | null>(null);
@@ -97,6 +98,74 @@ const Map: React.FC<MapComponentProps> = ({ tourList }) => {
     [selectedTour]
   );
 
+  const generateAllRoutesTrack = () => (
+    <>
+      {" "}
+      {/* Initial Tour POIs */}
+      {tours.map((tour) => (
+        <Marker
+          key={tour.id}
+          position={{
+            lat: tour.attractions[0].poi.latitude,
+            lng: tour.attractions[0].poi.longitude,
+          }}
+          icon={{
+            url:
+              selectedTour?.id === tour.id
+                ? "/assets/route-icon-2.svg"
+                : "/assets/route-icon-2-disabled.svg",
+            //scaledSize: new window.google.maps.Size(40, 40), // resize if needed
+          }}
+          onClick={() => handleTourClick(tour)}
+        />
+      ))}
+      {/* Card generation */}
+      {tours.map(
+        (tour) =>
+          selectedTour?.id === tour.id && (
+            <OverlayView
+              key={`overlay-${tour.id}`}
+              position={{
+                lat: tour.attractions[0].poi.latitude,
+                lng: tour.attractions[0].poi.longitude,
+              }}
+              mapPaneName={OverlayView.OVERLAY_MOUSE_TARGET}
+            >
+              <div>
+                <RouteCard isProfileShowing isClickable routeData={tour} />
+              </div>
+            </OverlayView>
+          )
+      )}
+      {selectedTour &&
+        selectedTour.attractions
+          .slice(1)
+          .map((attraction: Attraction, index) => (
+            <Marker
+              key={attraction.id}
+              position={{
+                lat: attraction.poi.latitude,
+                lng: attraction.poi.longitude,
+              }}
+              title={attraction.name}
+              icon={createSvgIcon(index + 2)}
+            />
+          ))}
+      {directions && (
+        <DirectionsRenderer
+          directions={directions}
+          options={{
+            suppressMarkers: true,
+            polylineOptions: {
+              strokeColor: "#000000",
+              strokeWeight: 4,
+            },
+          }}
+        />
+      )}
+    </>
+  );
+
   if (loadError) return <div>Error loading maps</div>;
   if (!isLoaded) return <div>Loading...</div>;
 
@@ -116,70 +185,10 @@ const Map: React.FC<MapComponentProps> = ({ tourList }) => {
           fullscreenControl: false,
         }}
       >
-        {/* Initial Tour POIs */}
-        {tours.map((tour) => (
-          <Marker
-            key={tour.id}
-            position={{
-              lat: tour.attractions[0].poi.latitude,
-              lng: tour.attractions[0].poi.longitude,
-            }}
-            icon={{
-              url:
-                selectedTour?.id === tour.id
-                  ? "/assets/route-icon-2.svg"
-                  : "/assets/route-icon-2-disabled.svg",
-              //scaledSize: new window.google.maps.Size(40, 40), // resize if needed
-            }}
-            onClick={() => handleTourClick(tour)}
-          />
-        ))}
-        {/* Card generation */}
-        {tours.map(
-          (tour) =>
-            selectedTour?.id === tour.id && (
-              <OverlayView
-                key={`overlay-${tour.id}`}
-                position={{
-                  lat: tour.attractions[0].poi.latitude,
-                  lng: tour.attractions[0].poi.longitude,
-                }}
-                mapPaneName={OverlayView.OVERLAY_MOUSE_TARGET}
-              >
-                <div>
-                  <RouteCard isProfileShowing isClickable routeData={tour} />
-                </div>
-              </OverlayView>
-            )
-        )}
-
-        {selectedTour &&
-
-          selectedTour.attractions
-            .slice(1)
-            .map((attraction: Attraction, index) => (
-              <Marker
-                key={attraction.id}
-                position={{
-                  lat: attraction.poi.latitude,
-                  lng: attraction.poi.longitude,
-                }}
-                title={attraction.name}
-                icon={createSvgIcon(index + 2)}
-              />
-            ))}
-
-        {directions && (
-          <DirectionsRenderer
-            directions={directions}
-            options={{
-              suppressMarkers: true,
-              polylineOptions: {
-                strokeColor: "#000000",
-                strokeWeight: 4,
-              },
-            }}
-          />
+        {isSingleRoute ? (
+          <SingleRouteMarkers tour={tourList[0]} />
+        ) : (
+          generateAllRoutesTrack()
         )}
       </GoogleMap>
     </div>

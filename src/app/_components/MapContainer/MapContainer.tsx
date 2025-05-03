@@ -7,7 +7,7 @@ function MapContainer({ routes }: { routes: Route[] }) {
   return (
     <div className={styles.temp}>
       {" "}
-      <Map tourList={routes} />
+      <Map tourList={routes} isSingleRoute={false} />
     </div>
   );
 }
