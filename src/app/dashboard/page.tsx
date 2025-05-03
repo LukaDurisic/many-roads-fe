@@ -13,18 +13,22 @@ import { getAllRoutes } from "../_services/client-api-requests";
 import { Route } from "../_types";
 //import { useTours } from "../_hooks/tours";
 import ProtectedRoute from "../_components/ProtectedRoutes/ProtectedRoute";
+import { ClipLoader } from "react-spinners";
 
 function Dashboard() {
   const [isMapActive, setIsMapActive] = useState(false);
   const [isReload, setIsReload] = useState(false);
   const [allRoutes, setAllRoutes] = useState<Route[]>([]);
   const [routes, setRoutes] = useState<Route[]>([]);
+  const [isLoadingOpen, setIsLoadingOpen] = useState<boolean>(false);
 
   useEffect(() => {
     const fetchRoutes = async () => {
+      setIsLoadingOpen(true);
       const response = await getAllRoutes();
       setAllRoutes(response.data);
       setRoutes(response.data);
+      setIsLoadingOpen(false);
     };
     const stored = sessionStorage.getItem("filteredRoutes");
     if (stored) {
@@ -35,20 +39,24 @@ function Dashboard() {
       fetchRoutes();
     }
   }, [isReload]);
-  // const { data } = useTours();
-  // console.log(data);
 
   return (
     <ProtectedRoute>
       <div className={styles.wrapper}>
         <Navbar />
+        {isLoadingOpen && (
+          <div className={styles.loadingModal}>
+            <ClipLoader color={"#fff"} size={40} />
+          </div>
+        )}
         <div className={styles.contentWrapper}>
-          <Header numberOfRoutes={routes.length} 
+          <Header
+            numberOfRoutes={routes.length}
             routes={allRoutes}
-          setRoutes={setRoutes}
-          isReload={isReload}
-          setIsReload={setIsReload}
-            />
+            setRoutes={setRoutes}
+            isReload={isReload}
+            setIsReload={setIsReload}
+          />
           {isMapActive ? (
             <MapContainer routes={routes} />
           ) : (

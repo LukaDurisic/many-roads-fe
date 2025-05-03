@@ -20,6 +20,7 @@ import {
 } from "@/app/_services/client-api-requests";
 import type { Route } from "@/app/_types";
 import Map from "@/app/_components/Map/Map";
+import { ClipLoader } from "react-spinners";
 
 const accessOptions = [
   { name: "child", checked: true },
@@ -27,28 +28,6 @@ const accessOptions = [
   { name: "wheelchair", checked: false },
   { name: "pram-friendly", checked: false },
 ];
-
-// const checkpointsData = [
-//   {
-//     name: "The Henderson",
-//     imageUrl: "",
-//     address: "2 Murray Road, Central",
-//     checkpointNumber: 1,
-//   },
-//   { name: "Second", imageUrl: "", address: "Ipsum", checkpointNumber: 2 },
-//   { name: "Third", imageUrl: "", address: "Lorem", checkpointNumber: 3 },
-//   { name: "Fourth", imageUrl: "", address: "Ipsum", checkpointNumber: 4 },
-// ];
-
-// interface RouteParams {
-//   params: {
-//     id: string;
-//   };
-// }
-
-//{ params }: RouteParams
-
-//const { id } = await params;
 
 function formatDate(dateString: string): string {
   const date = new Date(dateString);
@@ -91,14 +70,17 @@ function Route({ params }: RoutePageProps) {
 
   useEffect(() => {
     const fetchRoutes = async () => {
+      setIsLoadingOpen(true);
       const response = await getAllRoutes();
       setRoutes(response.data);
+      setIsLoadingOpen(false);
     };
 
     fetchRoutes();
   }, []);
 
   const [data, setData] = useState<Route>();
+  const [isLoadingOpen, setIsLoadingOpen] = useState<boolean>(false);
   const { id } = React.use(params);
 
   useEffect(() => {
@@ -124,6 +106,11 @@ function Route({ params }: RoutePageProps) {
         <Modal isOpen={isShareOpen} onClose={() => setIsShareOpen(false)}>
           <ShareModal data={data} />
         </Modal>
+      )}
+      {isLoadingOpen && (
+        <div className={styles.loadingModal}>
+          <ClipLoader color={"#fff"} size={40} />
+        </div>
       )}
       {isCheckpointOpen && (
         <Modal
@@ -232,14 +219,14 @@ function Route({ params }: RoutePageProps) {
 
             <div className={styles.fullDescription}>
               <div className={styles.descTitle}>Description</div>
-              <audio
+              {/* <audio
                 className={styles.audioBox}
                 controls
                 src={
                   process.env.NEXT_PUBLIC_MANY_ROADS_IMG +
                   "/media/route_audio/156-year_History_of_the_City_of_Victoria-audio_ugh1ZvF.mp3"
                 }
-              ></audio>
+              ></audio> */}
               <div className={styles.descText}>
                 {data?.description || "No description available."}
               </div>
@@ -259,16 +246,19 @@ function Route({ params }: RoutePageProps) {
               Checkpoints
             </div>
             <div className={styles.checkpointsContainer}>
-              {attractions.map((checkpoint, index) => (
-                <CheckpointCard
-                  key={index}
-                  checkpointData={checkpoint}
-                  onClick={() => {
-                    setIsCheckpointOpen(true);
-                    setActiveCheckpoint(index);
-                  }}
-                />
-              ))}
+              {attractions
+                .sort((x, y) => x.id! - y.id!)
+                .map((checkpoint, index) => (
+                  <CheckpointCard
+                    key={index}
+                    index={index}
+                    checkpointData={checkpoint}
+                    onClick={() => {
+                      setIsCheckpointOpen(true);
+                      setActiveCheckpoint(index);
+                    }}
+                  />
+                ))}
             </div>
           </div>
 

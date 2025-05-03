@@ -51,6 +51,7 @@ const Select: React.FC<SelectProps> = ({ options, style }) => {
           style={isOpen ? { rotate: " 180deg" } : {}}
         />
       )}
+
       {style === "citySmall" && (
         <ArrowIconCity
           fill={"#757575"}
