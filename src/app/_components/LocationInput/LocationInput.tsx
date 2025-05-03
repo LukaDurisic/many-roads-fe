@@ -1,0 +1,96 @@
+// components/LocationInput.tsx
+"use client";
+
+import { useState, useEffect, useCallback, useRef } from "react";
+import debounce from "lodash.debounce";
+import styles from "./LocationInput.module.css";
+
+type Suggestion = {
+  display_name: string;
+  lat: string;
+  lon: string;
+};
+
+/* export default function LocationInput({
+  register,
+  getValues,
+  watch,
+  remove,
+}: {
+  register: UseFormRegister<Route>;
+  getValues: UseFormGetValues<Route>;
+  watch: UseFormWatch<Route>;
+  remove: UseFieldArrayRemove;
+}); */
+
+export default function LocationInput() {
+  const [query, setQuery] = useState("");
+  const [suggestions, setSuggestions] = useState<Suggestion[]>([]);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [selected, setSelected] = useState<Suggestion | null>(null);
+  const wrapperRef = useRef<HTMLDivElement>(null);
+
+  const fetchSuggestions = async (q: string) => {
+    if (!q) return;
+    const res = await fetch(
+      `https://nominatim.openstreetmap.org/search?format=json&q=${q}`
+    );
+    const data = await res.json();
+    setSuggestions(data.slice(0, 10));
+  };
+
+  const debouncedFetch = useCallback(debounce(fetchSuggestions, 500), []);
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setQuery(e.target.value);
+    debouncedFetch(e.target.value);
+  };
+
+  const handleSelect = (item: Suggestion) => {
+    setSelected(item);
+    setQuery(item.display_name);
+    alert(`${item.lat},${item.lon}`);
+
+    setSuggestions([]);
+  };
+
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      if (
+        wrapperRef.current &&
+        !wrapperRef.current.contains(e.target as Node)
+      ) {
+        setSuggestions([]);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
+  return (
+    <div className={styles.inputContainer} ref={wrapperRef}>
+      <input
+        type="text"
+        value={query}
+        onChange={handleChange}
+        placeholder="Address"
+        className={styles.input}
+      />
+      {suggestions.length > 0 && (
+        <ul className={styles.inputUl}>
+          {suggestions.map((item, idx) => (
+            <li
+              className={styles.inputLi}
+              key={idx}
+              onClick={() => handleSelect(item)}
+            >
+              {item.display_name}
+            </li>
+          ))}
+        </ul>
+      )}
+    </div>
+  );
+}

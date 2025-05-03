@@ -15,6 +15,7 @@ import LocationIcon from "@/app/assets/location";
 import AddImageIcon from "../../assets/addImage.svg";
 import Modal from "../Modal/Modal";
 import DeleteCheckpointModal from "../DeleteCheckpointModal/DeleteCheckpointModal";
+import LocationInput from "../LocationInput/LocationInput";
 
 function CheckpointCreate({
   index,
@@ -228,11 +229,12 @@ function CheckpointCreate({
           <span className={styles.icon}>
             <LocationIcon height={22} width={24} fill="#757575" />
           </span>
-          <input
+          {/*  <input
             className={styles.input}
             placeholder="Address"
             {...register(`attractions.${index}.address`)}
-          />
+          /> */}
+          <LocationInput />
         </div>
       </div>
       <div className={styles.imageUpload}>
