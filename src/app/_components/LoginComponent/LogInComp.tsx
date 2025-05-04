@@ -12,7 +12,10 @@ function LogInComp({ formToRender }: LogInCompProps) {
       <div className={styles.formWrapper}>
         {formToRender === "logIn" ? <Login /> : null}
       </div>
-      <div className={styles.imgContainer}></div>
+      <div className={styles.textContainer}>
+        <div className={styles.text}>Make your own journey.</div>
+        <div className={styles.text}>Travel by manyroads.</div>
+      </div>
     </div>
   );
 }

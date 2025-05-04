@@ -1,7 +1,23 @@
+@font-face {
+  font-family: "Mic 32 New W00 Medium";
+  src: url("https://db.onlinewebfonts.com/t/1b4b8f0c60bd9fadaef38094aaf4601d.eot");
+  src: url("https://db.onlinewebfonts.com/t/1b4b8f0c60bd9fadaef38094aaf4601d.eot?#iefix")
+      format("embedded-opentype"),
+    url("https://db.onlinewebfonts.com/t/1b4b8f0c60bd9fadaef38094aaf4601d.woff2")
+      format("woff2"),
+    url("https://db.onlinewebfonts.com/t/1b4b8f0c60bd9fadaef38094aaf4601d.woff")
+      format("woff"),
+    url("https://db.onlinewebfonts.com/t/1b4b8f0c60bd9fadaef38094aaf4601d.ttf")
+      format("truetype"),
+    url("https://db.onlinewebfonts.com/t/1b4b8f0c60bd9fadaef38094aaf4601d.svg#Mic 32 New W00 Medium")
+      format("svg");
+}
+
 .loginWrapper {
   width: 100%;
   display: flex;
   align-items: center;
+  justify-content: space-between;
   padding: 40px;
   background-image: url("../../../../public/assets/Background\ -\ XL.png");
   background-size: cover;
@@ -21,4 +37,23 @@
   align-items: center;
   justify-content: center;
   gap: 50px;
+}
+
+.textContainer {
+  width: fit-content;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  padding-right: 50px;
+  padding-bottom: 230px;
+}
+
+.text {
+  font-family: "Mic 32 New W00 Medium";
+  font-weight: 600;
+  font-size: 50px;
+  line-height: 66px;
+  letter-spacing: 0px;
+  color: #ffffffcc;
 }

@@ -30,11 +30,21 @@ export default function LocationInput({
 
   const fetchSuggestions = async (q: string) => {
     if (!q) return;
-    const res = await fetch(
-      `https://nominatim.openstreetmap.org/search?format=json&q=${q}`
-    );
-    const data = await res.json();
-    setSuggestions(data.slice(0, 10));
+    try {
+      const res = await fetch(
+        `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(
+          q
+        )}`
+      );
+      if (!res.ok) {
+        throw new Error(`HTTP error! status: ${res.status}`);
+      }
+      const data = await res.json();
+      setSuggestions(data.slice(0, 10));
+    } catch (error) {
+      console.error("Failed to fetch suggestions:", error);
+      setSuggestions([]);
+    }
   };
 
   const debouncedFetch = useCallback(debounce(fetchSuggestions, 500), []);
