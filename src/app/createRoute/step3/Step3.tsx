@@ -5,6 +5,7 @@ import CheckpointCardDetailed from "@/app/_components/CheckpointCardDetailed/Che
 import { UseFormGetValues } from "react-hook-form";
 import { Route, PreviewAttraction } from "@/app/_types";
 import Image from "next/image";
+import Map from "@/app/_components/Map/Map";
 
 function Step3({
   getValues,
@@ -138,7 +139,11 @@ function Step3({
           key={index}
         />
       ))}
-      <div className={styles.mapWithRoute}></div>
+      <div className={styles.mapWithRoute}>
+        <div className={styles.map}>
+          <Map tourList={[getValues()]} isSingleRoute />
+        </div>
+      </div>
     </div>
   );
 }
