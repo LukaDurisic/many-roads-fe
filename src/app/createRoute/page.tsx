@@ -147,7 +147,7 @@ function CreateRoute() {
       checkpoints: data.attractions.map((attraction) => ({
         name: attraction.name,
         content: attraction.content,
-        address: attraction.address,
+        address: attraction.address.split(",")[0],
         checkpoint_gallery: attraction.images.map((img) => ({
           caption: img.caption,
           image_id: img.image_id,
@@ -155,8 +155,8 @@ function CreateRoute() {
           url: img.url,
         })),
         coordinates: {
-          latitude: 22.28617588, //attraction.poi.latitude
-          longitude: 114.14866131, //attraction.poi.longitude
+          latitude: attraction.poi.latitude,
+          longitude: attraction.poi.longitude,
         },
       })),
     };
@@ -224,6 +224,7 @@ function CreateRoute() {
               watch={watch}
               appendAttraction={append}
               remove={remove}
+              setValue={setValue}
               setAttractionImages={setAttractionImages}
               previewAttractions={previewAttractions}
               setPreviewAttractions={setPreviewAttractions}

@@ -4,6 +4,8 @@
 import { useState, useEffect, useCallback, useRef } from "react";
 import debounce from "lodash.debounce";
 import styles from "./LocationInput.module.css";
+import { UseFormSetValue } from "react-hook-form";
+import { Route } from "@/app/_types";
 
 type Suggestion = {
   display_name: string;
@@ -11,19 +13,13 @@ type Suggestion = {
   lon: string;
 };
 
-/* export default function LocationInput({
-  register,
-  getValues,
-  watch,
-  remove,
+export default function LocationInput({
+  setValue,
+  index,
 }: {
-  register: UseFormRegister<Route>;
-  getValues: UseFormGetValues<Route>;
-  watch: UseFormWatch<Route>;
-  remove: UseFieldArrayRemove;
-}); */
-
-export default function LocationInput() {
+  setValue: UseFormSetValue<Route>;
+  index: number;
+}) {
   const [query, setQuery] = useState("");
   const [suggestions, setSuggestions] = useState<Suggestion[]>([]);
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -49,7 +45,12 @@ export default function LocationInput() {
   const handleSelect = (item: Suggestion) => {
     setSelected(item);
     setQuery(item.display_name);
-    alert(`${item.lat},${item.lon}`);
+    setValue(`attractions.${index}.poi.latitude`, Number(item.lat));
+    setValue(`attractions.${index}.poi.longitude`, Number(item.lon));
+    setValue(
+      `attractions.${index}.address`,
+      item.display_name.split(",")[0] + ", " + item.display_name.split(",")[1]
+    );
 
     setSuggestions([]);
   };
