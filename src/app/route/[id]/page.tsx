@@ -66,6 +66,7 @@ function Route({ params }: RoutePageProps) {
   const [error, seterror] = useState(false);
   const [isCheckpointOpen, setIsCheckpointOpen] = useState(false);
   const [activeCheckpoint, setActiveCheckpoint] = useState(0);
+  const [activeIndex, setActiveIndex] = useState(0);
   const [routes, setRoutes] = useState<Route[]>([]);
 
   useEffect(() => {
@@ -143,16 +144,30 @@ function Route({ params }: RoutePageProps) {
 
           <div className={styles.imageSection}>
             <div className={styles.imageContainer}>
-              {data?.images[0]?.url && (
-                <Image
-                  src={
-                    process.env.NEXT_PUBLIC_MANY_ROADS_IMG + data.images[0].url
-                  }
-                  alt="background image"
-                  width={1000}
-                  height={1000}
-                  className={styles.bgImage}
-                />
+              {data?.images && (
+                <>
+                  <Image
+                    src={
+                      process.env.NEXT_PUBLIC_MANY_ROADS_IMG +
+                      data.images[activeIndex].url
+                    }
+                    alt="background image"
+                    width={1000}
+                    height={1000}
+                    className={styles.bgImage}
+                  />
+                  <div className={styles.indicators}>
+                    {data.images.map((_, i) => (
+                      <div
+                        key={i}
+                        onClick={() => setActiveIndex(i)}
+                        className={`${styles.indicator} ${
+                          i === activeIndex ? styles.active : ""
+                        }`}
+                      />
+                    ))}
+                  </div>
+                </>
               )}
             </div>
             <div className={styles.infoContainer}>
