@@ -25,6 +25,8 @@ function CreateRoute() {
   const [previewAttractions, setPreviewAttractions] = useState<
     PreviewAttraction[]
   >([]);
+  const [isStep1Allowed, setIsStep1Allowed] = useState<boolean>(false);
+  const [isStep2Allowed, setIsStep2Allowed] = useState<boolean>(false);
   const { register, handleSubmit, setValue, watch, getValues, control } =
     useForm<Route>({
       defaultValues: {
@@ -234,6 +236,7 @@ function CreateRoute() {
               setRouteImages={setRouteImages}
               previewRoute={previewRoute}
               setPreviewRoute={setPreviewRoute}
+              setIsAllowed={setIsStep1Allowed}
             />
           ) : currentStep === 2 ? (
             <Step2
@@ -246,6 +249,7 @@ function CreateRoute() {
               setAttractionImages={setAttractionImages}
               previewAttractions={previewAttractions}
               setPreviewAttractions={setPreviewAttractions}
+              setIsAllowed={setIsStep2Allowed}
             />
           ) : currentStep === 3 ? (
             <Step3
@@ -263,7 +267,10 @@ function CreateRoute() {
               <Button
                 label="Next ->"
                 className={styles.nextBtn}
-                onClick={() => setCurrentStep(2)}
+                onClick={() => {
+                  if (isStep1Allowed) setCurrentStep(2);
+                }}
+                variant={isStep1Allowed ? "primary" : "disabled"}
               />
             </div>
           ) : currentStep === 2 ? (
@@ -275,8 +282,11 @@ function CreateRoute() {
               />
               <Button
                 label="Next ->"
-                onClick={() => setCurrentStep(3)}
                 className={styles.nextBtn}
+                onClick={() => {
+                  if (isStep2Allowed) setCurrentStep(3);
+                }}
+                variant={isStep2Allowed ? "primary" : "disabled"}
               />
             </div>
           ) : currentStep === 3 ? (
@@ -289,7 +299,6 @@ function CreateRoute() {
               <Button
                 label="Publish"
                 className={styles.nextBtn}
-                // href="/dashboard"
                 onClick={handleSubmit(onSubmit)}
               />
             </div>
