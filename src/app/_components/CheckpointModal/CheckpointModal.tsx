@@ -1,4 +1,3 @@
-
 "use client";
 import React, { useState } from "react";
 import styles from "./CheckpointModal.module.css";
@@ -28,7 +27,6 @@ function CheckpointModal({
             images={checkpointData[checkpointNumber]?.images}
             activeImage={activeImage}
             setActiveImage={setActiveImage}
-
           />
         </div>
         <div className={styles.info}>
@@ -40,14 +38,14 @@ function CheckpointModal({
               {checkpointData[checkpointNumber]?.address}
             </div>
           </div>
-          <audio
+          {/* <audio
             controls
             src={
               process.env.NEXT_PUBLIC_MANY_ROADS_IMG +
               "/media/route_audio/156-year_History_of_the_City_of_Victoria-audio_ugh1ZvF.mp3"
             }
             className={styles.audioPlayer}
-          ></audio>
+          ></audio> */}
           <div
             className={`${styles.description}  ${
               isDescriptionOpen ? null : styles.close
@@ -79,7 +77,6 @@ function CheckpointModal({
               height={16}
               width={16}
               fill={checkpointNumber === 0 ? "#5c5c5c4d" : "0d0d0dff"}
-
             />
           </span>
           Previous

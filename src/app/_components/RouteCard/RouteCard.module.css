@@ -64,6 +64,7 @@
   flex-direction: column;
   gap: 10px;
   padding: 10px 0px;
+  max-width: 290px;
 }
 
 .title {
@@ -89,9 +90,8 @@
   white-space: nowrap;
   text-overflow: ellipsis;
   color: #757575;
-  display: flex;
-  align-items: center;
-  gap: 5px;
+  max-width: 280px;
+  width: 280px;
 }
 
 .profile {
