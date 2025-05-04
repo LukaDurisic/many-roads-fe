@@ -4,7 +4,7 @@
 import { useState, useEffect, useCallback, useRef } from "react";
 import debounce from "lodash.debounce";
 import styles from "./LocationInput.module.css";
-import { UseFormSetValue } from "react-hook-form";
+import { UseFormGetValues, UseFormSetValue } from "react-hook-form";
 import { Route } from "@/app/_types";
 
 type Suggestion = {
@@ -15,9 +15,11 @@ type Suggestion = {
 
 export default function LocationInput({
   setValue,
+  getValues,
   index,
 }: {
   setValue: UseFormSetValue<Route>;
+  getValues: UseFormGetValues<Route>;
   index: number;
 }) {
   const [query, setQuery] = useState("");
@@ -74,7 +76,7 @@ export default function LocationInput({
     <div className={styles.inputContainer} ref={wrapperRef}>
       <input
         type="text"
-        value={query}
+        value={query || getValues().attractions[index].address}
         onChange={handleChange}
         placeholder="Address"
         className={styles.input}

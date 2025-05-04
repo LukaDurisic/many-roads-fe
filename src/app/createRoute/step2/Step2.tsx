@@ -13,6 +13,7 @@ import { Route, AttractionImages, PreviewAttraction } from "@/app/_types";
 import CheckpointCreate from "@/app/_components/CheckpointCreate/CheckpointCreate";
 import PlusIcon from "../../assets/plus.svg";
 import Image from "next/image";
+import Map from "@/app/_components/Map/Map";
 
 function Step2({
   register,
@@ -64,6 +65,7 @@ function Step2({
             watch={watch}
             remove={remove}
             setValue={setValue}
+            getValues={getValues}
             index={index}
             setAttractionImages={setAttractionImages}
             previewAttractions={previewAttractions.find(
@@ -84,7 +86,9 @@ function Step2({
 
       <div className={styles.rightPane}>
         <div className={styles.mapPlaceholder}>
-          <div className={styles.mapImage} />
+          <div className={styles.map}>
+            <Map tourList={[getValues()]} isSingleRoute />
+          </div>
         </div>
       </div>
     </div>

@@ -7,6 +7,7 @@ import {
   UseFormRegister,
   UseFormSetValue,
   UseFieldArrayRemove,
+  UseFormGetValues,
 } from "react-hook-form";
 import { Route, AttractionImages, PreviewAttraction } from "@/app/_types";
 import TrashIcon from "../../assets/trash.svg";
@@ -23,6 +24,7 @@ function CheckpointCreate({
   watch,
   remove,
   setValue,
+  getValues,
   setAttractionImages,
   previewAttractions,
   setPreviewAttractions,
@@ -32,6 +34,7 @@ function CheckpointCreate({
   watch: UseFormWatch<Route>;
   remove: UseFieldArrayRemove;
   setValue: UseFormSetValue<Route>;
+  getValues: UseFormGetValues<Route>;
   setAttractionImages: React.Dispatch<React.SetStateAction<AttractionImages[]>>;
   previewAttractions: PreviewAttraction | undefined;
   setPreviewAttractions: React.Dispatch<
@@ -233,7 +236,11 @@ function CheckpointCreate({
             placeholder="Address"
             {...register(`attractions.${index}.address`)}
           /> */}
-          <LocationInput setValue={setValue} index={index} />
+          <LocationInput
+            setValue={setValue}
+            getValues={getValues}
+            index={index}
+          />
         </div>
       </div>
       <div className={styles.imageUpload}>
