@@ -101,6 +101,11 @@ function Route({ params }: RoutePageProps) {
 
   const attractions = data?.attractions || [];
 
+  const [isDescriptionOpen, setIsDescriptionOpen] = useState<boolean>(false);
+
+  const showMoreButtonVisible =
+    data?.description && data?.description.length > 200;
+
   return (
     <div className={styles.wrapper}>
       {isShareOpen && (
@@ -242,10 +247,21 @@ function Route({ params }: RoutePageProps) {
                   "/media/route_audio/156-year_History_of_the_City_of_Victoria-audio_ugh1ZvF.mp3"
                 }
               ></audio> */}
-              <div className={styles.descText}>
+              <div
+                className={`${styles.description}  ${
+                  isDescriptionOpen ? null : styles.close
+                }`}
+              >
                 {data?.description || "No description available."}
               </div>
-              <div className={styles.textToggle}>More</div>
+              {showMoreButtonVisible && (
+                <div
+                  className={styles.more}
+                  onClick={() => setIsDescriptionOpen(!isDescriptionOpen)}
+                >
+                  {!isDescriptionOpen ? "More" : "Less"}
+                </div>
+              )}
             </div>
           </div>
 
