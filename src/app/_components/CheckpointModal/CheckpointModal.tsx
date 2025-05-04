@@ -16,6 +16,10 @@ function CheckpointModal({
 }) {
   const [activeImage, setActiveImage] = useState<number>(0);
   const [isDescriptionOpen, setIsDescriptionOpen] = useState<boolean>(false);
+
+  const showMoreButtonVisible =
+    checkpointData[checkpointNumber]?.content.length > 200;
+
   return (
     <div className={styles.wrapper}>
       <div className={styles.content}>
@@ -53,12 +57,14 @@ function CheckpointModal({
           >
             {checkpointData[checkpointNumber]?.content}
           </div>
-          <div
-            className={styles.more}
-            onClick={() => setIsDescriptionOpen(!isDescriptionOpen)}
-          >
-            {!isDescriptionOpen ? "More" : "Less"}
-          </div>
+          {showMoreButtonVisible && (
+            <div
+              className={styles.more}
+              onClick={() => setIsDescriptionOpen(!isDescriptionOpen)}
+            >
+              {!isDescriptionOpen ? "More" : "Less"}
+            </div>
+          )}
         </div>
       </div>
       <div className={styles.btnsContainer}>
