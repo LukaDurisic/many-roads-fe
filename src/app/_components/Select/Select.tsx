@@ -48,7 +48,7 @@ const Select: React.FC<SelectProps> = ({ options, style }) => {
       {style === "city" ? (
         <div className={styles.customSelect} onClick={() => setIsOpen(!isOpen)}>
           <span className={styles.selectedText}>
-            {selectedOption ? selectedOption.label : "Select city"}
+            {selectedOption ? selectedOption.label : options[0].label}
           </span>
           <ArrowIconCity
             fill={"#0d0d0d"}
