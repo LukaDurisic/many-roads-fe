@@ -9,9 +9,10 @@ const buttonVariant = {
   primary: styles.primary,
   secondary: styles.secondary,
   tertiary: styles.tertiary,
+  disabled: styles.disabled,
 };
 
-type ButtonVariant = "primary" | "secondary" | "tertiary";
+type ButtonVariant = "primary" | "secondary" | "tertiary" | "disabled";
 
 interface ButtonProps {
   label?: string;

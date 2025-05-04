@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useEffect } from "react";
 import styles from "./Step2.module.css";
 import {
   UseFormRegister,
@@ -25,6 +25,7 @@ function Step2({
   setAttractionImages,
   previewAttractions,
   setPreviewAttractions,
+  setIsAllowed,
 }: {
   register: UseFormRegister<Route>;
   getValues: UseFormGetValues<Route>;
@@ -37,6 +38,7 @@ function Step2({
   setPreviewAttractions: React.Dispatch<
     React.SetStateAction<PreviewAttraction[]>
   >;
+  setIsAllowed: React.Dispatch<React.SetStateAction<boolean>>;
 }) {
   const addCheckpoint = () => {
     appendAttraction({
@@ -54,6 +56,45 @@ function Step2({
       },
     });
   };
+
+  useEffect(() => {
+    const attractions = getValues().attractions || [];
+
+    const isAllowed = attractions.every((attraction, index) => {
+      return (
+        attraction.name?.trim().length > 0 &&
+        attraction.address?.trim().length > 0 &&
+        attraction.content?.trim().length > 0 &&
+        String(attraction.poi?.latitude || "").length > 0 &&
+        String(attraction.poi?.longitude || "").length > 0 &&
+        previewAttractions[index]?.heroImage &&
+        previewAttractions[index]?.images.length > 0
+      );
+    });
+    setIsAllowed(isAllowed);
+  }, [getValues().attractions.length, JSON.stringify(previewAttractions)]);
+
+  useEffect(() => {
+    const subscription = watch(() => {
+      const attractions = getValues().attractions || [];
+
+      const isAllowed = attractions.every((attraction, index) => {
+        return (
+          attraction.name?.trim().length > 0 &&
+          attraction.address?.trim().length > 0 &&
+          attraction.content?.trim().length > 0 &&
+          String(attraction.poi?.latitude || "").length > 0 &&
+          String(attraction.poi?.longitude || "").length > 0 &&
+          previewAttractions[index]?.heroImage &&
+          previewAttractions[index]?.images.length > 0
+        );
+      });
+
+      setIsAllowed(isAllowed);
+    });
+
+    return () => subscription.unsubscribe();
+  }, [watch, getValues, JSON.stringify(previewAttractions)]);
 
   return (
     <div className={styles.stepWrapper}>

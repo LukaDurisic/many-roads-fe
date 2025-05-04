@@ -14,9 +14,9 @@ function DeleteCheckpointModal({
     <div className={styles.wrapper}>
       <div className={styles.heading}>Are you sure?</div>
       <div className={styles.description}>
-        Are you sure you want to delete all data for “Checkpoint 1“? By
-        continuing you will lose all informations that you entered about it
-        (including name, address, images and description).
+        Are you sure you want to delete all data for checkpoint? By continuing
+        you will lose all informations that you entered about it (including
+        name, address, images and description).
       </div>
       <div className={styles.btnsContainer}>
         <div className={styles.close} onClick={close}>

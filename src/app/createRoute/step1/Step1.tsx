@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import styles from "./Step1.module.css";
 import Image from "next/image";
 import AddImgIcon from "../../assets/addImage.svg";
@@ -38,6 +38,7 @@ const Step1 = ({
   setRouteImages,
   previewRoute,
   setPreviewRoute,
+  setIsAllowed,
 }: {
   register: UseFormRegister<Route>;
   getValues: UseFormGetValues<Route>;
@@ -46,11 +47,52 @@ const Step1 = ({
   setRouteImages: React.Dispatch<React.SetStateAction<File[]>>;
   previewRoute: string[];
   setPreviewRoute: React.Dispatch<React.SetStateAction<string[]>>;
+  setIsAllowed: React.Dispatch<React.SetStateAction<boolean>>;
 }) => {
   const [routeName, setRouteName] = useState<string>("");
   const [duration, setDuration] = useState<string>("");
   const [distance, setDistance] = useState<string>("");
   const [description, setDescription] = useState<string>("");
+
+  const watchFields = watch([
+    "categories",
+    "country",
+    "description",
+    "difficulty",
+    "distance",
+    "duration_est",
+    "name",
+    "province",
+    "type",
+  ]);
+
+  useEffect(() => {
+    const [
+      categories,
+      country,
+      description,
+      difficulty,
+      distance,
+      duration_est,
+      name,
+      province,
+      type,
+    ] = watchFields;
+
+    const isAllowed =
+      categories.length > 0 &&
+      country.length > 0 &&
+      description.length > 0 &&
+      difficulty.length > 0 &&
+      distance.length > 0 &&
+      duration_est.length > 0 &&
+      name.length > 0 &&
+      province.length > 0 &&
+      type.length > 0 &&
+      previewRoute.length > 0;
+
+    setIsAllowed(isAllowed);
+  }, [watchFields, previewRoute]);
 
   const selectedClassifications = watch("categories", []);
   const selectedAccessibilities = watch("accessibility", []);
