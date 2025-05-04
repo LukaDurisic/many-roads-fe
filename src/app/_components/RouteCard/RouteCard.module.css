@@ -25,6 +25,7 @@
   justify-content: center;
   padding: 5px;
   gap: 15px;
+  width: 280px;
 }
 
 .tags {
@@ -33,7 +34,7 @@
   justify-content: flex-start;
   align-items: center;
   gap: 5px;
-  width: 200px;
+  width: 210px;
 }
 
 .tag,
@@ -52,7 +53,10 @@
 
 .checkpointNumber {
   height: fit-content;
-  width: max-content;
+  width: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .descriptionContainer {
