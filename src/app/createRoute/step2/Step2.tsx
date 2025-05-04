@@ -7,6 +7,7 @@ import {
   UseFormWatch,
   UseFieldArrayAppend,
   UseFieldArrayRemove,
+  UseFormSetValue,
 } from "react-hook-form";
 import { Route, AttractionImages, PreviewAttraction } from "@/app/_types";
 import CheckpointCreate from "@/app/_components/CheckpointCreate/CheckpointCreate";
@@ -19,6 +20,7 @@ function Step2({
   watch,
   appendAttraction,
   remove,
+  setValue,
   setAttractionImages,
   previewAttractions,
   setPreviewAttractions,
@@ -28,6 +30,7 @@ function Step2({
   watch: UseFormWatch<Route>;
   appendAttraction: UseFieldArrayAppend<Route, "attractions">;
   remove: UseFieldArrayRemove;
+  setValue: UseFormSetValue<Route>;
   setAttractionImages: React.Dispatch<React.SetStateAction<AttractionImages[]>>;
   previewAttractions: PreviewAttraction[];
   setPreviewAttractions: React.Dispatch<
@@ -58,9 +61,9 @@ function Step2({
         {getValues().attractions.map((attraction, index) => (
           <CheckpointCreate
             register={register}
-            getValues={getValues}
             watch={watch}
             remove={remove}
+            setValue={setValue}
             index={index}
             setAttractionImages={setAttractionImages}
             previewAttractions={previewAttractions.find(

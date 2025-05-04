@@ -5,7 +5,7 @@ import Image from "next/image";
 import {
   UseFormWatch,
   UseFormRegister,
-  UseFormGetValues,
+  UseFormSetValue,
   UseFieldArrayRemove,
 } from "react-hook-form";
 import { Route, AttractionImages, PreviewAttraction } from "@/app/_types";
@@ -15,22 +15,23 @@ import LocationIcon from "@/app/assets/location";
 import AddImageIcon from "../../assets/addImage.svg";
 import Modal from "../Modal/Modal";
 import DeleteCheckpointModal from "../DeleteCheckpointModal/DeleteCheckpointModal";
+import LocationInput from "../LocationInput/LocationInput";
 
 function CheckpointCreate({
   index,
   register,
-  getValues,
   watch,
   remove,
+  setValue,
   setAttractionImages,
   previewAttractions,
   setPreviewAttractions,
 }: {
   index: number;
   register: UseFormRegister<Route>;
-  getValues: UseFormGetValues<Route>;
   watch: UseFormWatch<Route>;
   remove: UseFieldArrayRemove;
+  setValue: UseFormSetValue<Route>;
   setAttractionImages: React.Dispatch<React.SetStateAction<AttractionImages[]>>;
   previewAttractions: PreviewAttraction | undefined;
   setPreviewAttractions: React.Dispatch<
@@ -40,7 +41,6 @@ function CheckpointCreate({
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState<boolean>(false);
   const heroFileInputRef = useRef<HTMLInputElement>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
-  console.log(getValues);
 
   const handleHeroImageBoxClick = () => {
     heroFileInputRef.current?.click();
@@ -228,11 +228,12 @@ function CheckpointCreate({
           <span className={styles.icon}>
             <LocationIcon height={22} width={24} fill="#757575" />
           </span>
-          <input
+          {/*  <input
             className={styles.input}
             placeholder="Address"
             {...register(`attractions.${index}.address`)}
-          />
+          /> */}
+          <LocationInput setValue={setValue} index={index} />
         </div>
       </div>
       <div className={styles.imageUpload}>
