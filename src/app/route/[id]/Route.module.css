@@ -1,6 +1,7 @@
 .wrapper {
   display: flex;
   background-color: white;
+  padding-right: 60px;
 }
 
 .contentWrapper {
