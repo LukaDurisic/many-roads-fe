@@ -42,7 +42,12 @@ function Header({
           isReload={isReload}
           setIsReload={setIsReload}
         />
-        <Filters />
+        <Filters
+          routes={routes}
+          setRoutes={setRoutes}
+          // isReload={isReload}
+          // setIsReload={setIsReload}
+        />
       </div>
     </div>
   );

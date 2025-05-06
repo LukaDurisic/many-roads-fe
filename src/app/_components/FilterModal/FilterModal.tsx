@@ -9,6 +9,21 @@ import { usePathname, useRouter } from "next/navigation";
 
 const cityOptions = [{ value: "Hong Kong SAR", label: "Hong Kong SAR" }];
 
+const filterOptions = [
+  "Adventure",
+  "Culture",
+  "History",
+  "Heritage",
+  "Architecture",
+  "Art & Design",
+  "Culinary",
+  "Shopping",
+  "Leisure",
+  "Entertainment",
+  "Nature",
+  "Ecotourism",
+];
+
 export default function FilterModal({
   routes,
   setRoutes,
@@ -83,11 +98,17 @@ export default function FilterModal({
           ? accessibility.some((acc) => route.accessibility.includes(acc))
           : true;
 
+      const matchesClassification =
+        classification.length > 0
+          ? route.tags.some((tag) => classification.includes(tag))
+          : true;
+
       return (
         matchesDistance &&
         matchesDifficulty &&
         matchesType &&
-        matchesAccessibility
+        matchesAccessibility &&
+        matchesClassification
       );
     });
 
@@ -138,21 +159,19 @@ export default function FilterModal({
       <div className={styles.section}>
         <label className={styles.label}>Route Classification</label>
         <div>
-          {["Nearby", "Architecture", "Art", "History", "Nature", "Shop"].map(
-            (tag) => (
-              <button
-                key={tag}
-                className={`${styles.tag} ${
-                  classification.includes(tag) ? styles.active : ""
-                }`}
-                onClick={() =>
-                  handleToggle(tag, setClassification, classification)
-                }
-              >
-                {tag}
-              </button>
-            )
-          )}
+          {filterOptions.map((tag) => (
+            <button
+              key={tag}
+              className={`${styles.tag} ${
+                classification.includes(tag) ? styles.active : ""
+              }`}
+              onClick={() =>
+                handleToggle(tag, setClassification, classification)
+              }
+            >
+              {tag}
+            </button>
+          ))}
         </div>
       </div>
 
