@@ -1,10 +1,13 @@
 .wrapper {
   color: #000;
-  height: 44px;
+  height: 60px;
   display: flex;
   align-items: center;
   justify-content: flex-start;
   gap: 15px;
+  max-width: 100%;
+  overflow-x: scroll;
+  overflow-y: hidden;
 }
 
 .filter {
@@ -17,9 +20,28 @@
   letter-spacing: 0%;
   border-radius: 80px;
   cursor: pointer;
+  min-width: fit-content;
 }
 
 .filterSelected {
   color: white;
   background-color: #0d0d0d;
+}
+
+.wrapper::-webkit-scrollbar {
+  height: 4px;
+  cursor: pointer;
+}
+
+.wrapper::-webkit-scrollbar-thumb {
+  background-color: #e4e4e4;
+  border-radius: 2px;
+  cursor: pointer;
+}
+
+.wrapper::-webkit-scrollbar-track {
+  background: transparent;
+  margin-left: 5px;
+  margin-right: 5px;
+  cursor: pointer;
 }

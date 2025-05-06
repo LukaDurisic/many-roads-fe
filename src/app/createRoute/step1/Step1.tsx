@@ -14,11 +14,18 @@ import { Route } from "@/app/_types";
 import CustomDropdown from "@/app/_components/CustomSelect/CustomSelect";
 
 const classifications = [
-  "History",
   "Adventure",
-  "Sports",
-  "Entertainment",
+  "Culture",
+  "History",
+  "Heritage",
+  "Architecture",
+  "Art & Design",
   "Culinary",
+  "Shopping",
+  "Leisure",
+  "Entertainment",
+  "Nature",
+  "Ecotourism",
 ];
 const accessibilities = ["Child", "Pet", "Wheelchair", "Pram-friendly"];
 
