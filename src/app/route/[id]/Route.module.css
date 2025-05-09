@@ -407,3 +407,36 @@
   color: #0d0d0d;
   cursor: pointer;
 }
+
+.arrowLeft,
+.arrowRight {
+  position: absolute;
+  width: 30px;
+  height: 40px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(255, 255, 255, 0.703);
+  border: none;
+  font-size: 30px;
+  cursor: pointer;
+  z-index: 10;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #0d0d0d;
+}
+
+.arrowLeft {
+  left: 10px;
+}
+
+.arrowRight {
+  right: 10px;
+}
+
+.profileImg {
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+}

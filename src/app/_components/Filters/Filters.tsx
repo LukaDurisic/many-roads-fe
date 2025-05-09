@@ -21,13 +21,9 @@ const filters = [
 function Filters({
   routes,
   setRoutes,
-}: // isReload,
-// setIsReload,
-{
+}: {
   routes?: Route[];
   setRoutes?: React.Dispatch<React.SetStateAction<Route[]>>;
-  // isReload?: boolean;
-  // setIsReload?: React.Dispatch<React.SetStateAction<boolean>>;
 }) {
   const [selectedFilters, setSelectedFilters] = useState<string[]>([]);
 
@@ -40,12 +36,11 @@ function Filters({
 
     if (routes && setRoutes) {
       if (updatedFilters.length === 0) {
-        // If no filters selected, show all routes
         setRoutes(routes);
       } else {
         setRoutes(
           routes.filter((route) =>
-            route.tags.some((tag) => updatedFilters.includes(tag))
+            route.categories.some((tag) => updatedFilters.includes(tag))
           )
         );
       }

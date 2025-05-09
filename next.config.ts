@@ -9,6 +9,12 @@ const nextConfig: NextConfig = {
         port: "",
         pathname: "/media/images/**",
       },
+      {
+        protocol: "https",
+        hostname: "subway.pythonanywhere.com",
+        port: "",
+        pathname: "/media/image/**",
+      },
     ],
   },
   async headers() {

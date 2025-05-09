@@ -106,6 +106,16 @@ function Route({ params }: RoutePageProps) {
   const showMoreButtonVisible =
     data?.description && data?.description.length > 200;
 
+  useEffect(() => {
+    if (!data?.images || data.images.length === 0) return;
+
+    const interval = setInterval(() => {
+      setActiveIndex((prev) => (prev + 1) % data.images.length);
+    }, 5000);
+
+    return () => clearInterval(interval);
+  }, [data]);
+
   return (
     <div className={styles.wrapper}>
       {isShareOpen && (
@@ -161,6 +171,26 @@ function Route({ params }: RoutePageProps) {
                     height={1000}
                     className={styles.bgImage}
                   />
+
+                  <button
+                    onClick={() =>
+                      setActiveIndex((prev) =>
+                        prev === 0 ? data.images.length - 1 : prev - 1
+                      )
+                    }
+                    className={styles.arrowLeft}
+                  >
+                    ‹
+                  </button>
+                  <button
+                    onClick={() =>
+                      setActiveIndex((prev) => (prev + 1) % data.images.length)
+                    }
+                    className={styles.arrowRight}
+                  >
+                    ›
+                  </button>
+
                   <div className={styles.indicators}>
                     {data.images.map((_, i) => (
                       <div
@@ -299,10 +329,19 @@ function Route({ params }: RoutePageProps) {
             </div>
             <div className={styles.userProfile}>
               <div className={styles.profile}>
-                <Image alt="profile" src={ProfileIcon} />
-                {data?.creator
-                  ? `${data.creator.first_name} ${data.creator.last_name}`
-                  : "Unknown"}
+                <Image
+                  alt="profile"
+                  src={
+                    data?.creator.profile_image
+                      ? process.env.NEXT_PUBLIC_MANY_ROADS_IMG +
+                        data?.creator.profile_image
+                      : ProfileIcon
+                  }
+                  height={100}
+                  width={100}
+                  className={styles.profileImg}
+                />{" "}
+                {data?.creator ? `${data.creator.username}` : "Unknown"}
                 <Image alt="verify" src={VerifyIcon} />
               </div>
             </div>
