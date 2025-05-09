@@ -28,6 +28,7 @@ function ShareModal({ data }: { data: Route | undefined }) {
     total_attractions: data?.attractions.length || 0,
     distance: data?.distance || "No info",
     country: data?.country || "No info",
+    categories: data?.categories || [],
     tags: data?.tags || [],
     creator: {
       id: data?.creator.id || 1,
