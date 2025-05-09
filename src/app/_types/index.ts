@@ -122,6 +122,7 @@ export interface RouteCardProps {
   creator: Creator;
   images: Image[];
   country: string;
+  categories: string[];
 }
 
 export interface AttractionImages {

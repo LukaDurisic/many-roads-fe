@@ -28,7 +28,10 @@ function CheckpointModal({
             isNumberShowing={true}
             checkpointNumber={checkpointNumber}
             isSliderLeft={true}
-            images={checkpointData[checkpointNumber]?.images}
+            images={checkpointData[checkpointNumber]?.images?.slice(
+              1,
+              checkpointData[checkpointNumber]?.images?.length
+            )}
             activeImage={activeImage}
             setActiveImage={setActiveImage}
           />
@@ -55,7 +58,15 @@ function CheckpointModal({
               isDescriptionOpen ? null : styles.close
             }`}
           >
-            {checkpointData[checkpointNumber]?.content}
+            {checkpointData[checkpointNumber]?.content
+              ?.split("\n\n")
+              .map((para, index) => (
+                <p key={index}>
+                  {para}
+                  <br />
+                  <br />
+                </p>
+              ))}
           </div>
           {showMoreButtonVisible && (
             <div

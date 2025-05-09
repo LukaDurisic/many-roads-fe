@@ -6,7 +6,7 @@ import Search from "../Search/Search";
 import Filters from "../Filters/Filters";
 import { Route } from "@/app/_types";
 
-const testOptions = [{ label: "Hong Kong", value: "HongKong" }];
+const testOptions = [{ label: "Hong Kong SAR", value: "HongKongSar" }];
 
 function Header({
   numberOfRoutes,
@@ -42,12 +42,7 @@ function Header({
           isReload={isReload}
           setIsReload={setIsReload}
         />
-        <Filters
-          routes={routes}
-          setRoutes={setRoutes}
-          // isReload={isReload}
-          // setIsReload={setIsReload}
-        />
+        <Filters routes={routes} setRoutes={setRoutes} />
       </div>
     </div>
   );

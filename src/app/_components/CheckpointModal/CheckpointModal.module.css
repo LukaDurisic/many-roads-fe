@@ -40,6 +40,7 @@
   line-height: 28px;
   letter-spacing: 0px;
   color: #0d0d0d;
+  text-align: left;
 }
 
 .location {
@@ -52,8 +53,6 @@
 }
 
 .description {
-  display: flex;
-  justify-content: baseline;
   text-align: start;
 }
 

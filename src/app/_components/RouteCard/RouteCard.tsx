@@ -37,7 +37,7 @@ const RouteCard: React.FC<RouteCardCompProps> = ({
             )}
             <div className={styles.tagContainer}>
               <div className={styles.tags}>
-                {routeData.tags.map((tag, index) => (
+                {routeData.categories.map((tag, index) => (
                   <div key={index} className={styles.tag}>
                     {tag}
                   </div>
@@ -64,7 +64,18 @@ const RouteCard: React.FC<RouteCardCompProps> = ({
           </div>
           {isProfileShowing && (
             <div className={styles.profile}>
-              <Image alt="profile" src={ProfileIcon} />{" "}
+              <Image
+                alt="profile"
+                src={
+                  routeData?.creator.profile_image
+                    ? process.env.NEXT_PUBLIC_MANY_ROADS_IMG +
+                      routeData?.creator.profile_image
+                    : ProfileIcon
+                }
+                height={100}
+                width={100}
+                className={styles.profileImg}
+              />{" "}
               {routeData.creator.username}
             </div>
           )}

@@ -100,7 +100,7 @@ export default function FilterModal({
 
       const matchesClassification =
         classification.length > 0
-          ? route.tags.some((tag) => classification.includes(tag))
+          ? route.categories.some((tag) => classification.includes(tag))
           : true;
 
       return (
