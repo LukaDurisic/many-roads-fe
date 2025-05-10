@@ -20,6 +20,29 @@ function CheckpointModal({
   const showMoreButtonVisible =
     checkpointData[checkpointNumber]?.content.length > 200;
 
+  function convertLinks(text: string) {
+    const urlRegex = /(https?:\/\/[^\s]+)/g;
+    const parts = text.split(urlRegex);
+
+    return parts.map((part, i) => {
+      if (urlRegex.test(part)) {
+        return (
+          <a
+            key={i}
+            href={part}
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{ textDecoration: "underline", fontWeight: 700 }}
+          >
+            {part}
+          </a>
+        );
+      } else {
+        return part;
+      }
+    });
+  }
+
   return (
     <div className={styles.wrapper}>
       <div className={styles.content}>
@@ -62,7 +85,7 @@ function CheckpointModal({
               ?.split("\n\n")
               .map((para, index) => (
                 <p key={index}>
-                  {para}
+                  {convertLinks(para)}
                   <br />
                   <br />
                 </p>
