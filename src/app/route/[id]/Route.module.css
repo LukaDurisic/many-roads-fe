@@ -71,7 +71,6 @@
   width: 750px;
   height: 450px;
   background-color: #d9d9d9;
-  border-radius: 8px;
   position: relative;
   overflow: hidden;
 }
@@ -79,7 +78,6 @@
 .bgImage {
   width: 100%;
   height: 100%;
-  border-radius: 8px;
   object-fit: cover;
 }
 
@@ -161,6 +159,10 @@
   letter-spacing: 0px;
   vertical-align: middle;
   color: #0d0d0d;
+}
+
+.descTitle {
+  margin-bottom: 20px;
 }
 
 .accessOption {
@@ -406,6 +408,7 @@
   text-decoration: underline;
   color: #0d0d0d;
   cursor: pointer;
+  margin-top: 20px;
 }
 
 .arrowLeft,
