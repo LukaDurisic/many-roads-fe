@@ -15,7 +15,6 @@ import { z } from "zod";
 import imageCompression from "browser-image-compression";
 import { useCallback, useEffect, useRef, useState } from "react";
 import Image from "next/image";
-import { cn } from "./lib/utils";
 import ReactCrop, { Crop } from "react-image-crop";
 import "react-image-crop/dist/ReactCrop.css";
 import styles from "./Cropper.module.css";
