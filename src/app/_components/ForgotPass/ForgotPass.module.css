@@ -1,0 +1,105 @@
+.wrapper {
+  width: 415px;
+}
+
+.mrLogo {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.ph {
+  font-family: Inter;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 20px;
+  letter-spacing: 0%;
+  text-align: center;
+  color: #adadad;
+  margin: 30px 0px;
+}
+
+.inputContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  padding-bottom: 50px;
+}
+
+.input {
+  border: none;
+  background-color: transparent;
+  border-bottom: 1px solid #d9d9d9;
+  height: 40px;
+  color: #000;
+  font-family: Inter;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 20px;
+  letter-spacing: 0%;
+}
+
+.input::placeholder {
+  color: #d9d9d9;
+}
+
+.input:focus {
+  outline: none;
+  border-bottom: 3px solid #0d0d0d;
+}
+
+.input.error {
+  border-bottom: 2px solid #c11a1a;
+  color: #c11a1a;
+}
+
+input.error::placeholder,
+.input.errorPass,
+.errContainer {
+  color: #c11a1a;
+}
+
+.errContainer {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.label {
+  font-family: Inter;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 20px;
+  letter-spacing: 0.2px;
+  color: #0d0d0d;
+  margin-bottom: -20px;
+}
+
+.hiddenLabel {
+  visibility: hidden;
+  margin-bottom: -20px;
+}
+
+.label.error {
+  color: #c11a1a;
+}
+
+.link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-family: Inter;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 20px;
+  letter-spacing: -2%;
+  color: #0d0d0d;
+  margin-top: 30px;
+}
+
+.link:hover {
+  text-decoration: underline;
+}

@@ -1,16 +1,36 @@
 import React from "react";
 import styles from "./LogInComp.module.css";
 import Login from "@/app/_components/Login/Login";
+import Registration from "../Registration/Registration";
+import SelectLanguage from "../SelectLanguage/SelectLanguage";
+import VerifyEmail from "../VerifyEmail/VerifyEmail";
+import ForgotPass from "../ForgotPass/ForgotPass";
 
 interface LogInCompProps {
   formToRender: string;
+  setIsLangSelected?: React.Dispatch<React.SetStateAction<boolean>>;
+  setIsRegFilled?: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-function LogInComp({ formToRender }: LogInCompProps) {
+function LogInComp({
+  formToRender,
+  setIsLangSelected,
+  setIsRegFilled,
+}: LogInCompProps) {
   return (
     <div className={styles.loginWrapper}>
       <div className={styles.formWrapper}>
-        {formToRender === "logIn" ? <Login /> : null}
+        {formToRender === "logIn" ? (
+          <Login />
+        ) : formToRender === "registration" ? (
+          <Registration setIsRegFilled={setIsRegFilled} />
+        ) : formToRender === "lang" ? (
+          <SelectLanguage setIsLangSelected={setIsLangSelected} />
+        ) : formToRender === "verification" ? (
+          <VerifyEmail />
+        ) : formToRender === "forgotPass" ? (
+          <ForgotPass />
+        ) : null}
       </div>
       <div className={styles.textContainer}>
         <div className={styles.text}>Make your own journey.</div>
