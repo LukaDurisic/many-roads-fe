@@ -10,6 +10,7 @@ import LogoIcon from "../../assets/mrLogo.svg";
 import { useRouter } from "next/navigation";
 import { userLogIn } from "@/app/_services/client-api-requests";
 import { ClipLoader } from "react-spinners";
+import Link from "next/link";
 
 function Login() {
   const [showPassword, setShowPassword] = useState(false);
@@ -153,6 +154,9 @@ function Login() {
             </button>
           )}
         </div>
+        <Link className={styles.forgotPass} href="/forgot-password">
+          Forgot password?
+        </Link>
         {showInvalidError && (
           <div className={styles.errContainer}>
             <InfoIcon height={20} width={20} stroke="#C11A1A" />
@@ -164,6 +168,12 @@ function Login() {
         <Button variant="primary" onClick={() => logIn()}>
           {isLoading ? <ClipLoader color={"#fff"} size={30} /> : "LOG IN"}
         </Button>
+      </div>
+      <div className={styles.registration}>
+        <p className={styles.registrationP}>Don't have account?</p>{" "}
+        <Link className={styles.registrationLink} href="/registration">
+          Create account
+        </Link>
       </div>
     </>
   );

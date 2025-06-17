@@ -1,0 +1,31 @@
+.title {
+  font-family: Familjen Grotesk;
+  font-weight: 600;
+  font-size: 40px;
+  line-height: 46px;
+  letter-spacing: 0%;
+  color: #000;
+}
+
+.ph,
+.link {
+  font-family: Inter;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 20px;
+  letter-spacing: 0%;
+  color: #adadad;
+}
+
+.wrapper {
+  width: 80%;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.link {
+  font-weight: 600;
+  text-decoration: underline;
+}

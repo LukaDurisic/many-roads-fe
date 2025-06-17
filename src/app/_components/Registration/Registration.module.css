@@ -1,16 +1,9 @@
-.logInIcon {
+.mrLogo {
   width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-}
-
-.inputContainer {
-  width: 415px;
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
 }
 
 .title {
@@ -20,13 +13,26 @@
   font-size: 40px;
   line-height: 46px;
   letter-spacing: 0%;
+  margin-bottom: 20px;
+}
+
+.inputContainer {
+  width: 415px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  padding-bottom: 10px;
+}
+
+.btnContainer {
+  padding-top: 30px;
 }
 
 .input {
   border: none;
   background-color: transparent;
   border-bottom: 1px solid #d9d9d9;
-  height: 44px;
+  height: 40px;
   color: #000;
   font-family: Inter;
   font-weight: 400;
@@ -87,23 +93,6 @@ input.error::placeholder,
   cursor: pointer;
 }
 
-.logInBtn {
-  width: 415px;
-  height: 52px;
-  background-color: #969696;
-  color: white;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border-radius: 32px;
-  font-family: Inter;
-  font-weight: 600;
-  font-size: 16px;
-  line-height: 20px;
-  letter-spacing: 0%;
-  cursor: pointer;
-}
-
 .label {
   font-family: Inter;
   font-weight: 400;
@@ -123,14 +112,16 @@ input.error::placeholder,
   color: #c11a1a;
 }
 
-.registration {
+.login {
   display: flex;
   justify-content: center;
   align-items: center;
   gap: 5px;
+  margin-top: 10px;
 }
 
-.registrationP {
+.loginP,
+.info {
   font-family: Inter;
   font-weight: 400;
   font-size: 16px;
@@ -139,7 +130,7 @@ input.error::placeholder,
   color: #adadad;
 }
 
-.registrationLink {
+.loginLink {
   font-family: Inter;
   font-weight: 600;
   font-size: 16px;
@@ -148,18 +139,46 @@ input.error::placeholder,
   color: #000;
 }
 
-.forgotPass {
+.info {
+  max-width: 415px;
+}
+
+.tabs {
+  display: flex;
   width: 100%;
-  text-align: right;
+  align-items: center;
+  justify-content: center;
+}
+
+.tab,
+.activeTab {
   font-family: Inter;
-  font-weight: 400;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 16px;
+  letter-spacing: 0px;
+  text-align: center;
+  padding: 10px 15px;
+  border-bottom: 1px solid #f2f2f2;
+  color: #757575;
+  cursor: pointer;
+}
+
+.activeTab {
+  border-bottom: 2px solid #000;
+  color: #000;
+}
+
+.link {
+  font-family: Inter;
   font-size: 16px;
   line-height: 20px;
   letter-spacing: 0%;
   color: #adadad;
+  font-weight: 600;
+  text-decoration: underline;
 }
 
-.forgotPass:hover,
-.registrationLink:hover {
+.loginLink:hover {
   text-decoration: underline;
 }
