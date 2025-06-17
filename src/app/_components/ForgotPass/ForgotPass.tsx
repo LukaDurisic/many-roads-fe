@@ -41,7 +41,14 @@ function ForgotPass() {
           onBlur={() => setIsFocused(false)}
         />
       </div>
-      <Button variant="primary" onClick={() => {}}>
+      <Button
+        variant="primary"
+        onClick={() => {
+          if (email.length <= 0) {
+            setIsError(true);
+          }
+        }}
+      >
         {"SEND RESET LINK"}
       </Button>
       <Link href={"/"} className={styles.link}>
