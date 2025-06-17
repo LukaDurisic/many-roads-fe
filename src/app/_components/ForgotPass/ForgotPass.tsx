@@ -19,8 +19,8 @@ function ForgotPass() {
         <h1 className={styles.title}>Forgot password</h1>
       </div>
       <p className={styles.ph}>
-        All good. Enter your account’s email address and we’ll send you a link
-        to reset your password.
+        All good. Enter your account&apos;s email address and we&apos;ll send
+        you a link to reset your password.
       </p>
       <div className={styles.inputContainer}>
         <label

@@ -13,12 +13,12 @@ function VerifyEmail() {
       <br />
       <br />
       <p className={styles.ph}>
-        You're almost there! To complete your registration, please check your
-        inbox for a verification email and click the link inside.
+        You&apos;re almost there! To complete your registration, please check
+        your inbox for a verification email and click the link inside.
       </p>
       <br />
       <p className={styles.ph}>
-        Didn't get the email? Check your spam folder or{" "}
+        Didn&apos;t get the email? Check your spam folder or{" "}
         <Link className={styles.link} href={"#"}>
           Resend Verification Email.
         </Link>

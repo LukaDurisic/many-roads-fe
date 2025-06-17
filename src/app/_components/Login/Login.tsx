@@ -170,7 +170,7 @@ function Login() {
         </Button>
       </div>
       <div className={styles.registration}>
-        <p className={styles.registrationP}>Don't have account?</p>{" "}
+        <p className={styles.registrationP}>Don&apos;t have account?</p>{" "}
         <Link className={styles.registrationLink} href="/registration">
           Create account
         </Link>

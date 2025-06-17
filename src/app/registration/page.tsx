@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import LogInComp from "../_components/LoginComponent/LogInComp";
 
-function page() {
+function Page() {
   const [isLangSelected, setIsLangSelected] = useState(false);
   const [isRegFilled, setIsRegFilled] = useState(false);
   return (
@@ -21,4 +21,4 @@ function page() {
   );
 }
 
-export default page;
+export default Page;
