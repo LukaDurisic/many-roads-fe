@@ -7,7 +7,7 @@ function GallerySmall({ images }: { images: string[] | undefined }) {
     <div className={styles.wrapperLeft}>
       <div className={styles.slider}>
         {images && images.length > 0 && images.length < 4
-          ? images.map((image, index) => (
+          ? images.slice(1, images.length).map((image, index) => (
               <div className={styles.sliderImageSmall} key={index}>
                 <Image
                   src={image}
