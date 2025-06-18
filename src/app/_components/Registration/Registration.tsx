@@ -325,11 +325,11 @@ function Registration({
 
       <div className={styles.info}>
         By continuing, you agree to ManyRoads{" "}
-        <Link className={styles.link} href={"#"}>
+        <Link className={styles.link} href={"/terms-of-use"}>
           Terms of Use
         </Link>{" "}
         and{" "}
-        <Link className={styles.link} href={"#"}>
+        <Link className={styles.link} href={"/privacy-policy"}>
           Privacy Policy
         </Link>
       </div>
