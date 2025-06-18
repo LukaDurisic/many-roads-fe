@@ -114,3 +114,15 @@
   width: 30px;
   border-radius: 50%;
 }
+
+.aliner {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+}
+
+.info {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}

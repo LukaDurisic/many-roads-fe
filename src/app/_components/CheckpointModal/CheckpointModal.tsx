@@ -52,7 +52,7 @@ function CheckpointModal({
             checkpointNumber={checkpointNumber}
             isSliderLeft={true}
             images={checkpointData[checkpointNumber]?.images?.slice(
-              1,
+              2,
               checkpointData[checkpointNumber]?.images?.length
             )}
             activeImage={activeImage}

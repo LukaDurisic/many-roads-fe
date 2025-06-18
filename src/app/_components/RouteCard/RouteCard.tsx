@@ -59,8 +59,13 @@ const RouteCard: React.FC<RouteCardCompProps> = ({
             {routeData.country} | {routeData.start} –&gt; {routeData.end}
           </div>
           <div className={styles.info}>
-            <Image alt="profile" src={DistanceIcon} /> {routeData.distance} |{" "}
-            <Image alt="profile" src={TimeIcon} /> {routeData.duration_est}
+            <div className={styles.aliner}>
+              <Image alt="distance" src={DistanceIcon} /> {routeData.distance}
+            </div>{" "}
+            |{" "}
+            <div className={styles.aliner}>
+              <Image alt="clock" src={TimeIcon} /> {routeData.duration_est}
+            </div>
           </div>
           {isProfileShowing && (
             <div className={styles.profile}>
