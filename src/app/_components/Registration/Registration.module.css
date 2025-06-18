@@ -182,3 +182,7 @@ input.error::placeholder,
 .loginLink:hover {
   text-decoration: underline;
 }
+
+.disabled {
+  background-color: #cccccc;
+}

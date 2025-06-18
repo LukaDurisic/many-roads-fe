@@ -8,14 +8,18 @@ import ForgotPass from "../ForgotPass/ForgotPass";
 
 interface LogInCompProps {
   formToRender: string;
-  setIsLangSelected?: React.Dispatch<React.SetStateAction<boolean>>;
+  selectedLang?: number;
+  setSelectedLang?: React.Dispatch<React.SetStateAction<number>>;
   setIsRegFilled?: React.Dispatch<React.SetStateAction<boolean>>;
+  setRegAllowed?: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 function LogInComp({
   formToRender,
-  setIsLangSelected,
+  selectedLang,
+  setSelectedLang,
   setIsRegFilled,
+  setRegAllowed,
 }: LogInCompProps) {
   return (
     <div className={styles.loginWrapper}>
@@ -25,7 +29,11 @@ function LogInComp({
         ) : formToRender === "registration" ? (
           <Registration setIsRegFilled={setIsRegFilled} />
         ) : formToRender === "lang" ? (
-          <SelectLanguage setIsLangSelected={setIsLangSelected} />
+          <SelectLanguage
+            selectedLang={selectedLang}
+            setSelectedLang={setSelectedLang}
+            setRegAllowed={setRegAllowed}
+          />
         ) : formToRender === "verification" ? (
           <VerifyEmail />
         ) : formToRender === "forgotPass" ? (

@@ -19,16 +19,33 @@ function Registration({
     password: "",
     firstName: "",
     lastName: "",
+    organisation: "",
     repeatPassword: "",
   });
   const [showPassword, setShowPassword] = useState(false);
   const [showRepeatPassword, setShowRepeatPassword] = useState(false);
-
   const [selectedTab, setSelectedTab] = useState("traveler");
   const [focusedField, setFocusedField] = useState<string | null>(null);
   const [errors, setErrors] = useState<
     Partial<Record<keyof typeof registrationData, boolean>>
   >({});
+
+  const travelerFilled =
+    selectedTab === "traveler" &&
+    registrationData.email &&
+    registrationData.firstName &&
+    registrationData.lastName &&
+    registrationData.password &&
+    registrationData.password === registrationData.repeatPassword &&
+    registrationData.username;
+
+  const organisationFilled =
+    selectedTab === "organisation" &&
+    registrationData.email &&
+    registrationData.organisation &&
+    registrationData.password &&
+    registrationData.password === registrationData.repeatPassword &&
+    registrationData.username;
 
   const handleInputChange = (
     field: keyof typeof registrationData,
@@ -68,9 +85,11 @@ function Registration({
           Organisation
         </div>
       </div>
-      <div className={styles.inputContainer}>
-        <label
-          className={`
+      {selectedTab === "traveler" ? (
+        <>
+          <div className={styles.inputContainer}>
+            <label
+              className={`
             ${
               focusedField === "firstName" || registrationData.firstName
                 ? styles.label
@@ -78,22 +97,24 @@ function Registration({
             }
             ${errors.firstName ? styles.error : ""}
           `}
-        >
-          First Name
-        </label>
-        <input
-          type="text"
-          className={`${styles.input} ${errors.firstName ? styles.error : ""}`}
-          placeholder={focusedField === "firstName" ? "" : "First Name"}
-          value={registrationData.firstName}
-          onChange={(e) => handleInputChange("firstName", e.target.value)}
-          onFocus={() => handleFocus("firstName")}
-          onBlur={handleBlur}
-        />
-      </div>
-      <div className={styles.inputContainer}>
-        <label
-          className={`
+            >
+              First Name
+            </label>
+            <input
+              type="text"
+              className={`${styles.input} ${
+                errors.firstName ? styles.error : ""
+              }`}
+              placeholder={focusedField === "firstName" ? "" : "First Name"}
+              value={registrationData.firstName}
+              onChange={(e) => handleInputChange("firstName", e.target.value)}
+              onFocus={() => handleFocus("firstName")}
+              onBlur={handleBlur}
+            />
+          </div>
+          <div className={styles.inputContainer}>
+            <label
+              className={`
             ${
               focusedField === "lastName" || registrationData.lastName
                 ? styles.label
@@ -101,19 +122,49 @@ function Registration({
             }
             ${errors.lastName ? styles.error : ""}
           `}
-        >
-          Last Name
-        </label>
-        <input
-          type="text"
-          className={`${styles.input} ${errors.lastName ? styles.error : ""}`}
-          placeholder={focusedField === "lastName" ? "" : "Last Name"}
-          value={registrationData.lastName}
-          onChange={(e) => handleInputChange("lastName", e.target.value)}
-          onFocus={() => handleFocus("lastName")}
-          onBlur={handleBlur}
-        />
-      </div>
+            >
+              Last Name
+            </label>
+            <input
+              type="text"
+              className={`${styles.input} ${
+                errors.lastName ? styles.error : ""
+              }`}
+              placeholder={focusedField === "lastName" ? "" : "Last Name"}
+              value={registrationData.lastName}
+              onChange={(e) => handleInputChange("lastName", e.target.value)}
+              onFocus={() => handleFocus("lastName")}
+              onBlur={handleBlur}
+            />
+          </div>
+        </>
+      ) : (
+        <div className={styles.inputContainer}>
+          <label
+            className={`
+            ${
+              focusedField === "organisation" || registrationData.organisation
+                ? styles.label
+                : styles.hiddenLabel
+            }
+            ${errors.organisation ? styles.error : ""}
+          `}
+          >
+            Organisation
+          </label>
+          <input
+            type="text"
+            className={`${styles.input} ${
+              errors.organisation ? styles.error : ""
+            }`}
+            placeholder={focusedField === "organisation" ? "" : "Organisation"}
+            value={registrationData.organisation}
+            onChange={(e) => handleInputChange("organisation", e.target.value)}
+            onFocus={() => handleFocus("organisation")}
+            onBlur={handleBlur}
+          />
+        </div>
+      )}
       <div className={styles.inputContainer}>
         <label
           className={`
@@ -292,10 +343,13 @@ function Registration({
             //     newErrors[key as keyof typeof registrationData] = true;
             // });
             // setErrors(newErrors);
-            if (setIsRegFilled) {
+            if ((travelerFilled || organisationFilled) && setIsRegFilled) {
               setIsRegFilled(true);
             }
           }}
+          className={
+            !travelerFilled && !organisationFilled ? styles.disabled : undefined
+          }
         >
           {"CREATE ACCOUNT"}
         </Button>

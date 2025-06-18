@@ -3,19 +3,25 @@ import React, { useState } from "react";
 import LogInComp from "../_components/LoginComponent/LogInComp";
 
 function Page() {
-  const [isLangSelected, setIsLangSelected] = useState(false);
+  const [selectedLang, setSelectedLang] = useState(0);
+  const [regAllowed, setRegAllowed] = useState(false);
   const [isRegFilled, setIsRegFilled] = useState(false);
   return (
     <div>
-      {isLangSelected && !isRegFilled ? (
+      {regAllowed && !isRegFilled ? (
         <LogInComp
           formToRender="registration"
           setIsRegFilled={setIsRegFilled}
         />
-      ) : isLangSelected && isRegFilled ? (
+      ) : regAllowed && isRegFilled ? (
         <LogInComp formToRender="verification" />
       ) : (
-        <LogInComp formToRender="lang" setIsLangSelected={setIsLangSelected} />
+        <LogInComp
+          formToRender="lang"
+          selectedLang={selectedLang}
+          setSelectedLang={setSelectedLang}
+          setRegAllowed={setRegAllowed}
+        />
       )}
     </div>
   );
