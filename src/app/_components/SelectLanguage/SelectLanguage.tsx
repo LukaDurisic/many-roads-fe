@@ -5,9 +5,13 @@ import LogoIcon from "../../assets/mrLogo.svg";
 import Button from "@/app/_components/Button/Button";
 
 function SelectLanguage({
-  setIsLangSelected,
+  selectedLang,
+  setSelectedLang,
+  setRegAllowed,
 }: {
-  setIsLangSelected: React.Dispatch<React.SetStateAction<boolean>> | undefined;
+  selectedLang: number | undefined;
+  setSelectedLang: React.Dispatch<React.SetStateAction<number>> | undefined;
+  setRegAllowed: React.Dispatch<React.SetStateAction<boolean>> | undefined;
 }) {
   const languages = [
     {
@@ -32,7 +36,17 @@ function SelectLanguage({
       </div>
       <div className={styles.langContainer}>
         {languages.map((lang) => (
-          <div className={styles.langItem} key={lang.id}>
+          <div
+            className={`${styles.langItem} ${
+              selectedLang === lang.id ? styles.selectedLang : null
+            }`}
+            key={lang.id}
+            onClick={() => {
+              if (setSelectedLang) {
+                setSelectedLang(lang.id);
+              }
+            }}
+          >
             {lang.name}
           </div>
         ))}
@@ -40,10 +54,11 @@ function SelectLanguage({
       <Button
         variant="primary"
         onClick={() => {
-          if (setIsLangSelected) {
-            setIsLangSelected(true);
+          if (selectedLang !== 0 && setRegAllowed) {
+            setRegAllowed(true);
           }
         }}
+        className={selectedLang === 0 ? styles.disabled : undefined}
       >
         {"CONTINUE"}
       </Button>

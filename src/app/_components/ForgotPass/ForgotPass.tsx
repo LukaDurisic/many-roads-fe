@@ -48,6 +48,7 @@ function ForgotPass() {
             setIsError(true);
           }
         }}
+        className={email.length > 0 ? undefined : styles.disabled}
       >
         {"SEND RESET LINK"}
       </Button>

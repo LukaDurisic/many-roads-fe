@@ -103,3 +103,7 @@ input.error::placeholder,
 .link:hover {
   text-decoration: underline;
 }
+
+.disabled {
+  background-color: #cccccc;
+}
