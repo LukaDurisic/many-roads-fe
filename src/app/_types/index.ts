@@ -125,6 +125,13 @@ export interface RouteCardProps {
   categories: string[];
 }
 
+export interface UserInfoProps {
+  username: string | undefined;
+  profile_image: string | undefined;
+  date_added?: string | undefined;
+  country?: string | undefined;
+}
+
 export interface AttractionImages {
   attractionIndex: number;
   heroImage?: File;

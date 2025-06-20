@@ -1,0 +1,15 @@
+.wrapper {
+  display: flex;
+  background-color: white;
+}
+
+.container {
+  width: 100%;
+}
+
+.contentContainer {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding: 40px 40px 0;
+}

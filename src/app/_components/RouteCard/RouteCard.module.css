@@ -1,7 +1,7 @@
 .wrapper {
   width: 300px;
   padding: 10px;
-  background-color: #f3f3f3;
+  background-color: #fff;
   color: #0d0d0d;
 }
 
@@ -92,27 +92,6 @@
   color: #757575;
   max-width: 280px;
   width: 280px;
-}
-
-.profile {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  font-family: Inter;
-  font-weight: 600;
-  font-size: 12.41px;
-  line-height: 100%;
-  letter-spacing: 0px;
-  vertical-align: middle;
-  text-transform: capitalize;
-  border-top: 1px solid #e7e7e7;
-  padding-top: 10px;
-}
-
-.profileImg {
-  height: 30px;
-  width: 30px;
-  border-radius: 50%;
 }
 
 .aliner {

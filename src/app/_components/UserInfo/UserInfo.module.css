@@ -1,0 +1,125 @@
+.userSection {
+  width: 100%;
+  border-top: 1px solid #ececec;
+  display: flex;
+  flex-direction: column;
+  padding: 30px 0px;
+  gap: 20px;
+}
+
+.smallUserSection {
+  width: 100%;
+  border-top: 1px solid #ececec;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.bigUserSection {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.publishDate {
+  font-family: Inter;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 100%;
+  letter-spacing: 0px;
+  vertical-align: middle;
+  color: #757575;
+}
+
+.profile {
+  font-family: Inter;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 100%;
+  letter-spacing: 0px;
+  vertical-align: middle;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.profileCard {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: Inter;
+  font-weight: 600;
+  font-size: 12.41px;
+  line-height: 100%;
+  letter-spacing: 0px;
+  vertical-align: middle;
+  text-transform: capitalize;
+  border-top: 1px solid #e7e7e7;
+  padding-top: 10px;
+}
+
+.profileImg {
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+}
+
+.profileImgCard {
+  height: 30px;
+  width: 30px;
+  border-radius: 50%;
+}
+
+.profileImgBig {
+  height: 200px;
+  width: 200px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.profileCard {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: Inter;
+  font-weight: 600;
+  font-size: 12.41px;
+  line-height: 100%;
+  letter-spacing: 0px;
+  vertical-align: middle;
+  text-transform: capitalize;
+  padding-top: 10px;
+}
+
+.profileBig {
+  display: flex;
+  gap: 40px;
+}
+
+.bigUsernameSection {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 180px;
+}
+
+.bigUsername {
+  font-family: Inter;
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 32px;
+  letter-spacing: 0px;
+  color: #0d0d0d;
+}
+
+.bigCountry {
+  font-family: Inter;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
+  letter-spacing: 0.2px;
+  vertical-align: middle;
+  color: #757575;
+  margin-top: 5px;
+}

@@ -20,6 +20,7 @@ import {
 import type { Route } from "@/app/_types";
 import Map from "@/app/_components/Map/Map";
 import { ClipLoader } from "react-spinners";
+import UserInfo from "@/app/_components/UserInfo/UserInfo";
 
 const accessOptions = [
   { name: "child", checked: true },
@@ -321,30 +322,16 @@ function Route({ params }: RoutePageProps) {
                 ))}
             </div>
           </div>
-
-          <div className={styles.userSection}>
-            <div className={styles.publishDate}>
-              Published {data?.date_added ? formatDate(data.date_added) : "N/A"}
-            </div>
-            <div className={styles.userProfile}>
-              <div className={styles.profile}>
-                <Image
-                  alt="profile"
-                  src={
-                    data?.creator.profile_image
-                      ? process.env.NEXT_PUBLIC_MANY_ROADS_IMG +
-                        data?.creator.profile_image
-                      : ProfileIcon
-                  }
-                  height={100}
-                  width={100}
-                  className={styles.profileImg}
-                />{" "}
-                {data?.creator ? `${data.creator.username}` : "Unknown"}
-                <Image alt="verify" src={VerifyIcon} />
-              </div>
-            </div>
-          </div>
+          <UserInfo
+            data={{
+              username: data?.creator.username,
+              date_added: data?.date_added,
+              profile_image: data?.creator.profile_image,
+            }}
+            verify
+            date
+            variant="small"
+          />
         </div>
       </div>
     </div>
