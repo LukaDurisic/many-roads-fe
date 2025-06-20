@@ -7,8 +7,6 @@ import Image from "next/image";
 import ArrowIcon from "../../assets/arrowRight";
 import ShareIcon from "../../assets/share.svg";
 import CheckpointCard from "@/app/_components/CheckpointCard/CheckpointCard";
-import ProfileIcon from "../../assets/profile.svg";
-import VerifyIcon from "../../assets/verify.svg";
 import Link from "next/link";
 import ShareModal from "@/app/_components/ShareModal/ShareModal";
 import CheckpointModal from "@/app/_components/CheckpointModal/CheckpointModal";
@@ -28,32 +26,6 @@ const accessOptions = [
   { name: "wheelchair", checked: false },
   { name: "pram-friendly", checked: false },
 ];
-
-function formatDate(dateString: string): string {
-  const date = new Date(dateString);
-
-  const options: Intl.DateTimeFormatOptions = {
-    month: "long",
-    year: "numeric",
-  };
-
-  const day = date.getDate();
-  const dayWithSuffix =
-    day +
-    (day % 10 === 1 && day !== 11
-      ? "st"
-      : day % 10 === 2 && day !== 12
-      ? "nd"
-      : day % 10 === 3 && day !== 13
-      ? "rd"
-      : "th");
-
-  const formattedMonthYear = date.toLocaleDateString("en-US", options);
-
-  return `${formattedMonthYear.split(" ")[0]} ${dayWithSuffix}, ${
-    formattedMonthYear.split(" ")[1]
-  }`;
-}
 
 interface RoutePageProps {
   params: Promise<{
