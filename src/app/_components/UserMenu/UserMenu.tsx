@@ -24,20 +24,20 @@ import Link from "next/link";
 
 const userOptions = [
   {
+    label: "My profile",
+    value: "myProfile",
+    route: "/my-profile",
+  },
+  {
+    label: "Settings",
+    value: "settings",
+    route: "/settings",
+  },
+  {
     label: "Log out",
     value: "logOut",
     route: "/",
   },
-  // {
-  //   label: "Log out",
-  //   value: "logOut",
-  // route:"/"
-  // },
-  // {
-  //   label: "Log out",
-  //   value: "logOut",
-  // route:"/"
-  // },
 ];
 
 function UserMenu() {

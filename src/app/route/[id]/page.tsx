@@ -7,8 +7,6 @@ import Image from "next/image";
 import ArrowIcon from "../../assets/arrowRight";
 import ShareIcon from "../../assets/share.svg";
 import CheckpointCard from "@/app/_components/CheckpointCard/CheckpointCard";
-import ProfileIcon from "../../assets/profile.svg";
-import VerifyIcon from "../../assets/verify.svg";
 import Link from "next/link";
 import ShareModal from "@/app/_components/ShareModal/ShareModal";
 import CheckpointModal from "@/app/_components/CheckpointModal/CheckpointModal";
@@ -20,6 +18,7 @@ import {
 import type { Route } from "@/app/_types";
 import Map from "@/app/_components/Map/Map";
 import { ClipLoader } from "react-spinners";
+import UserInfo from "@/app/_components/UserInfo/UserInfo";
 
 const accessOptions = [
   { name: "child", checked: true },
@@ -27,32 +26,6 @@ const accessOptions = [
   { name: "wheelchair", checked: false },
   { name: "pram-friendly", checked: false },
 ];
-
-function formatDate(dateString: string): string {
-  const date = new Date(dateString);
-
-  const options: Intl.DateTimeFormatOptions = {
-    month: "long",
-    year: "numeric",
-  };
-
-  const day = date.getDate();
-  const dayWithSuffix =
-    day +
-    (day % 10 === 1 && day !== 11
-      ? "st"
-      : day % 10 === 2 && day !== 12
-      ? "nd"
-      : day % 10 === 3 && day !== 13
-      ? "rd"
-      : "th");
-
-  const formattedMonthYear = date.toLocaleDateString("en-US", options);
-
-  return `${formattedMonthYear.split(" ")[0]} ${dayWithSuffix}, ${
-    formattedMonthYear.split(" ")[1]
-  }`;
-}
 
 interface RoutePageProps {
   params: Promise<{
@@ -321,30 +294,16 @@ function Route({ params }: RoutePageProps) {
                 ))}
             </div>
           </div>
-
-          <div className={styles.userSection}>
-            <div className={styles.publishDate}>
-              Published {data?.date_added ? formatDate(data.date_added) : "N/A"}
-            </div>
-            <div className={styles.userProfile}>
-              <div className={styles.profile}>
-                <Image
-                  alt="profile"
-                  src={
-                    data?.creator.profile_image
-                      ? process.env.NEXT_PUBLIC_MANY_ROADS_IMG +
-                        data?.creator.profile_image
-                      : ProfileIcon
-                  }
-                  height={100}
-                  width={100}
-                  className={styles.profileImg}
-                />{" "}
-                {data?.creator ? `${data.creator.username}` : "Unknown"}
-                <Image alt="verify" src={VerifyIcon} />
-              </div>
-            </div>
-          </div>
+          <UserInfo
+            data={{
+              username: data?.creator.username,
+              date_added: data?.date_added,
+              profile_image: data?.creator.profile_image,
+            }}
+            verify
+            date
+            variant="small"
+          />
         </div>
       </div>
     </div>

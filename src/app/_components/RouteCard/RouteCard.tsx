@@ -1,11 +1,11 @@
 import React from "react";
 import styles from "./RouteCard.module.css";
 import Image from "next/image";
-import ProfileIcon from "../../assets/profile.svg";
 import DistanceIcon from "../../assets/distance.svg";
 import TimeIcon from "../../assets/time.svg";
 import Link from "next/link";
 import { RouteCardProps } from "@/app/_types";
+import UserInfo from "../UserInfo/UserInfo";
 
 interface RouteCardCompProps {
   routeData: RouteCardProps;
@@ -68,21 +68,15 @@ const RouteCard: React.FC<RouteCardCompProps> = ({
             </div>
           </div>
           {isProfileShowing && (
-            <div className={styles.profile}>
-              <Image
-                alt="profile"
-                src={
-                  routeData?.creator.profile_image
-                    ? process.env.NEXT_PUBLIC_MANY_ROADS_IMG +
-                      routeData?.creator.profile_image
-                    : ProfileIcon
-                }
-                height={100}
-                width={100}
-                className={styles.profileImg}
-              />{" "}
-              {routeData.creator.username}
-            </div>
+            <UserInfo
+              data={{
+                username: routeData?.creator.username,
+                profile_image: routeData?.creator.profile_image,
+              }}
+              variant="smallCard"
+              verify={false}
+              date={false}
+            />
           )}
         </div>
       </div>

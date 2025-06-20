@@ -7,6 +7,7 @@ import Button from "@/app/_components/Button/Button";
 import Link from "next/link";
 import ShowIcon from "../../assets/show";
 import HideIcon from "../../assets/hide";
+import Tabs from "../Tabs/Tabs";
 
 function Registration({
   setIsRegFilled,
@@ -69,22 +70,12 @@ function Registration({
         <Image alt="logo" src={LogoIcon} />
         <h1 className={styles.title}>Create account</h1>
       </div>
-      <div className={styles.tabs}>
-        <div
-          className={selectedTab === "traveler" ? styles.activeTab : styles.tab}
-          onClick={() => setSelectedTab("traveler")}
-        >
-          Traveler
-        </div>
-        <div
-          className={
-            selectedTab === "organisation" ? styles.activeTab : styles.tab
-          }
-          onClick={() => setSelectedTab("organisation")}
-        >
-          Organisation
-        </div>
-      </div>
+      <Tabs
+        options={["traveler", "organisation"]}
+        selectedTab={selectedTab}
+        setSelectedTab={setSelectedTab}
+        isCenter={true}
+      />
       {selectedTab === "traveler" ? (
         <>
           <div className={styles.inputContainer}>

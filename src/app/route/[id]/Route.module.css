@@ -326,36 +326,6 @@
   justify-content: flex-start;
 }
 
-.userSection {
-  width: 100%;
-  border-top: 1px solid #ececec;
-  display: flex;
-  flex-direction: column;
-  padding: 30px 0px;
-  gap: 20px;
-}
-
-.publishDate {
-  font-family: Inter;
-  font-weight: 400;
-  font-size: 14px;
-  line-height: 100%;
-  letter-spacing: 0px;
-  vertical-align: middle;
-  color: #757575;
-}
-
-.profile {
-  font-family: Inter;
-  font-weight: 600;
-  font-size: 14px;
-  line-height: 100%;
-  letter-spacing: 0px;
-  vertical-align: middle;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
 .indicators {
   position: absolute;
   bottom: 20px;
@@ -436,10 +406,4 @@
 
 .arrowRight {
   right: 10px;
-}
-
-.profileImg {
-  height: 40px;
-  width: 40px;
-  border-radius: 50%;
 }
