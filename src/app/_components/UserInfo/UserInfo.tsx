@@ -14,11 +14,13 @@ function UserInfo({
   date,
   verify,
   variant,
+  isInfoShowing = true,
 }: {
   data: UserInfoProps;
   date: boolean;
   verify: boolean;
   variant: "big" | "small" | "smallCard";
+  isInfoShowing?: boolean;
 }) {
   const [isImageOpen, setIsImageOpen] = useState(false);
   const [isEditOpen, setIsEditOpen] = useState(false);
@@ -82,25 +84,20 @@ function UserInfo({
               : styles.profileBig
           }
         >
-          <Image
-            alt="profile"
-            src={
-              data?.profile_image
-                ? process.env.NEXT_PUBLIC_MANY_ROADS_IMG + data?.profile_image
-                : ProfileIcon
-            }
-            height={100}
-            width={100}
-            className={
-              variant === "small"
-                ? styles.profileImg
-                : variant === "smallCard"
-                ? styles.profileImgCard
-                : styles.profileImgBig
-            }
-          />
-          {variant === "big" && (
-            <>
+          {variant === "big" ? (
+            <div className={styles.profileImageWrapper}>
+              <Image
+                alt="profile"
+                src={
+                  data?.profile_image
+                    ? process.env.NEXT_PUBLIC_MANY_ROADS_IMG +
+                      data?.profile_image
+                    : ProfileIcon
+                }
+                height={200}
+                width={200}
+                className={styles.profileImgBig}
+              />
               <Image
                 alt="image"
                 src={CameraIcon}
@@ -118,10 +115,25 @@ function UserInfo({
                   <div className={styles.option}>Remove image</div>
                 </div>
               )}
-            </>
+            </div>
+          ) : (
+            <Image
+              alt="profile"
+              src={
+                data?.profile_image
+                  ? process.env.NEXT_PUBLIC_MANY_ROADS_IMG + data?.profile_image
+                  : ProfileIcon
+              }
+              height={100}
+              width={100}
+              className={
+                variant === "small" ? styles.profileImg : styles.profileImgCard
+              }
+            />
           )}
+
           {variant !== "big" && data && data.username}
-          {variant === "big" && (
+          {variant === "big" && isInfoShowing && (
             <div className={styles.bigUsernameSection}>
               <div>
                 <div className={styles.bigUsername}>{data.username}</div>
