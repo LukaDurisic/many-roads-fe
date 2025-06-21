@@ -7,6 +7,7 @@ import VerifyIcon from "../../assets/verify.svg";
 import { UserInfoProps } from "@/app/_types";
 import DotsIcon from "@/app/assets/3dots.svg";
 import CameraIcon from "@/app/assets/camera.svg";
+import Link from "next/link";
 
 function UserInfo({
   data,
@@ -20,7 +21,7 @@ function UserInfo({
   variant: "big" | "small" | "smallCard";
 }) {
   const [isImageOpen, setIsImageOpen] = useState(false);
-  const [isEditOpen, setIsEditOpen] = useState(true);
+  const [isEditOpen, setIsEditOpen] = useState(false);
 
   function formatDate(dateString: string): string {
     const date = new Date(dateString);
@@ -139,7 +140,9 @@ function UserInfo({
               />
               {isEditOpen && (
                 <div className={styles.editMenu}>
-                  <div className={styles.option}>Edit profile</div>
+                  <Link href={"/settings"} className={styles.option}>
+                    Edit profile
+                  </Link>
                 </div>
               )}
             </div>

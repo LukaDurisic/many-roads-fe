@@ -129,8 +129,18 @@ const routes: RouteCardProps[] = [
 function MyRoutes() {
   return (
     <div className={styles.wrapper}>
-      <RouteList routes={routes} title="Published" />
-      <RouteList routes={routes} title="Drafts" />
+      {routes.length === 0 && (
+        <div className={styles.info}>
+          <div className={styles.title}>Nothing here yet!</div>
+          <div className={styles.description}>
+            Looks like you haven’t published any routes. Start by creating and{" "}
+            <br />
+            publishing a route to make it visible on your profile.
+          </div>
+        </div>
+      )}
+      {routes.length > 0 && <RouteList routes={routes} title="Published" />}
+      {routes.length > 0 && <RouteList routes={routes} title="Drafts" />}
     </div>
   );
 }
