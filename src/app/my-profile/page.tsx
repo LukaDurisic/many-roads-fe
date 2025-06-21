@@ -6,6 +6,9 @@ import Navbar from "../_components/Navbar/Navbar";
 import ProfileHeader from "../_components/ProfileHeader/ProfileHeader";
 import Tabs from "../_components/Tabs/Tabs";
 import MyRoutes from "../_components/MyRoutes/MyRoutes";
+import PlusIcon from "@/app/assets/whitePlus.svg";
+import Image from "next/image";
+import Link from "next/link";
 
 function MyProfile() {
   const [selectedTab, setSelectedTab] = useState("my routes");
@@ -25,6 +28,9 @@ function MyProfile() {
           </div>
           {selectedTab === "my routes" ? <MyRoutes /> : <></>}
         </div>
+        <Link href={"/createRoute"} className={styles.createBtn}>
+          <Image src={PlusIcon} alt="add" /> Create route
+        </Link>
       </div>
     </ProtectedRoute>
   );

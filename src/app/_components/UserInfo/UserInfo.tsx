@@ -1,10 +1,13 @@
-import React from "react";
+"use client";
+import React, { useState } from "react";
 import styles from "./UserInfo.module.css";
 import Image from "next/image";
 import ProfileIcon from "../../assets/profile.svg";
 import VerifyIcon from "../../assets/verify.svg";
 import { UserInfoProps } from "@/app/_types";
 import DotsIcon from "@/app/assets/3dots.svg";
+import CameraIcon from "@/app/assets/camera.svg";
+import Link from "next/link";
 
 function UserInfo({
   data,
@@ -17,6 +20,9 @@ function UserInfo({
   verify: boolean;
   variant: "big" | "small" | "smallCard";
 }) {
+  const [isImageOpen, setIsImageOpen] = useState(false);
+  const [isEditOpen, setIsEditOpen] = useState(false);
+
   function formatDate(dateString: string): string {
     const date = new Date(dateString);
 
@@ -92,7 +98,28 @@ function UserInfo({
                 ? styles.profileImgCard
                 : styles.profileImgBig
             }
-          />{" "}
+          />
+          {variant === "big" && (
+            <>
+              <Image
+                alt="image"
+                src={CameraIcon}
+                className={styles.camImg}
+                onClick={() => {
+                  setIsImageOpen(!isImageOpen);
+                  if (isEditOpen) {
+                    setIsEditOpen(false);
+                  }
+                }}
+              />
+              {isImageOpen && (
+                <div className={styles.imageMenu}>
+                  <div className={styles.option}>Add image</div>
+                  <div className={styles.option}>Remove image</div>
+                </div>
+              )}
+            </>
+          )}
           {variant !== "big" && data && data.username}
           {variant === "big" && (
             <div className={styles.bigUsernameSection}>
@@ -100,7 +127,24 @@ function UserInfo({
                 <div className={styles.bigUsername}>{data.username}</div>
                 <div className={styles.bigCountry}>{data.country}</div>
               </div>
-              <Image alt="more" src={DotsIcon} />
+              <Image
+                alt="more"
+                src={DotsIcon}
+                onClick={() => {
+                  setIsEditOpen(!isEditOpen);
+                  if (isImageOpen) {
+                    setIsImageOpen(false);
+                  }
+                }}
+                className={styles.editImg}
+              />
+              {isEditOpen && (
+                <div className={styles.editMenu}>
+                  <Link href={"/settings"} className={styles.option}>
+                    Edit profile
+                  </Link>
+                </div>
+              )}
             </div>
           )}
           {verify && <Image alt="verify" src={VerifyIcon} />}
