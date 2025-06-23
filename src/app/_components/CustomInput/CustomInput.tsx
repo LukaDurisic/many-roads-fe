@@ -70,7 +70,7 @@ const CustomInput: React.FC<CustomInputProps> = ({
             }
           }}
           readOnly={showLock}
-          onBlur={(e: FocusEvent<HTMLInputElement>) => setIsFocused(false)}
+          onBlur={() => setIsFocused(false)}
         />
 
         {isPassword && value.length > 0 && (
