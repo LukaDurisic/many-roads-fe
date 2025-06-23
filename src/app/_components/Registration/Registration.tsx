@@ -7,8 +7,6 @@ import Button from "@/app/_components/Button/Button";
 import Link from "next/link";
 import Tabs from "../Tabs/Tabs";
 import CustomInput from "@/app/_components/CustomInput/CustomInput";
-import ShowIcon from "../../assets/show";
-import HideIcon from "../../assets/hide";
 
 function Registration({
   setIsRegFilled,
@@ -29,8 +27,6 @@ function Registration({
   const [errors, setErrors] = useState<
     Partial<Record<keyof typeof registrationData, boolean>>
   >({});
-  const [showPassword, setShowPassword] = useState(false);
-  const [showRepeatPassword, setShowRepeatPassword] = useState(false);
 
   const handleInputChange = (
     field: keyof typeof registrationData,
@@ -109,7 +105,7 @@ function Registration({
       <div className={styles.passContainer}>
         <CustomInput
           label="Password"
-          type={showPassword ? "text" : "password"}
+          type={"password"}
           value={registrationData.password}
           onChange={(val) => handleInputChange("password", val)}
           showError={!!errors.password}
@@ -118,7 +114,7 @@ function Registration({
       <div className={styles.passContainer}>
         <CustomInput
           label="Repeat Password"
-          type={showRepeatPassword ? "text" : "password"}
+          type={"password"}
           value={registrationData.repeatPassword}
           onChange={(val) => handleInputChange("repeatPassword", val)}
           showError={!!errors.repeatPassword}
