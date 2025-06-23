@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, FocusEvent } from "react";
+import React, { useState } from "react";
 import styles from "./CustomInput.module.css";
 import ShowIcon from "../../assets/show";
 import HideIcon from "../../assets/hide";
