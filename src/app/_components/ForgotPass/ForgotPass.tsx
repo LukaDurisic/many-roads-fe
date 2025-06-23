@@ -6,9 +6,9 @@ import LogoIcon from "../../assets/mrLogo.svg";
 import Arrow from "../../assets/arrowRight";
 import Button from "@/app/_components/Button/Button";
 import Link from "next/link";
+import CustomInput from "../CustomInput/CustomInput";
 
 function ForgotPass() {
-  const [isFocused, setIsFocused] = useState(false);
   const [isError, setIsError] = useState(false);
   const [email, setEmail] = useState("");
 
@@ -22,25 +22,14 @@ function ForgotPass() {
         All good. Enter your account&apos;s email address and we&apos;ll send
         you a link to reset your password.
       </p>
-      <div className={styles.inputContainer}>
-        <label
-          className={`
-            ${isFocused ? styles.label : styles.hiddenLabel}
-            ${isError ? styles.error : ""}
-          `}
-        >
-          Email
-        </label>
-        <input
-          type="text"
-          className={`${styles.input} ${isError ? styles.error : ""}`}
-          placeholder={isFocused ? "" : "Email"}
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          onFocus={() => setIsFocused(true)}
-          onBlur={() => setIsFocused(false)}
-        />
-      </div>
+      <CustomInput
+        label="Email"
+        value={email}
+        onChange={setEmail}
+        showError={isError}
+      />
+      <br />
+      <br />
       <Button
         variant="primary"
         onClick={() => {
