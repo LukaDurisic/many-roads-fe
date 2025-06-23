@@ -9,7 +9,6 @@ import Link from "next/link";
 import CustomInput from "../CustomInput/CustomInput";
 
 function ForgotPass() {
-  const [isFocused, setIsFocused] = useState(false);
   const [isError, setIsError] = useState(false);
   const [email, setEmail] = useState("");
 
