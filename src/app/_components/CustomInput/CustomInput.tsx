@@ -6,6 +6,7 @@ import ShowIcon from "../../assets/show";
 import HideIcon from "../../assets/hide";
 import LockIcon from "../../assets/lock.svg";
 import Image from "next/image";
+import { Tooltip } from "react-tooltip";
 
 interface CustomInputProps {
   label: string;
@@ -96,13 +97,31 @@ const CustomInput: React.FC<CustomInputProps> = ({
         )}
 
         {showLock && (
-          <Image
-            src={LockIcon}
-            alt="lock"
-            height={22}
-            width={22}
-            className={styles.showPass}
-          />
+          <>
+            <Image
+              src={LockIcon}
+              alt="lock"
+              height={22}
+              width={22}
+              className={styles.showPass}
+              data-tooltip-id="lock-tooltip"
+              data-tooltip-content="This field can not be updated."
+            />
+            <Tooltip
+              id="lock-tooltip"
+              place="bottom"
+              style={{
+                backgroundColor: "#ffffff",
+                color: "#000000",
+                padding: "12px 18px",
+                borderRadius: "8px",
+                boxShadow: "0px 2px 8px rgba(0, 0, 0, 0.15)",
+                fontFamily: "Inter",
+                fontWeight: 500,
+                fontSize: "16px",
+              }}
+            />
+          </>
         )}
       </div>
     </div>

@@ -83,3 +83,45 @@
 .disabled {
   background-color: #cccccc;
 }
+
+.selectWrapper {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 10px;
+}
+
+.label {
+  font-family: Inter;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 20px;
+  letter-spacing: 0.2px;
+  color: #0d0d0d;
+}
+
+.select {
+  width: 400px;
+  padding: 12px 0px;
+  border: none;
+  color: #0d0d0d;
+  appearance: none;
+  cursor: pointer;
+  font-family: Inter;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 22px;
+  letter-spacing: 0.2px;
+}
+
+.selectFlex {
+  width: 415px;
+  border-bottom: 1px solid #d9d9d9;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-right: 14px;
+}
+
+.select:focus {
+  outline: none;
+}
