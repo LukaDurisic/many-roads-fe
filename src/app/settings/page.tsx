@@ -7,6 +7,7 @@ import Tabs from "../_components/Tabs/Tabs";
 import UserInfo from "../_components/UserInfo/UserInfo";
 import Button from "../_components/Button/Button";
 import CustomInput from "../_components/CustomInput/CustomInput";
+import ArrDown from "@/app/assets/arrDown";
 
 const userMock = {
   username: "Test user",
@@ -20,13 +21,29 @@ const userInputsMock = {
   country: "BiH",
   firstName: "Test",
   lastName: "user",
-  language: "Bosanski",
+  language: 1,
   email: "testis.livi@gmail.comdf",
   donationLink: "donate for 911",
 };
 
+const languageOptions = [
+  {
+    name: "English",
+    id: 1,
+  },
+  {
+    name: "繁體中文",
+    id: 2,
+  },
+  {
+    name: "简体中文",
+    id: 3,
+  },
+];
+
 function Settings() {
   const [selectedTab, setSelectedTab] = useState("edit profile");
+  const [isSelectOpen, setIsSelectOpen] = useState(false);
   const [isFormFilled, setIsFormFilled] = useState(false);
   const [userData, setUserData] = useState(
     //   {
@@ -81,21 +98,57 @@ function Settings() {
               <div className={styles.profileTitle}>My account</div>
               <div className={styles.form}>
                 {(Object.keys(userData) as (keyof typeof userData)[]).map(
-                  (field) => (
-                    <CustomInput
-                      key={field}
-                      label={field
-                        .replace(/([A-Z])/g, " $1")
-                        .replace(/^./, (s) => s.toUpperCase())}
-                      value={userData[field]}
-                      onChange={(val) => handleInputChange(field, val)}
-                      showError={errors[field]}
-                      type="text"
-                      showLock={field === "username" || field === "email"}
-                    />
-                  )
+                  (field) => {
+                    if (field === "language") {
+                      return (
+                        <div key={field} className={styles.selectWrapper}>
+                          <label className={styles.label}>Language</label>
+                          <div className={styles.selectFlex}>
+                            <select
+                              value={userData[field]}
+                              onChange={(e) =>
+                                handleInputChange(field, e.target.value)
+                              }
+                              className={styles.select}
+                              onFocus={() => setIsSelectOpen(true)}
+                              onBlur={() => setIsSelectOpen(false)}
+                            >
+                              {languageOptions.map((lang) => (
+                                <option key={lang.id} value={lang.id}>
+                                  {lang.name}
+                                </option>
+                              ))}
+                            </select>
+                            <ArrDown
+                              stroke="#0d0d0d"
+                              height="14px"
+                              width="14px"
+                              style={
+                                isSelectOpen ? undefined : { rotate: "180deg" }
+                              }
+                            />
+                          </div>
+                        </div>
+                      );
+                    } else {
+                      return (
+                        <CustomInput
+                          key={field}
+                          label={field
+                            .replace(/([A-Z])/g, " $1")
+                            .replace(/^./, (s) => s.toUpperCase())}
+                          value={userData[field]}
+                          onChange={(val) => handleInputChange(field, val)}
+                          showError={errors[field]}
+                          type="text"
+                          showLock={field === "username" || field === "email"}
+                        />
+                      );
+                    }
+                  }
                 )}
               </div>
+
               <Button
                 variant="primary"
                 onClick={() => {
