@@ -408,7 +408,7 @@ function Route({ params }: RoutePageProps) {
                         </div>
                         {review.images.length > 0 && (
                           <div className={styles.reviewImagesContainer}>
-                            {review.images.map((img) => (
+                            {review.images.map((img, index) => (
                               <Image
                                 src={
                                   process.env.NEXT_PUBLIC_MANY_ROADS_IMG + img
@@ -417,6 +417,7 @@ function Route({ params }: RoutePageProps) {
                                 height={116}
                                 width={77}
                                 className={styles.reviewImg}
+                                key={index}
                               />
                             ))}
                           </div>
