@@ -15,7 +15,7 @@ import {
   getAllRoutes,
   getSingleRoute,
 } from "@/app/_services/client-api-requests";
-import type { Route } from "@/app/_types";
+import type { Review, Route } from "@/app/_types";
 import Map from "@/app/_components/Map/Map";
 import { ClipLoader } from "react-spinners";
 import UserInfo from "@/app/_components/UserInfo/UserInfo";
@@ -141,7 +141,7 @@ function Route({ params }: RoutePageProps) {
     return () => clearInterval(interval);
   }, [data]);
 
-  const handleReportClick = (review: any) => {
+  const handleReportClick = (review: Review) => {
     if (review.isReported) {
       setIsReportedShowing((prev) => ({ ...prev, [review.id]: true }));
 
