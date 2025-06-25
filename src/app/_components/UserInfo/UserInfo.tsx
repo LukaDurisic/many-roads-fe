@@ -116,7 +116,7 @@ function UserInfo({
                 </div>
               )}
             </div>
-          ) : (
+          ) : variant === "smallCard" ? (
             <Image
               alt="profile"
               src={
@@ -126,13 +126,32 @@ function UserInfo({
               }
               height={100}
               width={100}
-              className={
-                variant === "small" ? styles.profileImg : styles.profileImgCard
-              }
+              className={styles.profileImgCard}
             />
+          ) : (
+            <div className={styles.smallImgAndUsr}>
+              <Image
+                alt="profile"
+                src={
+                  data?.profile_image
+                    ? process.env.NEXT_PUBLIC_MANY_ROADS_IMG +
+                      data?.profile_image
+                    : ProfileIcon
+                }
+                height={80}
+                width={80}
+                className={styles.profileImgSmall}
+              />
+              {data && (
+                <div className={styles.smallUsername}>
+                  {data.username}
+                  <Image alt="verify" src={VerifyIcon} />
+                </div>
+              )}
+            </div>
           )}
 
-          {variant !== "big" && data && data.username}
+          {variant === "smallCard" && data && data.username}
           {variant === "big" && isInfoShowing && (
             <div className={styles.bigUsernameSection}>
               <div>

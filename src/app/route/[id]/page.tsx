@@ -124,6 +124,9 @@ function Route({ params }: RoutePageProps) {
   const attractions = data?.attractions || [];
 
   const [isDescriptionOpen, setIsDescriptionOpen] = useState<boolean>(false);
+  const [isReportedShowing, setIsReportedShowing] = useState<{
+    [key: string]: boolean;
+  }>({});
 
   const showMoreButtonVisible =
     data?.description && data?.description.length > 200;
@@ -137,6 +140,16 @@ function Route({ params }: RoutePageProps) {
 
     return () => clearInterval(interval);
   }, [data]);
+
+  const handleReportClick = (review: any) => {
+    if (review.isReported) {
+      setIsReportedShowing((prev) => ({ ...prev, [review.id]: true }));
+
+      setTimeout(() => {
+        setIsReportedShowing((prev) => ({ ...prev, [review.id]: false }));
+      }, 3000);
+    }
+  };
 
   return (
     <div className={styles.wrapper}>
@@ -422,13 +435,21 @@ function Route({ params }: RoutePageProps) {
                             ))}
                           </div>
                         )}
-                        <div className={styles.report}>
+                        <div
+                          className={styles.report}
+                          onClick={() => handleReportClick(review)}
+                        >
                           {review.isReported ? (
                             <Image src={FlagIcon} alt="flag icon" />
                           ) : (
                             <Image src={FlagFilledIcon} alt="flag icon" />
                           )}
                           Report
+                          {isReportedShowing[review.id] && (
+                            <div className={styles.reportTooltip}>
+                              Review reported!
+                            </div>
+                          )}
                         </div>
                       </div>
                     ))
@@ -483,13 +504,21 @@ function Route({ params }: RoutePageProps) {
                             ))}
                           </div>
                         )}
-                        <div className={styles.report}>
+                        <div
+                          className={styles.report}
+                          onClick={() => handleReportClick(review)}
+                        >
                           {review.isReported ? (
                             <Image src={FlagIcon} alt="flag icon" />
                           ) : (
                             <Image src={FlagFilledIcon} alt="flag icon" />
                           )}
                           Report
+                          {isReportedShowing[review.id] && (
+                            <div className={styles.reportTooltip}>
+                              Review reported!
+                            </div>
+                          )}
                         </div>
                       </div>
                     ))}

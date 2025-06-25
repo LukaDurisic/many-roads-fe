@@ -420,7 +420,7 @@
 }
 
 .userInfo {
-  margin-right: 60px;
+  margin: 0px 30px;
 }
 
 .reviewsContainer {
@@ -526,6 +526,7 @@
   gap: 5px;
   margin-top: 10px;
   cursor: pointer;
+  height: 35px;
 }
 
 .showAll {
@@ -537,4 +538,18 @@
   text-decoration: underline;
   color: #0d0d0d;
   cursor: pointer;
+}
+
+.reportTooltip {
+  background-color: #fff;
+  color: #0d0d0d;
+  font-family: Inter;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 24px;
+  letter-spacing: 0.2px;
+  padding: 10px 16px;
+  border-radius: 8px;
+  box-shadow: 0px 2px 12px 0px #00000014;
+  margin-left: 20px;
 }
