@@ -15,10 +15,13 @@ import {
   getAllRoutes,
   getSingleRoute,
 } from "@/app/_services/client-api-requests";
-import type { Route } from "@/app/_types";
+import type { Review, Route } from "@/app/_types";
 import Map from "@/app/_components/Map/Map";
 import { ClipLoader } from "react-spinners";
 import UserInfo from "@/app/_components/UserInfo/UserInfo";
+import Star from "@/app/assets/star";
+import FlagIcon from "@/app/assets/flag.svg";
+import FlagFilledIcon from "@/app/assets/flagFilled.svg";
 
 const accessOptions = [
   { name: "child", checked: true },
@@ -26,6 +29,52 @@ const accessOptions = [
   { name: "wheelchair", checked: false },
   { name: "pram-friendly", checked: false },
 ];
+
+const reviewsData = {
+  average: 4.5,
+  reviewsCount: 245,
+  reviews: [
+    {
+      id: 1,
+      username: "Amanda Big",
+      stars: 4,
+      createdAt: "1 month ago",
+      description:
+        "This urban walking route offers a rich and engaging journey through some of Hong Kong’s most iconic architectural landscapes. Starting in the historic heart of Central, the walk weaves past colonial-era buildings, sleek modern skyscrapers, and tucked-away heritage gems as it moves toward Wan Chai.",
+      profileImg:
+        "/media/images/156-year_History_of_the_City_of_Victoria-image_3H6uIjj.jpg",
+      images: [
+        "/media/images/156-year_History_of_the_City_of_Victoria-image_3H6uIjj.jpg",
+        "/media/images/156-year_History_of_the_City_of_Victoria-image_3H6uIjj.jpg",
+      ],
+      isReported: true,
+    },
+    {
+      id: 2,
+      username: "Sing Chan",
+      stars: 5,
+      createdAt: "2 days ago",
+      description:
+        "An easy walk that cycles around some of the most iconic architectures in the city. Now I’ve learnt to appreciate historic sites even more.",
+      profileImg:
+        "/media/images/156-year_History_of_the_City_of_Victoria-image_3H6uIjj.jpg",
+      images: [],
+      isReported: false,
+    },
+    {
+      id: 3,
+      username: "Sing Chan 2",
+      stars: 5,
+      createdAt: "2 days ago",
+      description:
+        "An easy walk that cycles around some of the most iconic architectures in the city. Now I’ve learnt to appreciate historic sites even more.",
+      profileImg:
+        "/media/images/156-year_History_of_the_City_of_Victoria-image_3H6uIjj.jpg",
+      images: [],
+      isReported: false,
+    },
+  ],
+};
 
 interface RoutePageProps {
   params: Promise<{
@@ -37,6 +86,7 @@ function Route({ params }: RoutePageProps) {
   const [isShareOpen, setIsShareOpen] = useState(false);
   const [error, seterror] = useState(false);
   const [isCheckpointOpen, setIsCheckpointOpen] = useState(false);
+  const [showAllReviews, setShowAllReviews] = useState(false);
   const [activeCheckpoint, setActiveCheckpoint] = useState(0);
   const [activeIndex, setActiveIndex] = useState(0);
   const [routes, setRoutes] = useState<Route[]>([]);
@@ -74,6 +124,9 @@ function Route({ params }: RoutePageProps) {
   const attractions = data?.attractions || [];
 
   const [isDescriptionOpen, setIsDescriptionOpen] = useState<boolean>(false);
+  const [isReportedShowing, setIsReportedShowing] = useState<{
+    [key: string]: boolean;
+  }>({});
 
   const showMoreButtonVisible =
     data?.description && data?.description.length > 200;
@@ -87,6 +140,16 @@ function Route({ params }: RoutePageProps) {
 
     return () => clearInterval(interval);
   }, [data]);
+
+  const handleReportClick = (review: Review) => {
+    if (review.isReported) {
+      setIsReportedShowing((prev) => ({ ...prev, [review.id]: true }));
+
+      setTimeout(() => {
+        setIsReportedShowing((prev) => ({ ...prev, [review.id]: false }));
+      }, 3000);
+    }
+  };
 
   return (
     <div className={styles.wrapper}>
@@ -294,16 +357,184 @@ function Route({ params }: RoutePageProps) {
                 ))}
             </div>
           </div>
-          <UserInfo
-            data={{
-              username: data?.creator.username,
-              date_added: data?.date_added,
-              profile_image: data?.creator.profile_image,
-            }}
-            verify
-            date
-            variant="small"
-          />
+          <div className={styles.reviewSection}>
+            <div className={styles.userInfo}>
+              <UserInfo
+                data={{
+                  username: data?.creator.username,
+                  date_added: data?.date_added,
+                  profile_image: data?.creator.profile_image,
+                }}
+                isInfoShowing={false}
+                verify={false}
+                date
+                variant="small"
+              />
+            </div>
+            <div className={styles.reviewsContainer}>
+              <div className={styles.reviewHeader}>
+                <div className={styles.average}>
+                  {reviewsData.average}{" "}
+                  <Star fill="#0d0d0d" height={24} width={20} />
+                </div>
+                <div className={styles.revCount}>
+                  {reviewsData.reviewsCount}{" "}
+                  {reviewsData.reviewsCount === 1 ? "review" : "reviews"}
+                </div>
+              </div>
+              <div className={styles.reviews}>
+                {showAllReviews
+                  ? reviewsData.reviews.map((review) => (
+                      <div key={review.id} className={styles.review}>
+                        <div className={styles.userData}>
+                          <Image
+                            src={
+                              process.env.NEXT_PUBLIC_MANY_ROADS_IMG +
+                              review.profileImg
+                            }
+                            alt="profile image"
+                            className={styles.userImg}
+                            height={48}
+                            width={48}
+                          />
+                          <div className={styles.userRight}>
+                            <div className={styles.username}>
+                              {review.username}
+                            </div>
+                            <div className={styles.bottomContainer}>
+                              {Array.from({ length: review.stars }).map(
+                                (_, index) => (
+                                  <Star
+                                    key={index}
+                                    width={18}
+                                    height={18}
+                                    fill="#FFDD00"
+                                  />
+                                )
+                              )}
+                              {review.createdAt}
+                            </div>
+                          </div>
+                        </div>
+                        <div className={styles.revDescription}>
+                          {review.description}
+                        </div>
+                        {review.images.length > 0 && (
+                          <div className={styles.reviewImagesContainer}>
+                            {review.images.map((img, index) => (
+                              <Image
+                                src={
+                                  process.env.NEXT_PUBLIC_MANY_ROADS_IMG + img
+                                }
+                                alt="review image"
+                                height={116}
+                                width={77}
+                                className={styles.reviewImg}
+                                key={index}
+                              />
+                            ))}
+                          </div>
+                        )}
+                        <div
+                          className={styles.report}
+                          onClick={() => handleReportClick(review)}
+                        >
+                          {review.isReported ? (
+                            <Image src={FlagIcon} alt="flag icon" />
+                          ) : (
+                            <Image src={FlagFilledIcon} alt="flag icon" />
+                          )}
+                          Report
+                          {isReportedShowing[review.id] && (
+                            <div className={styles.reportTooltip}>
+                              Review reported!
+                            </div>
+                          )}
+                        </div>
+                      </div>
+                    ))
+                  : reviewsData.reviews.slice(0, 2).map((review) => (
+                      <div key={review.id} className={styles.review}>
+                        <div className={styles.userData}>
+                          <Image
+                            src={
+                              process.env.NEXT_PUBLIC_MANY_ROADS_IMG +
+                              review.profileImg
+                            }
+                            alt="profile image"
+                            className={styles.userImg}
+                            height={48}
+                            width={48}
+                          />
+                          <div className={styles.userRight}>
+                            <div className={styles.username}>
+                              {review.username}
+                            </div>
+                            <div className={styles.bottomContainer}>
+                              {Array.from({ length: review.stars }).map(
+                                (_, index) => (
+                                  <Star
+                                    key={index}
+                                    width={18}
+                                    height={18}
+                                    fill="#FFDD00"
+                                  />
+                                )
+                              )}
+                              {review.createdAt}
+                            </div>
+                          </div>
+                        </div>
+                        <div className={styles.revDescription}>
+                          {review.description}
+                        </div>
+                        {review.images.length > 0 && (
+                          <div className={styles.reviewImagesContainer}>
+                            {review.images.map((img, index) => (
+                              <Image
+                                src={
+                                  process.env.NEXT_PUBLIC_MANY_ROADS_IMG + img
+                                }
+                                alt="review image"
+                                height={116}
+                                width={77}
+                                className={styles.reviewImg}
+                                key={index}
+                              />
+                            ))}
+                          </div>
+                        )}
+                        <div
+                          className={styles.report}
+                          onClick={() => handleReportClick(review)}
+                        >
+                          {review.isReported ? (
+                            <Image src={FlagIcon} alt="flag icon" />
+                          ) : (
+                            <Image src={FlagFilledIcon} alt="flag icon" />
+                          )}
+                          Report
+                          {isReportedShowing[review.id] && (
+                            <div className={styles.reportTooltip}>
+                              Review reported!
+                            </div>
+                          )}
+                        </div>
+                      </div>
+                    ))}
+                {!showAllReviews && (
+                  <div
+                    className={styles.showAll}
+                    onClick={() => {
+                      setShowAllReviews(true);
+                    }}
+                  >
+                    Show all reviews
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>

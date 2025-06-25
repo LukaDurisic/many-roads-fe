@@ -132,6 +132,17 @@ export interface UserInfoProps {
   country?: string | undefined;
 }
 
+export interface Review {
+  id: number;
+  username: string;
+  stars: number;
+  createdAt: string;
+  description: string;
+  profileImg: string;
+  images: string[] | [];
+  isReported: boolean;
+}
+
 export interface AttractionImages {
   attractionIndex: number;
   heroImage?: File;
