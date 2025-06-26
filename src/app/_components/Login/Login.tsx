@@ -9,8 +9,10 @@ import { userLogIn } from "@/app/_services/client-api-requests";
 import { ClipLoader } from "react-spinners";
 import Link from "next/link";
 import CustomInput from "../CustomInput/CustomInput";
-
+// import "@/app/_translation/i18n";
+import { useTranslation } from "react-i18next";
 function Login() {
+  const { t } = useTranslation();
   const [isLoading, setIsLoading] = useState(false);
   const [showErrorName, setShowErrorName] = useState(false);
   const [showErrorPass, setShowErrorPass] = useState(false);
@@ -64,23 +66,23 @@ function Login() {
     <>
       <div className={styles.logInIcon}>
         <Image alt="logo" src={LogoIcon} />
-        <h1 className={styles.title}>Welcome back!</h1>
+        <h1 className={styles.title}>{t("welcomeBack")}</h1>
       </div>
       <div className={styles.inpContainer}>
         <CustomInput
-          label="Email"
+          label={t("email")}
           value={username}
           onChange={(val) => {
             setUsername(val);
             setShowErrorName(false);
             setShowInvalidError(false);
           }}
-          placeholder="Email"
+          placeholder={t("email")}
           showError={showErrorName}
           showInvalidError={showInvalidError}
         />
         <CustomInput
-          label="Password"
+          label={t("password")}
           type="password"
           value={password}
           onChange={(val) => {
@@ -88,23 +90,23 @@ function Login() {
             setShowErrorPass(false);
             setShowInvalidError(false);
           }}
-          placeholder="Password"
+          placeholder={t("password")}
           showError={showErrorPass}
           showInvalidError={showInvalidError}
         />
       </div>
       <Link className={styles.forgotPass} href="/forgot-password">
-        Forgot password?
+        {t("forgotPassword")}
       </Link>
       <div className={styles.logInBtn}>
         <Button variant="primary" onClick={() => logIn()}>
-          {isLoading ? <ClipLoader color={"#fff"} size={30} /> : "LOG IN"}
+          {isLoading ? <ClipLoader color={"#fff"} size={30} /> : t("logIn")}
         </Button>
       </div>
       <div className={styles.registration}>
-        <p className={styles.registrationP}>Don&apos;t have account?</p>{" "}
+        <p className={styles.registrationP}>{t("dontHaveAcc")}</p>{" "}
         <Link className={styles.registrationLink} href="/registration">
-          Create account
+          {t("createAcc")}
         </Link>
       </div>
     </>

@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import styles from "./LogInComp.module.css";
 import Login from "@/app/_components/Login/Login";
@@ -5,6 +6,8 @@ import Registration from "../Registration/Registration";
 import SelectLanguage from "../SelectLanguage/SelectLanguage";
 import VerifyEmail from "../VerifyEmail/VerifyEmail";
 import ForgotPass from "../ForgotPass/ForgotPass";
+import "@/app/_translation/i18n";
+import { useTranslation } from "react-i18next";
 
 interface LogInCompProps {
   formToRender: string;
@@ -21,6 +24,7 @@ function LogInComp({
   setIsRegFilled,
   setRegAllowed,
 }: LogInCompProps) {
+  const { t } = useTranslation();
   return (
     <div className={styles.loginWrapper}>
       <div className={styles.formWrapper}>
@@ -41,8 +45,8 @@ function LogInComp({
         ) : null}
       </div>
       <div className={styles.textContainer}>
-        <div className={styles.text}>Make your own journey.</div>
-        <div className={styles.text}>Travel by manyroads.</div>
+        <div className={styles.text}>{t("makeYourJourney")}</div>
+        <div className={styles.text}>{t("travelBy")}</div>
       </div>
     </div>
   );
