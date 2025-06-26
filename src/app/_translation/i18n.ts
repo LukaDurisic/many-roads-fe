@@ -4,7 +4,7 @@ import enLanguage from "@/app/_translation/langs/en.json";
 import tsLanguage from "@/app/_translation/langs/ts.json";
 import scLanguage from "@/app/_translation/langs/sc.json";
 
-const browserLang = navigator.language.toLowerCase();
+// const browserLang = navigator.language.toLowerCase();
 
 // let appLang: "en" | "sc" | "tc" = "en";
 
