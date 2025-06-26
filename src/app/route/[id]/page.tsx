@@ -22,6 +22,7 @@ import UserInfo from "@/app/_components/UserInfo/UserInfo";
 import Star from "@/app/assets/star";
 import FlagIcon from "@/app/assets/flag.svg";
 import FlagFilledIcon from "@/app/assets/flagFilled.svg";
+import Gallery from "@/app/_components/Gallery/Gallery";
 
 const accessOptions = [
   { name: "child", checked: true },
@@ -44,7 +45,7 @@ const reviewsData = {
       profileImg:
         "/media/images/156-year_History_of_the_City_of_Victoria-image_3H6uIjj.jpg",
       images: [
-        "/media/images/156-year_History_of_the_City_of_Victoria-image_3H6uIjj.jpg",
+        "/media/images/Battle_of_the_Egg_Tarts_-_Causeway_Bay_765.jpeg",
         "/media/images/156-year_History_of_the_City_of_Victoria-image_3H6uIjj.jpg",
       ],
       isReported: true,
@@ -127,6 +128,9 @@ function Route({ params }: RoutePageProps) {
   const [isReportedShowing, setIsReportedShowing] = useState<{
     [key: string]: boolean;
   }>({});
+  const [isImageOpen, setIsImageOpen] = useState(false);
+  const [activeImage, setActiveImage] = useState(0);
+  const [selectedReviewImgs, setSelectedReviewImgs] = useState<string[]>([]);
 
   const showMoreButtonVisible =
     data?.description && data?.description.length > 200;
@@ -172,6 +176,17 @@ function Route({ params }: RoutePageProps) {
             checkpointNumber={activeCheckpoint}
             setCheckpointNumber={setActiveCheckpoint}
             checkpointData={attractions}
+          />
+        </Modal>
+      )}
+      {isImageOpen && (
+        <Modal isOpen={isImageOpen} onClose={() => setIsImageOpen(false)}>
+          <Gallery
+            activeImage={activeImage}
+            imageUrls={selectedReviewImgs}
+            isNumberShowing={false}
+            isSliderLeft
+            setActiveImage={setActiveImage}
           />
         </Modal>
       )}
@@ -431,6 +446,11 @@ function Route({ params }: RoutePageProps) {
                                 width={77}
                                 className={styles.reviewImg}
                                 key={index}
+                                onClick={() => {
+                                  setIsImageOpen(true);
+                                  setActiveImage(index);
+                                  setSelectedReviewImgs(review.images);
+                                }}
                               />
                             ))}
                           </div>
@@ -500,6 +520,11 @@ function Route({ params }: RoutePageProps) {
                                 width={77}
                                 className={styles.reviewImg}
                                 key={index}
+                                onClick={() => {
+                                  setIsImageOpen(true);
+                                  setActiveImage(index);
+                                  setSelectedReviewImgs(review.images);
+                                }}
                               />
                             ))}
                           </div>
