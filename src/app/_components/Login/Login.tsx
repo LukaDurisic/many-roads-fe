@@ -9,7 +9,7 @@ import { userLogIn } from "@/app/_services/client-api-requests";
 import { ClipLoader } from "react-spinners";
 import Link from "next/link";
 import CustomInput from "../CustomInput/CustomInput";
-// import "@/app/_translation/i18n";
+import "@/app/_translation/i18n";
 import { useTranslation } from "react-i18next";
 function Login() {
   const { t } = useTranslation();
