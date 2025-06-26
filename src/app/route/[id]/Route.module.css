@@ -512,6 +512,7 @@
 .reviewImg {
   border-radius: 4px;
   object-fit: cover;
+  cursor: pointer;
 }
 
 .report {
