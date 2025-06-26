@@ -6,23 +6,23 @@ import scLanguage from "@/app/_translation/langs/sc.json";
 
 const browserLang = navigator.language.toLowerCase();
 
-let appLang: "en" | "sc" | "tc" = "en";
+// let appLang: "en" | "sc" | "tc" = "en";
 
-if (browserLang.startsWith("zh")) {
-  if (
-    browserLang.includes("tw") ||
-    browserLang.includes("hk") ||
-    browserLang.includes("mo")
-  ) {
-    appLang = "tc";
-  } else {
-    appLang = "sc";
-  }
-} else if (browserLang.startsWith("en")) {
-  appLang = "en";
-}
+// if (browserLang.startsWith("zh")) {
+//   if (
+//     browserLang.includes("tw") ||
+//     browserLang.includes("hk") ||
+//     browserLang.includes("mo")
+//   ) {
+//     appLang = "tc";
+//   } else {
+//     appLang = "sc";
+//   }
+// } else if (browserLang.startsWith("en")) {
+//   appLang = "en";
+// }
 
-localStorage.setItem("userLang", appLang);
+// localStorage.setItem("userLang", appLang);
 
 const resources = {
   en: {
@@ -38,7 +38,7 @@ const resources = {
 
 i18n.use(initReactI18next).init({
   resources,
-  lng: appLang,
+  lng: "en",
   fallbackLng: "en",
   // language to use, more information here: https://www.i18next.com/overview/configuration-options#languages-namespaces-resources
   // you can use the i18n.changeLanguage function to change the language manually: https://www.i18next.com/overview/api#changelanguage

@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styles from "./Login.module.css";
 import Button from "@/app/_components/Button/Button";
 import Image from "next/image";
@@ -11,6 +11,7 @@ import Link from "next/link";
 import CustomInput from "../CustomInput/CustomInput";
 import "@/app/_translation/i18n";
 import { useTranslation } from "react-i18next";
+import i18n from "@/app/_translation/i18n";
 function Login() {
   const { t } = useTranslation();
   const [isLoading, setIsLoading] = useState(false);
@@ -21,6 +22,30 @@ function Login() {
   const [password, setPassword] = useState("");
 
   const router = useRouter();
+
+  useEffect(() => {
+    const browserLang =
+      (typeof navigator !== "undefined" && navigator.language.toLowerCase()) ||
+      "en";
+    let appLang: "en" | "sc" | "tc" = "en";
+
+    if (browserLang.startsWith("zh")) {
+      if (
+        browserLang.includes("tw") ||
+        browserLang.includes("hk") ||
+        browserLang.includes("mo")
+      ) {
+        appLang = "tc";
+      } else {
+        appLang = "sc";
+      }
+    } else if (browserLang.startsWith("en")) {
+      appLang = "en";
+    }
+
+    localStorage.setItem("userLang", appLang);
+    i18n.changeLanguage(appLang);
+  }, []);
 
   const logIn = async () => {
     if (username.trim() === "" && password.trim() === "") {
