@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styles from "./Login.module.css";
 import Button from "@/app/_components/Button/Button";
 import Image from "next/image";
@@ -9,8 +9,11 @@ import { userLogIn } from "@/app/_services/client-api-requests";
 import { ClipLoader } from "react-spinners";
 import Link from "next/link";
 import CustomInput from "../CustomInput/CustomInput";
-
+import "@/app/_translation/i18n";
+import { useTranslation } from "react-i18next";
+import i18n from "@/app/_translation/i18n";
 function Login() {
+  const { t } = useTranslation();
   const [isLoading, setIsLoading] = useState(false);
   const [showErrorName, setShowErrorName] = useState(false);
   const [showErrorPass, setShowErrorPass] = useState(false);
@@ -19,6 +22,30 @@ function Login() {
   const [password, setPassword] = useState("");
 
   const router = useRouter();
+
+  useEffect(() => {
+    const browserLang =
+      (typeof navigator !== "undefined" && navigator.language.toLowerCase()) ||
+      "en";
+    let appLang: "en" | "sc" | "tc" = "en";
+
+    if (browserLang.startsWith("zh")) {
+      if (
+        browserLang.includes("tw") ||
+        browserLang.includes("hk") ||
+        browserLang.includes("mo")
+      ) {
+        appLang = "tc";
+      } else {
+        appLang = "sc";
+      }
+    } else if (browserLang.startsWith("en")) {
+      appLang = "en";
+    }
+
+    localStorage.setItem("userLang", appLang);
+    i18n.changeLanguage(appLang);
+  }, []);
 
   const logIn = async () => {
     if (username.trim() === "" && password.trim() === "") {
@@ -64,23 +91,23 @@ function Login() {
     <>
       <div className={styles.logInIcon}>
         <Image alt="logo" src={LogoIcon} />
-        <h1 className={styles.title}>Welcome back!</h1>
+        <h1 className={styles.title}>{t("welcomeBack")}</h1>
       </div>
       <div className={styles.inpContainer}>
         <CustomInput
-          label="Email"
+          label={t("email")}
           value={username}
           onChange={(val) => {
             setUsername(val);
             setShowErrorName(false);
             setShowInvalidError(false);
           }}
-          placeholder="Email"
+          placeholder={t("email")}
           showError={showErrorName}
           showInvalidError={showInvalidError}
         />
         <CustomInput
-          label="Password"
+          label={t("password")}
           type="password"
           value={password}
           onChange={(val) => {
@@ -88,23 +115,23 @@ function Login() {
             setShowErrorPass(false);
             setShowInvalidError(false);
           }}
-          placeholder="Password"
+          placeholder={t("password")}
           showError={showErrorPass}
           showInvalidError={showInvalidError}
         />
       </div>
       <Link className={styles.forgotPass} href="/forgot-password">
-        Forgot password?
+        {t("forgotPassword")}
       </Link>
       <div className={styles.logInBtn}>
         <Button variant="primary" onClick={() => logIn()}>
-          {isLoading ? <ClipLoader color={"#fff"} size={30} /> : "LOG IN"}
+          {isLoading ? <ClipLoader color={"#fff"} size={30} /> : t("logIn")}
         </Button>
       </div>
       <div className={styles.registration}>
-        <p className={styles.registrationP}>Don&apos;t have account?</p>{" "}
+        <p className={styles.registrationP}>{t("dontHaveAcc")}</p>{" "}
         <Link className={styles.registrationLink} href="/registration">
-          Create account
+          {t("createAcc")}
         </Link>
       </div>
     </>
