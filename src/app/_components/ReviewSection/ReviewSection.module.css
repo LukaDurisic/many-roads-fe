@@ -1,0 +1,278 @@
+.reviewsContainer {
+  width: 80%;
+  border-left: 1px solid #d9d9d9;
+  margin-top: 10px;
+  padding-left: 50px;
+}
+
+.reviewHeader {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.average {
+  font-family: Inter;
+  font-weight: 600;
+  font-size: 32px;
+  line-height: 40px;
+  letter-spacing: 0px;
+  vertical-align: middle;
+  color: #0d0d0d;
+}
+
+.revCount {
+  font-family: Inter;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 20px;
+  letter-spacing: 0.2px;
+  text-align: right;
+  vertical-align: middle;
+  color: #757575;
+}
+
+.reviews {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  margin-top: 40px;
+}
+
+.userData {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.userImg {
+  border-radius: 50%;
+}
+
+.userRight {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.username {
+  font-family: Inter;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 24px;
+  letter-spacing: 0.2px;
+  vertical-align: middle;
+  color: #0d0d0d;
+}
+
+.bottomContainer {
+  display: flex;
+  align-items: center;
+  font-family: Inter;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 20px;
+  letter-spacing: 0.2px;
+  vertical-align: middle;
+  color: #757575;
+}
+
+.reviewImagesContainer {
+  display: flex;
+  gap: 10px;
+  margin: 10px 0;
+}
+
+.reviewImg {
+  border-radius: 4px;
+  object-fit: cover;
+  cursor: pointer;
+}
+
+.report {
+  font-family: Inter;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 24px;
+  letter-spacing: 0.2px;
+  color: #757575;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  margin-top: 10px;
+  cursor: pointer;
+  height: 35px;
+}
+
+.showAll {
+  font-family: Inter;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 24px;
+  letter-spacing: 0.2px;
+  text-decoration: underline;
+  color: #0d0d0d;
+  cursor: pointer;
+}
+
+.reportTooltip,
+.reviewTooltip {
+  background-color: #fff;
+  color: #0d0d0d;
+  font-family: Inter;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 24px;
+  letter-spacing: 0.2px;
+  padding: 10px 16px;
+  border-radius: 8px;
+  box-shadow: 0px 2px 12px 0px #00000014;
+  margin-left: 20px;
+}
+
+.reviewTooltip {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: fit-content;
+}
+
+.revBtnContainer {
+  width: 200px;
+}
+
+.createRevWrapper {
+  border: 1px solid #e6e6e6;
+  border-radius: 8px;
+  padding: 24px;
+  margin: 30px 0px;
+}
+
+.descriptionLength {
+  font-family: Inter;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 100%;
+  letter-spacing: 0px;
+  color: #cccccc;
+  margin-top: 10px;
+}
+
+.imageGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+  gap: 10px;
+  margin-bottom: 30px;
+  margin-top: 10px;
+}
+
+.imageBox {
+  width: 80px;
+  aspect-ratio: 2/3;
+  background-color: #fff;
+  border: 2px solid #f0f0f0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  overflow: hidden;
+  border-radius: 8px;
+  position: relative;
+}
+
+.imageBox:hover:after {
+  content: "Delete";
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(36, 36, 36, 0.4);
+  border-radius: 8px;
+  z-index: 1;
+}
+
+.noAfter:hover:after {
+  content: "";
+  background-color: transparent;
+}
+
+.previewImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.addImageBox {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.hidden {
+  display: none;
+}
+
+.ratingTitle {
+  font-family: Inter;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 20px;
+  letter-spacing: 0.2px;
+  color: #0d0d0d;
+}
+
+.revImages {
+  margin-top: 30px;
+}
+
+.ratingStars {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-top: 5px;
+}
+
+.ratingStarsDiv:hover {
+  cursor: pointer;
+}
+
+.reviewBtnsContainer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 30px;
+}
+
+.reviewCancel {
+  text-decoration: underline;
+  font-family: Inter;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 24px;
+  letter-spacing: 0.2px;
+  text-decoration-style: solid;
+  color: #0d0d0d;
+  cursor: pointer;
+}
+
+.reviewSubmit {
+  width: 250px;
+}
+
+.revDescription {
+  display: flex;
+  justify-content: baseline;
+  text-align: start;
+  font-family: Inter;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 22.4px;
+  letter-spacing: 0px;
+  color: #0d0d0d;
+}
