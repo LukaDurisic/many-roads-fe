@@ -5,6 +5,11 @@
   gap: 20px;
 }
 
+.fullLenghtContainer {
+  width: 100%;
+  gap: 0px;
+}
+
 .input {
   border: none;
   background-color: transparent;
