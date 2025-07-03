@@ -1,6 +1,6 @@
 "use client";
 import React, { useState, useEffect } from "react";
-import styles from "./CreateRoute.module.css";
+import styles from "@/app/createRoute/CreateRoute.module.css";
 import Navbar from "./Navbar/Navbar";
 import UserMenu from "./UserMenu/UserMenu";
 import Step1 from "../createRoute/step1/Step1";
