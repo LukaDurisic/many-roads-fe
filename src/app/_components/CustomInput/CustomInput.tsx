@@ -17,6 +17,7 @@ interface CustomInputProps {
   placeholder?: string;
   showInvalidError?: boolean;
   showLock?: boolean;
+  isFullLength?: boolean;
 }
 
 const CustomInput: React.FC<CustomInputProps> = ({
@@ -28,6 +29,7 @@ const CustomInput: React.FC<CustomInputProps> = ({
   placeholder,
   showInvalidError = false,
   showLock,
+  isFullLength = false,
 }) => {
   const [isFocused, setIsFocused] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
@@ -37,7 +39,11 @@ const CustomInput: React.FC<CustomInputProps> = ({
   const hasError = showError || showInvalidError;
 
   return (
-    <div className={styles.inputContainer}>
+    <div
+      className={`${styles.inputContainer} ${
+        isFullLength ? styles.fullLenghtContainer : null
+      }`}
+    >
       <label
         className={`${labelVisible ? styles.label : styles.hiddenLabel} ${
           hasError ? styles.error : ""

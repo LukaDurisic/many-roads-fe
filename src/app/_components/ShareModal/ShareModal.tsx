@@ -35,7 +35,7 @@ function ShareModal({ data }: { data: Route | undefined }) {
       username:
         data?.creator.first_name + " " + data?.creator.last_name || "No info",
       email: data?.creator.email || "No info",
-      profile_image: data?.creator.profile_image || "No info",
+      profile_image: data?.creator.profile_image || "",
       first_name: data?.creator.first_name || "No info",
       last_name: data?.creator.last_name || "No info",
     },
