@@ -79,7 +79,7 @@ function CreateRoute() {
   const router = useRouter();
 
   useEffect(() => {
-    const storedValue = localStorage.getItem("accessToken");
+    const storedValue = localStorage?.getItem("accessToken");
     if (storedValue) {
       setAuthToken(storedValue);
     }
