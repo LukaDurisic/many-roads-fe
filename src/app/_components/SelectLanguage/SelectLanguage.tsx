@@ -1,4 +1,4 @@
-import React, { useTransition } from "react";
+import React from "react";
 import styles from "./SelectLanguage.module.css";
 import Image from "next/image";
 import LogoIcon from "../../assets/mrLogo.svg";
