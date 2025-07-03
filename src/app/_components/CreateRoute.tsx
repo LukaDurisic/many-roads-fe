@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import styles from "@/app/createRoute/CreateRoute.module.css";
 import Navbar from "./Navbar/Navbar";
 import UserMenu from "./UserMenu/UserMenu";
@@ -22,7 +22,7 @@ function CreateRoute() {
   const [attractionImages, setAttractionImages] = useState<AttractionImages[]>(
     []
   );
-  const [authToken, setAuthToken] = useState<string>("");
+  // const [authToken, setAuthToken] = useState<string>("");
   const [isLoadingOpen, setIsLoadingOpen] = useState<boolean>(false);
   const [previewRoute, setPreviewRoute] = useState<string[]>([]);
   const [previewAttractions, setPreviewAttractions] = useState<
@@ -78,110 +78,110 @@ function CreateRoute() {
 
   const router = useRouter();
 
-  useEffect(() => {
-    if (localStorage) {
-      const storedValue = localStorage.getItem("accessToken");
-      if (storedValue) {
-        setAuthToken(storedValue);
-      }
-    }
-  }, []);
+  // useEffect(() => {
+  //   if (localStorage) {
+  //     const storedValue = localStorage.getItem("accessToken");
+  //     if (storedValue) {
+  //       setAuthToken(storedValue);
+  //     }
+  //   }
+  // }, []);
 
-  const onSubmit: SubmitHandler<Route> = async (data) => {
-    setIsLoadingOpen(true);
-    const uploads = await Promise.all(
-      routeImages.map(async (img) => {
-        const formData = new FormData();
-        formData.append("image", img);
-        const upload = await uploadImage(formData, authToken);
-        return {
-          caption: ".",
-          image_id: upload.image_id || 1,
-          source: "user",
-          url: ".",
-        };
-      })
-    );
-    data.images = uploads;
+  // const onSubmit: SubmitHandler<Route> = async (data) => {
+  //   setIsLoadingOpen(true);
+  //   const uploads = await Promise.all(
+  //     routeImages.map(async (img) => {
+  //       const formData = new FormData();
+  //       formData.append("image", img);
+  //       const upload = await uploadImage(formData, authToken);
+  //       return {
+  //         caption: ".",
+  //         image_id: upload.image_id || 1,
+  //         source: "user",
+  //         url: ".",
+  //       };
+  //     })
+  //   );
+  //   data.images = uploads;
 
-    const updatedAttractions = await Promise.all(
-      attractionImages.map(async (img) => {
-        let heroImg: Image | null = null;
+  //   const updatedAttractions = await Promise.all(
+  //     attractionImages.map(async (img) => {
+  //       let heroImg: Image | null = null;
 
-        if (img.heroImage) {
-          const formDataHero = new FormData();
-          formDataHero.append("image", img.heroImage);
-          const upload = await uploadImage(formDataHero, authToken);
-          heroImg = {
-            caption: ".",
-            image_id: upload.image_id || 1,
-            source: "userHero",
-            url: ".",
-          };
-        }
+  //       if (img.heroImage) {
+  //         const formDataHero = new FormData();
+  //         formDataHero.append("image", img.heroImage);
+  //         const upload = await uploadImage(formDataHero, authToken);
+  //         heroImg = {
+  //           caption: ".",
+  //           image_id: upload.image_id || 1,
+  //           source: "userHero",
+  //           url: ".",
+  //         };
+  //       }
 
-        const galleryImgs = await Promise.all(
-          img.images.map(async (image) => {
-            const formData = new FormData();
-            formData.append("image", image);
-            const upload = await uploadImage(formData, authToken);
-            return {
-              caption: ".",
-              image_id: upload.image_id || 1,
-              source: "user",
-              url: ".",
-            };
-          })
-        );
+  //       const galleryImgs = await Promise.all(
+  //         img.images.map(async (image) => {
+  //           const formData = new FormData();
+  //           formData.append("image", image);
+  //           const upload = await uploadImage(formData, authToken);
+  //           return {
+  //             caption: ".",
+  //             image_id: upload.image_id || 1,
+  //             source: "user",
+  //             url: ".",
+  //           };
+  //         })
+  //       );
 
-        return heroImg ? [heroImg, ...galleryImgs] : galleryImgs;
-      })
-    );
+  //       return heroImg ? [heroImg, ...galleryImgs] : galleryImgs;
+  //     })
+  //   );
 
-    updatedAttractions.forEach((images, index) => {
-      data.attractions[index].images = images;
-    });
+  //   updatedAttractions.forEach((images, index) => {
+  //     data.attractions[index].images = images;
+  //   });
 
-    const createBody = {
-      name: data.name,
-      language: data.language || "",
-      type: data.type,
-      country: data.country,
-      difficulty: data.difficulty,
-      route_gallery: data.images,
-      duration: data.duration_est,
-      categories: data.categories,
-      classification: data.categories,
-      tags: data.categories,
-      accessibility: data.accessibility.join(","),
-      description: data.description,
-      distance: data.distance,
-      start: data.attractions[0].address,
-      end: data.attractions[data.attractions.length - 1].address,
-      checkpoints: data.attractions.map((attraction) => ({
-        name: attraction.name,
-        content: attraction.content,
-        address: attraction.address.split(",")[0],
-        checkpoint_gallery: attraction.images.map((img) => ({
-          caption: img.caption,
-          image_id: img.image_id,
-          source: img.source,
-          url: img.url,
-        })),
-        coordinates: {
-          latitude: attraction.poi.latitude,
-          longitude: attraction.poi.longitude,
-        },
-      })),
-    };
-    const newRoute = await createRoute(createBody, authToken);
-    setIsLoadingOpen(false);
-    if (newRoute) {
-      router.push("/dashboard");
-    } else {
-      alert("Route creation failed!");
-    }
-  };
+  //   const createBody = {
+  //     name: data.name,
+  //     language: data.language || "",
+  //     type: data.type,
+  //     country: data.country,
+  //     difficulty: data.difficulty,
+  //     route_gallery: data.images,
+  //     duration: data.duration_est,
+  //     categories: data.categories,
+  //     classification: data.categories,
+  //     tags: data.categories,
+  //     accessibility: data.accessibility.join(","),
+  //     description: data.description,
+  //     distance: data.distance,
+  //     start: data.attractions[0].address,
+  //     end: data.attractions[data.attractions.length - 1].address,
+  //     checkpoints: data.attractions.map((attraction) => ({
+  //       name: attraction.name,
+  //       content: attraction.content,
+  //       address: attraction.address.split(",")[0],
+  //       checkpoint_gallery: attraction.images.map((img) => ({
+  //         caption: img.caption,
+  //         image_id: img.image_id,
+  //         source: img.source,
+  //         url: img.url,
+  //       })),
+  //       coordinates: {
+  //         latitude: attraction.poi.latitude,
+  //         longitude: attraction.poi.longitude,
+  //       },
+  //     })),
+  //   };
+  //   const newRoute = await createRoute(createBody, authToken);
+  //   setIsLoadingOpen(false);
+  //   if (newRoute) {
+  //     router.push("/dashboard");
+  //   } else {
+  //     alert("Route creation failed!");
+  //   }
+  // };
 
   const { append, remove } = useFieldArray({
     control,
@@ -304,7 +304,7 @@ function CreateRoute() {
               <Button
                 label={t("publish")}
                 className={styles.nextBtn}
-                onClick={handleSubmit(onSubmit)}
+                onClick={() => {}} //handleSubmit(onSubmit)
               />
             </div>
           ) : null}
