@@ -7,12 +7,15 @@ import Button from "@/app/_components/Button/Button";
 import Link from "next/link";
 import Tabs from "../Tabs/Tabs";
 import CustomInput from "@/app/_components/CustomInput/CustomInput";
+import { useTranslation, Trans } from "react-i18next";
+import "@/app/_translation/i18n";
 
 function Registration({
   setIsRegFilled,
 }: {
   setIsRegFilled: React.Dispatch<React.SetStateAction<boolean>> | undefined;
 }) {
+  const { t } = useTranslation();
   const [registrationData, setRegistrationData] = useState({
     username: "",
     email: "",
@@ -57,7 +60,7 @@ function Registration({
     <div>
       <div className={styles.mrLogo}>
         <Image alt="logo" src={LogoIcon} />
-        <h1 className={styles.title}>Create account</h1>
+        <h1 className={styles.title}>{t("createAcc")}</h1>
       </div>
       <Tabs
         options={["traveler", "organisation"]}
@@ -68,13 +71,13 @@ function Registration({
       {selectedTab === "traveler" ? (
         <>
           <CustomInput
-            label="First Name"
+            label={t("firstName")}
             value={registrationData.firstName}
             onChange={(val) => handleInputChange("firstName", val)}
             showError={!!errors.firstName}
           />
           <CustomInput
-            label="Last Name"
+            label={t("lastName")}
             value={registrationData.lastName}
             onChange={(val) => handleInputChange("lastName", val)}
             showError={!!errors.lastName}
@@ -82,7 +85,7 @@ function Registration({
         </>
       ) : (
         <CustomInput
-          label="Organisation"
+          label={t("organisation")}
           value={registrationData.organisation}
           onChange={(val) => handleInputChange("organisation", val)}
           showError={!!errors.organisation}
@@ -90,21 +93,21 @@ function Registration({
       )}
 
       <CustomInput
-        label="Username"
+        label={t("username")}
         value={registrationData.username}
         onChange={(val) => handleInputChange("username", val)}
         showError={!!errors.username}
       />
 
       <CustomInput
-        label="Email"
+        label={t("email")}
         value={registrationData.email}
         onChange={(val) => handleInputChange("email", val)}
         showError={!!errors.email}
       />
       <div className={styles.passContainer}>
         <CustomInput
-          label="Password"
+          label={t("password")}
           type={"password"}
           value={registrationData.password}
           onChange={(val) => handleInputChange("password", val)}
@@ -113,7 +116,7 @@ function Registration({
       </div>
       <div className={styles.passContainer}>
         <CustomInput
-          label="Repeat Password"
+          label={t("repeatPassword")}
           type={"password"}
           value={registrationData.repeatPassword}
           onChange={(val) => handleInputChange("repeatPassword", val)}
@@ -122,14 +125,13 @@ function Registration({
       </div>
 
       <div className={styles.info}>
-        By continuing, you agree to ManyRoads{" "}
-        <Link className={styles.link} href="#">
-          Terms of Use
-        </Link>{" "}
-        and{" "}
-        <Link className={styles.link} href="#">
-          Privacy Policy
-        </Link>
+        <Trans
+          i18nKey="agreeWTermsAndPrivacy"
+          components={[
+            <Link className={styles.link} href="#" />,
+            <Link className={styles.link} href="#" />,
+          ]}
+        />
       </div>
 
       <div className={styles.btnContainer}>
@@ -144,14 +146,14 @@ function Registration({
             !travelerFilled && !organisationFilled ? styles.disabled : undefined
           }
         >
-          CREATE ACCOUNT
+          {t("createAcc")}
         </Button>
       </div>
 
       <div className={styles.login}>
-        <p className={styles.loginP}>Already have account?</p>
+        <p className={styles.loginP}>{t("haveAcc")}</p>
         <Link className={styles.loginLink} href="/">
-          Log in
+          {t("logIn")}
         </Link>
       </div>
     </div>

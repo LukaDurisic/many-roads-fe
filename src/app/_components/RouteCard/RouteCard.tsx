@@ -6,6 +6,8 @@ import TimeIcon from "../../assets/time.svg";
 import Link from "next/link";
 import { RouteCardProps } from "@/app/_types";
 import UserInfo from "../UserInfo/UserInfo";
+import { useTranslation } from "react-i18next";
+import "@/app/_translation/i18n";
 
 interface RouteCardCompProps {
   routeData: RouteCardProps;
@@ -18,6 +20,7 @@ const RouteCard: React.FC<RouteCardCompProps> = ({
   isProfileShowing,
   isClickable,
 }) => {
+  const { t } = useTranslation();
   return (
     <Link href={isClickable ? `/route/${routeData.id}` : "#"}>
       <div className={styles.wrapper}>
@@ -39,7 +42,7 @@ const RouteCard: React.FC<RouteCardCompProps> = ({
               <div className={styles.tags}>
                 {routeData.categories.map((tag, index) => (
                   <div key={index} className={styles.tag}>
-                    {tag}
+                    {t(tag)}
                   </div>
                 ))}
               </div>

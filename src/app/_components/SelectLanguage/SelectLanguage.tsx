@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useTransition } from "react";
 import styles from "./SelectLanguage.module.css";
 import Image from "next/image";
 import LogoIcon from "../../assets/mrLogo.svg";
 import Button from "@/app/_components/Button/Button";
+import { useTranslation } from "react-i18next";
+import "@/app/_translation/i18n";
 
 function SelectLanguage({
   selectedLang,
@@ -28,11 +30,13 @@ function SelectLanguage({
     },
   ];
 
+  const { t } = useTranslation();
+
   return (
     <div>
       <div className={styles.mrLogo}>
         <Image alt="logo" src={LogoIcon} />
-        <h1 className={styles.title}>Choose your language</h1>
+        <h1 className={styles.title}>{t("selectLanguage")}</h1>
       </div>
       <div className={styles.langContainer}>
         {languages.map((lang) => (
@@ -60,7 +64,7 @@ function SelectLanguage({
         }}
         className={selectedLang === 0 ? styles.disabled : undefined}
       >
-        {"CONTINUE"}
+        {t("continue")}
       </Button>
     </div>
   );

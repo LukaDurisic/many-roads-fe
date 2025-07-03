@@ -23,12 +23,14 @@ import Star from "@/app/assets/star";
 import FlagIcon from "@/app/assets/flag.svg";
 import FlagFilledIcon from "@/app/assets/flagFilled.svg";
 import Gallery from "@/app/_components/Gallery/Gallery";
+import { useTranslation } from "react-i18next";
+import "@/app/_translation/i18n";
 
 const accessOptions = [
-  { name: "child", checked: true },
-  { name: "pet", checked: false },
-  { name: "wheelchair", checked: false },
-  { name: "pram-friendly", checked: false },
+  { name: "Child", checked: true },
+  { name: "Pet", checked: false },
+  { name: "Wheelchair", checked: false },
+  { name: "Pram-friendly", checked: false },
 ];
 
 const reviewsData = {
@@ -84,6 +86,7 @@ interface RoutePageProps {
 }
 
 function Route({ params }: RoutePageProps) {
+  const { t } = useTranslation();
   const [isShareOpen, setIsShareOpen] = useState(false);
   const [error, seterror] = useState(false);
   const [isCheckpointOpen, setIsCheckpointOpen] = useState(false);
@@ -199,11 +202,11 @@ function Route({ params }: RoutePageProps) {
               <span className={styles.spanRotated}>
                 <ArrowIcon fill="#757575" height={14} width={14} />
               </span>{" "}
-              Back to list
+              {t("backToList")}
             </Link>
             <div className={styles.share} onClick={() => setIsShareOpen(true)}>
               <Image alt="share" src={ShareIcon} height={18} width={18} />
-              Share
+              {t("share")}
             </div>
           </div>
 
@@ -260,36 +263,37 @@ function Route({ params }: RoutePageProps) {
                 <div className={styles.infoRow}>
                   <div className={styles.infoItem}>
                     <div className={styles.data}>{data?.distance || "N/A"}</div>
-                    <div className={styles.infoLabel}>Distance</div>
+                    <div className={styles.infoLabel}>{t("distance")}</div>
                   </div>
                   <div className={styles.infoItem}>
                     <div className={styles.data}>
                       {data?.duration_est || "N/A"}
                     </div>
-                    <div className={styles.infoLabel}>Estimated Duration</div>
+                    <div className={styles.infoLabel}>
+                      {t("estimatedDuration")}
+                    </div>
                   </div>
                 </div>
                 <div className={styles.infoRow}>
                   <div className={styles.infoItem}>
-                    <div className={styles.data}>{data?.type || "N/A"}</div>
-                    <div className={styles.infoLabel}>Route Type</div>
+                    <div className={styles.data}>
+                      {data?.type ? t(data?.type) : "N/A"}
+                    </div>
+                    <div className={styles.infoLabel}>{t("routeType")}</div>
                   </div>
                   <div className={styles.infoItem}>
                     <div className={styles.data}>
-                      {data?.difficulty || "N/A"}
+                      {data?.difficulty ? t(data?.difficulty) : "N/A"}
                     </div>
-                    <div className={styles.infoLabel}>Difficulty</div>
+                    <div className={styles.infoLabel}>{t("difficulty")}</div>
                   </div>
                 </div>
               </div>
               <div className={styles.accessibility}>
-                <div className={styles.accessTitle}>Accessibility</div>
+                <div className={styles.accessTitle}>{t("accessibility")}</div>
                 {accessOptions.map((option, index) => (
                   <label key={index} className={styles.accessOption}>
-                    <span className={styles.label}>
-                      {option.name.charAt(0).toUpperCase() +
-                        option.name.slice(1)}
-                    </span>
+                    <span className={styles.label}>{t(option.name)}</span>
                     <input
                       type="checkbox"
                       checked={option.checked}
@@ -318,7 +322,7 @@ function Route({ params }: RoutePageProps) {
             </div>
 
             <div className={styles.fullDescription}>
-              <div className={styles.descTitle}>Description</div>
+              <div className={styles.descTitle}>{t("description")}</div>
               {/* <audio
                 className={styles.audioBox}
                 controls
@@ -339,7 +343,7 @@ function Route({ params }: RoutePageProps) {
                   className={styles.more}
                   onClick={() => setIsDescriptionOpen(!isDescriptionOpen)}
                 >
-                  {!isDescriptionOpen ? "More" : "Less"}
+                  {!isDescriptionOpen ? t("more") : t("less")}
                 </div>
               )}
             </div>
@@ -354,7 +358,7 @@ function Route({ params }: RoutePageProps) {
           <div className={styles.checkpointSection}>
             <div className={styles.checkpointTitle}>
               <span className={styles.checkPointNum}>{attractions.length}</span>{" "}
-              Checkpoints
+              {t("checkpoints")}
             </div>
             <div className={styles.checkpointsContainer}>
               {attractions
@@ -394,7 +398,7 @@ function Route({ params }: RoutePageProps) {
                 </div>
                 <div className={styles.revCount}>
                   {reviewsData.reviewsCount}{" "}
-                  {reviewsData.reviewsCount === 1 ? "review" : "reviews"}
+                  {t("review", { count: reviewsData.reviewsCount })}
                 </div>
               </div>
               <div className={styles.reviews}>

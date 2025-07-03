@@ -4,10 +4,13 @@ import styles from "./Select.module.css";
 import ArrowIconCity from "../../assets/arrowDownCity";
 import ArrowIcon from "../../assets/arrowDown.svg";
 import Image from "next/image";
+import { changeLanguage } from "@/app/_translation/i18n";
+import "@/app/_translation/i18n";
 
-interface Option {
+export interface Option {
   label: string;
   value: string;
+  short?: "en" | "tc" | "sc";
 }
 
 interface SelectProps {
@@ -77,18 +80,40 @@ const Select: React.FC<SelectProps> = ({ options, style }) => {
               style === "citySmall" ? styles.citySmallSelect : styles.langSelect
             }
             onClick={() => setIsOpen(!isOpen)}
+            onChange={(e) => {
+              const selected = options.find(
+                (opt) => opt.value === e.target.value
+              );
+              if (style === "lang" && selected?.short) {
+                console.log("test");
+                changeLanguage(selected.short);
+              }
+            }}
           >
-            {options.map((option) => (
-              <option
-                key={option.value}
-                value={option.value}
-                className={
-                  style === "citySmall" ? styles.cityOption : styles.langOption
-                }
-              >
-                {option.label}
-              </option>
-            ))}
+            {style === "citySmall" ? (
+              options.map((option) => (
+                <option
+                  key={option.value}
+                  value={option.value}
+                  className={styles.cityOption}
+                  onClick={() => console.log(option.short)}
+                >
+                  {option.label}
+                </option>
+              ))
+            ) : style === "lang" ? (
+              options.map((option) => (
+                <option
+                  key={option.value}
+                  value={option.value}
+                  className={styles.langOption}
+                >
+                  {option.label}
+                </option>
+              ))
+            ) : (
+              <></>
+            )}
           </select>
           {style === "citySmall" && (
             <ArrowIconCity

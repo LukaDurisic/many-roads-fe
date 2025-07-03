@@ -2,6 +2,8 @@
 import React, { useState } from "react";
 import styles from "./Filters.module.css";
 import Route from "@/app/route/[id]/page";
+import { useTranslation } from "react-i18next";
+import "@/app/_translation/i18n";
 
 const filters = [
   "Adventure",
@@ -25,6 +27,7 @@ function Filters({
   routes?: Route[];
   setRoutes?: React.Dispatch<React.SetStateAction<Route[]>>;
 }) {
+  const { t } = useTranslation();
   const [selectedFilters, setSelectedFilters] = useState<string[]>([]);
 
   const toggleFilter = (value: string) => {
@@ -57,7 +60,7 @@ function Filters({
           onClick={() => toggleFilter(filter)}
           key={index}
         >
-          {filter}
+          {t(filter)}
         </div>
       ))}
     </div>
