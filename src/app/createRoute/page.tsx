@@ -1,4 +1,4 @@
-import CreateRouteClientWrapper from "../createRoute/CreateRoute";
+import CreateRouteClientWrapper from "../_components/CreateRoute";
 
 export default function CreateRoutePage() {
   return <CreateRouteClientWrapper />;

@@ -1,12 +1,12 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import styles from "./CreateRoute.module.css";
-import Navbar from "../_components/Navbar/Navbar";
-import UserMenu from "../_components/UserMenu/UserMenu";
-import Step1 from "./step1/Step1";
-import Step2 from "./step2/Step2";
-import Step3 from "./step3/Step3";
-import Button from "../_components/Button/Button";
+import Navbar from "./Navbar/Navbar";
+import UserMenu from "./UserMenu/UserMenu";
+import Step1 from "../createRoute/step1/Step1";
+import Step2 from "../createRoute/step2/Step2";
+import Step3 from "../createRoute/step3/Step3";
+import Button from "./Button/Button";
 import { useForm, SubmitHandler, useFieldArray } from "react-hook-form";
 import { Image, Route, AttractionImages, PreviewAttraction } from "../_types";
 import { uploadImage, createRoute } from "../_services/client-api-requests";
