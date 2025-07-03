@@ -12,8 +12,11 @@ import { Image, Route, AttractionImages, PreviewAttraction } from "../_types";
 import { uploadImage, createRoute } from "../_services/client-api-requests";
 import { ClipLoader } from "react-spinners";
 import { useRouter } from "next/navigation";
+import { useTranslation } from "react-i18next";
+import "@/app/_translation/i18n";
 
 function CreateRoute() {
+  const { t } = useTranslation();
   const [currentStep, setCurrentStep] = useState<number>(1);
   const [routeImages, setRouteImages] = useState<File[]>([]);
   const [attractionImages, setAttractionImages] = useState<AttractionImages[]>(
@@ -193,7 +196,7 @@ function CreateRoute() {
       <Navbar />
       <div className={styles.contentWrapper}>
         <div className={styles.createHeader}>
-          <div className={styles.createTitle}>Create new route</div>
+          <div className={styles.createTitle}>{t("createNewRoute")}</div>
           <UserMenu />
         </div>
         <div className={styles.stepsPreview}>
@@ -201,7 +204,7 @@ function CreateRoute() {
             <div className={styles.stepNumber}>
               {currentStep === 1 ? "1" : "✔"}
             </div>{" "}
-            General info
+            {t("generalInfo")}
           </div>
           <div className={styles.line}></div>
           <div className={styles.stepItem}>
@@ -212,7 +215,7 @@ function CreateRoute() {
             >
               {currentStep !== 3 ? "2" : "✔"}
             </div>
-            Checkpoints
+            {t("checkpoints")}
           </div>
           <div className={styles.line}></div>
           <div className={styles.stepItem}>
@@ -223,7 +226,7 @@ function CreateRoute() {
             >
               3
             </div>
-            Overview
+            {t("overview")}
           </div>
         </div>
         <div className={styles.stepContentContainer}>
@@ -265,7 +268,7 @@ function CreateRoute() {
           {currentStep === 1 ? (
             <div className={styles.step1Btn}>
               <Button
-                label="Next ->"
+                label={t("next") + " ->"}
                 className={styles.nextBtn}
                 onClick={() => {
                   if (isStep1Allowed) setCurrentStep(2);
@@ -276,12 +279,12 @@ function CreateRoute() {
           ) : currentStep === 2 ? (
             <div className={styles.step23Btn}>
               <Button
-                label="<- Previous"
+                label={"<- " + t("previous")}
                 onClick={() => setCurrentStep(1)}
                 className={styles.prevBtn}
               />
               <Button
-                label="Next ->"
+                label={t("next") + " ->"}
                 className={styles.nextBtn}
                 onClick={() => {
                   if (isStep2Allowed) setCurrentStep(3);
@@ -292,12 +295,12 @@ function CreateRoute() {
           ) : currentStep === 3 ? (
             <div className={styles.step23Btn}>
               <Button
-                label="<- Previous"
+                label={"<- " + t("previous")}
                 className={styles.prevBtn}
                 onClick={() => setCurrentStep(2)}
               />
               <Button
-                label="Publish"
+                label={t("publish")}
                 className={styles.nextBtn}
                 onClick={handleSubmit(onSubmit)}
               />

@@ -12,6 +12,8 @@ import {
 } from "react-hook-form";
 import { Route } from "@/app/_types";
 import CustomDropdown from "@/app/_components/CustomSelect/CustomSelect";
+import { useTranslation } from "react-i18next";
+import "@/app/_translation/i18n";
 
 const classifications = [
   "Adventure",
@@ -29,7 +31,7 @@ const classifications = [
 ];
 const accessibilities = ["Child", "Pet", "Wheelchair", "Pram-friendly"];
 
-const routeTypeOptions = ["Point To Point", "Loop"];
+const routeTypeOptions = ["Point To Point", "Circular"];
 
 const countryOptions = ["Hong Kong SAR"];
 
@@ -56,6 +58,7 @@ const Step1 = ({
   setPreviewRoute: React.Dispatch<React.SetStateAction<string[]>>;
   setIsAllowed: React.Dispatch<React.SetStateAction<boolean>>;
 }) => {
+  const { t } = useTranslation();
   const [routeName, setRouteName] = useState<string>("");
   const [duration, setDuration] = useState<string>("");
   const [distance, setDistance] = useState<string>("");
@@ -175,7 +178,7 @@ const Step1 = ({
               >
                 <div className={styles.addImageBox}>
                   <Image alt="add image icon" src={AddImgIcon} />
-                  Add image
+                  {t("addImage")}
                 </div>
               </div>
             )}
@@ -193,33 +196,33 @@ const Step1 = ({
         </div>
 
         <label className={routeName === "" ? styles.hidden : styles.labelBold}>
-          Route Name
+          {t("routeName")}
         </label>
         <input
           type="text"
-          placeholder="Route Name"
+          placeholder={t("routeName")}
           className={styles.input}
           {...register("name")}
           onChange={(e) => setRouteName(e.target.value)}
         />
 
         <label className={duration === "" ? styles.hidden : styles.labelBold}>
-          Estimated Duration
+          {t("estimatedDuration")}
         </label>
         <input
           type="text"
-          placeholder="Estimated Duration"
+          placeholder={t("estimatedDuration")}
           className={styles.input}
           {...register("duration_est")}
           onChange={(e) => setDuration(e.target.value)}
         />
 
         <label className={distance === "" ? styles.hidden : styles.labelBold}>
-          Total distance
+          {t("totalDistance")}
         </label>
         <input
           type="text"
-          placeholder="Total distance"
+          placeholder={t("totalDistance")}
           className={styles.input}
           {...register("distance")}
           onChange={(e) => setDistance(e.target.value)}
@@ -228,10 +231,10 @@ const Step1 = ({
         <label
           className={description === "" ? styles.hidden : styles.labelBold}
         >
-          Description
+          {t("description")}
         </label>
         <textarea
-          placeholder="Description"
+          placeholder={t("description")}
           className={styles.textarea}
           maxLength={1000}
           {...register("description")}
@@ -258,7 +261,7 @@ const Step1 = ({
 
       <div className={styles.right}>
         <div className={styles.fieldGroup}>
-          <label className={styles.labelBold}>Classification</label>
+          <label className={styles.labelBold}>{t("classifications")}</label>
           <div className={styles.tags}>
             {classifications.map((item) => (
               <button
@@ -271,19 +274,17 @@ const Step1 = ({
                 }`}
                 onClick={() => toggleClassification(item)}
               >
-                {item}
+                {t(item)}
               </button>
             ))}
           </div>
         </div>
 
         <div className={styles.accessibility}>
-          <div className={styles.accessTitle}>Accessibility</div>
+          <div className={styles.accessTitle}>{t("accessibility")}</div>
           {accessibilities.map((option, index) => (
             <label key={index} className={styles.accessOption}>
-              <span className={styles.label}>
-                {option.charAt(0).toUpperCase() + option.slice(1)}
-              </span>
+              <span className={styles.label}>{t(option)}</span>
               <input
                 type="checkbox"
                 checked={selectedAccessibilities.includes(option)}
@@ -302,131 +303,29 @@ const Step1 = ({
             </label>
           ))}
         </div>
-        {/* <div className={styles.fieldGroupSelect}>
-          <label className={styles.labelSelect}>Route Type</label>
-          <div className={styles.selectItem}>
-            <select
-              className={styles.select}
-              value={watch("type", "")}
-              {...register("type")}
-            >
-              <option key={0} value={""} disabled>
-                Select
-              </option>
-              {routeTypeOptions.map((option, index) => (
-                <option value={option} key={index + 1}>
-                  {option}
-                </option>
-              ))}
-            </select>
-            <ArrowIconCity
-              fill={"#757575"}
-              height="16"
-              width="16"
-              // style={isOpen ? { rotate: " 180deg" } : {}}
-            />
-          </div>
-        </div> */}
-
         <CustomDropdown
-          label="Route Type"
+          label={t("routeType")}
           options={routeTypeOptions}
           value={watch("type")}
           onChange={(val) => setValue("type", val)}
         />
 
-        {/* <div className={styles.fieldGroupSelect}>
-          <label className={styles.labelSelect}>Country</label>
-          <div className={styles.selectItem}>
-            <select
-              className={styles.select}
-              value={watch("country", "")}
-              {...register("country")}
-            >
-              <option key={0} value={""} disabled>
-                Select
-              </option>
-              {countryOptions.map((option, index) => (
-                <option value={option} key={index + 1}>
-                  {option}
-                </option>
-              ))}
-            </select>
-            <ArrowIconCity
-              fill={"#757575"}
-              height="16"
-              width="16"
-              // style={isOpen ? { rotate: " 180deg" } : {}}
-            />
-          </div>
-        </div> */}
-
         <CustomDropdown
-          label="Country"
+          label={t("country")}
           options={countryOptions}
           value={watch("country")}
           onChange={(val) => setValue("country", val)}
         />
 
-        {/* <div className={styles.fieldGroupSelect}>
-          <label className={styles.labelSelect}>Province</label>
-          <div className={styles.selectItem}>
-            <select
-              className={styles.select}
-              value={watch("province", "")}
-              {...register("province")}
-            >
-              <option key={0} value={""} disabled>
-                Select
-              </option>
-              {provinceOptions.map((option, index) => (
-                <option value={option} key={index + 1}>
-                  {option}
-                </option>
-              ))}
-            </select>
-            <ArrowIconCity
-              fill={"#757575"}
-              height="16"
-              width="16"
-              // style={isOpen ? { rotate: " 180deg" } : {}}
-            />
-          </div>
-        </div> */}
-
         <CustomDropdown
-          label="Province"
+          label={t("province")}
           options={provinceOptions}
           value={watch("province")}
           onChange={(val) => setValue("province", val)}
         />
-        {/* <div className={styles.fieldGroupSelect}>
-          <label className={styles.labelSelect}>Difficulty</label>
-          <div className={styles.selectItem}>
-            <select
-              className={styles.select}
-              value={watch("difficulty", "")}
-              {...register("difficulty")}
-            >
-              <option key={0} value={""} disabled>
-                Select
-              </option>
-              {difficultyOptions.map((option, index) => (
-                <option value={option} key={index + 1}>
-                  {option}
-                </option>
-              ))}
-            </select>
-            <ArrowIconCity
-              fill={"#757575"}
-              height="16"
-              width="16"
-              // style={isOpen ? { rotate: " 180deg" } : {}}
-            />
-          </div>
-        </div> */}
+
         <CustomDropdown
-          label="Difficulty"
+          label={t("difficulty")}
           options={difficultyOptions}
           value={watch("difficulty")}
           onChange={(val) => setValue("difficulty", val)}

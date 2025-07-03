@@ -8,6 +8,8 @@ import UserInfo from "../_components/UserInfo/UserInfo";
 import Button from "../_components/Button/Button";
 import CustomInput from "../_components/CustomInput/CustomInput";
 import ArrDown from "@/app/assets/arrDown";
+import { useTranslation } from "react-i18next";
+import "@/app/_translation/i18n";
 
 const userMock = {
   username: "Test user",
@@ -42,6 +44,7 @@ const languageOptions = [
 ];
 
 function Settings() {
+  const { t } = useTranslation();
   const [selectedTab, setSelectedTab] = useState("edit profile");
   const [isSelectOpen, setIsSelectOpen] = useState(false);
   const [isFormFilled, setIsFormFilled] = useState(false);
@@ -72,7 +75,7 @@ function Settings() {
       <Navbar />
       <div className={styles.content}>
         <div className={styles.contentHeader}>
-          <div className={styles.title}>Settings</div>
+          <div className={styles.title}>{t("settings")}</div>
           <UserMenu />
         </div>
         <div className={styles.tabContainer}>
@@ -95,14 +98,16 @@ function Settings() {
           </div>
           <div className={styles.profileInfo}>
             <div className={styles.formContainer}>
-              <div className={styles.profileTitle}>My account</div>
+              <div className={styles.profileTitle}>{t("myAccount")}</div>
               <div className={styles.form}>
                 {(Object.keys(userData) as (keyof typeof userData)[]).map(
                   (field) => {
                     if (field === "language") {
                       return (
                         <div key={field} className={styles.selectWrapper}>
-                          <label className={styles.label}>Language</label>
+                          <label className={styles.label}>
+                            {t("language")}
+                          </label>
                           <div className={styles.selectFlex}>
                             <select
                               value={userData[field]}
@@ -134,9 +139,7 @@ function Settings() {
                       return (
                         <CustomInput
                           key={field}
-                          label={field
-                            .replace(/([A-Z])/g, " $1")
-                            .replace(/^./, (s) => s.toUpperCase())}
+                          label={t(field)}
                           value={userData[field]}
                           onChange={(val) => handleInputChange(field, val)}
                           showError={errors[field]}
@@ -163,7 +166,7 @@ function Settings() {
                 }}
                 className={!isFormFilled ? styles.disabled : undefined}
               >
-                {"CONTINUE"}
+                {t("continue")}
               </Button>
             </div>
           </div>

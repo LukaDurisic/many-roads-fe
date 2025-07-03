@@ -13,6 +13,8 @@ import Image from "next/image";
 import Gallery from "@/app/_components/Gallery/Gallery";
 import ReviewErrorModal from "@/app/_components/ReviewErrorModal/ReviewErrorModal";
 import Modal from "../Modal/Modal";
+import { useTranslation } from "react-i18next";
+import "@/app/_translation/i18n";
 
 const reviewsData = {
   average: 4.5,
@@ -61,6 +63,7 @@ const reviewsData = {
 };
 
 function ReviewSection() {
+  const { t } = useTranslation();
   const [showAllReviews, setShowAllReviews] = useState(false);
   const [isReviewOpen, setIsReviewOpen] = useState(false);
   const [reviewDescription, setReviewDescription] = useState("");
@@ -154,10 +157,13 @@ function ReviewSection() {
         </div>
         <div className={styles.revCount}>
           {reviewsData.reviewsCount}{" "}
-          {reviewsData.reviewsCount === 1 ? "review" : "reviews"}
+          {t("review", { count: reviewsData.reviewsCount })}
         </div>
         <div className={styles.revBtnContainer}>
-          <Button label="Review route" onClick={() => setIsReviewOpen(true)} />
+          <Button
+            label={t("reviewRoute")}
+            onClick={() => setIsReviewOpen(true)}
+          />
         </div>
       </div>
       <div className={styles.reviews}>
@@ -181,7 +187,7 @@ function ReviewSection() {
               </div>
             </div>
             <div className={styles.rating}>
-              <div className={styles.ratingTitle}>Rate this route</div>
+              <div className={styles.ratingTitle}>{t("rateRoute")}</div>
               <div className={styles.ratingStars}>
                 {Array.from({ length: reviewRating }).map((_, index) => (
                   <div
@@ -205,8 +211,8 @@ function ReviewSection() {
               </div>
             </div>
             <CustomInput
-              label="Comment"
-              placeholder="Comment"
+              label={t("revDesc")}
+              placeholder={t("revDesc")}
               onChange={setReviewDescription}
               value={reviewDescription}
               isFullLength
@@ -216,7 +222,7 @@ function ReviewSection() {
             </div>
             <div className={styles.revImages}>
               <div className={styles.ratingTitle}>
-                Add image ({reviewImages.length}/3)
+                {t("addImage")} ({reviewImages.length}/3)
               </div>
             </div>
             <div className={styles.imageUpload}>
@@ -266,11 +272,11 @@ function ReviewSection() {
             </div>
             <div className={styles.reviewBtnsContainer}>
               <div className={styles.reviewCancel} onClick={cleanReview}>
-                Cancel
+                {t("cancel")}
               </div>
               <div className={styles.reviewSubmit}>
                 <Button
-                  label="Submit review"
+                  label={t("submitReview")}
                   onClick={handleSubmitReviewClick}
                 />
               </div>
@@ -280,7 +286,7 @@ function ReviewSection() {
         {isReviewSuccessOpen && (
           <div className={styles.reviewTooltip}>
             <Image src={CheckTrue} alt="check true" />
-            Your review has been submitted successfully!
+            {t("reviewSubmited")}
           </div>
         )}
         {showAllReviews
@@ -342,9 +348,9 @@ function ReviewSection() {
                   ) : (
                     <Image src={FlagFilledIcon} alt="flag icon" />
                   )}
-                  Report
+                  {t("report")}
                   {isReportedShowing[review.id] && (
-                    <div className={styles.reportTooltip}>Review reported!</div>
+                    <div className={styles.reportTooltip}>{t("reported")}</div>
                   )}
                 </div>
               </div>
@@ -407,9 +413,9 @@ function ReviewSection() {
                   ) : (
                     <Image src={FlagFilledIcon} alt="flag icon" />
                   )}
-                  Report
+                  {t("report")}
                   {isReportedShowing[review.id] && (
-                    <div className={styles.reportTooltip}>Review reported!</div>
+                    <div className={styles.reportTooltip}>{t("reported")}</div>
                   )}
                 </div>
               </div>
@@ -421,7 +427,7 @@ function ReviewSection() {
               setShowAllReviews(true);
             }}
           >
-            Show all reviews
+            {t("showAllReviews")}
           </div>
         )}
       </div>

@@ -2,6 +2,8 @@ import React from "react";
 import styles from "./MyRoutes.module.css";
 import { RouteCardProps } from "@/app/_types";
 import RouteList from "../RouteList/RouteList";
+import { useTranslation } from "react-i18next";
+import "@/app/_translation/i18n";
 
 const routes: RouteCardProps[] = [
   {
@@ -127,20 +129,19 @@ const routes: RouteCardProps[] = [
 ];
 
 function MyRoutes() {
+  const { t } = useTranslation();
   return (
     <div className={styles.wrapper}>
       {routes.length === 0 && (
         <div className={styles.info}>
-          <div className={styles.title}>Nothing here yet!</div>
-          <div className={styles.description}>
-            Looks like you haven’t published any routes. Start by creating and{" "}
-            <br />
-            publishing a route to make it visible on your profile.
-          </div>
+          <div className={styles.title}>{t("nothingHere")}</div>
+          <div className={styles.description}>{t("noRoutesDesc")}</div>
         </div>
       )}
-      {routes.length > 0 && <RouteList routes={routes} title="Published" />}
-      {routes.length > 0 && <RouteList routes={routes} title="Drafts" />}
+      {routes.length > 0 && (
+        <RouteList routes={routes} title={t("published")} />
+      )}
+      {routes.length > 0 && <RouteList routes={routes} title={t("drafts")} />}
     </div>
   );
 }
