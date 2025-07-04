@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styles from "@/app/createRoute/CreateRoute.module.css";
 import Navbar from "./Navbar/Navbar";
 import UserMenu from "./UserMenu/UserMenu";
@@ -14,7 +14,6 @@ import { ClipLoader } from "react-spinners";
 import { useRouter } from "next/navigation";
 import { useTranslation } from "react-i18next";
 import "@/app/_translation/i18n";
-import useLocalStorage from "../_hooks/useLocalStorage";
 
 function CreateRoute() {
   const { t } = useTranslation();
@@ -23,14 +22,12 @@ function CreateRoute() {
   const [attractionImages, setAttractionImages] = useState<AttractionImages[]>(
     []
   );
-  const [authToken, setAuthToken] = useLocalStorage<string>("accessToken", "");
+  const [authToken, setAuthToken] = useState<string>("");
   const [isLoadingOpen, setIsLoadingOpen] = useState<boolean>(false);
   const [previewRoute, setPreviewRoute] = useState<string[]>([]);
   const [previewAttractions, setPreviewAttractions] = useState<
     PreviewAttraction[]
   >([]);
-
-  console.log(setAuthToken);
   const [isStep1Allowed, setIsStep1Allowed] = useState<boolean>(false);
   const [isStep2Allowed, setIsStep2Allowed] = useState<boolean>(false);
   const { register, handleSubmit, setValue, watch, getValues, control } =
@@ -80,6 +77,11 @@ function CreateRoute() {
     });
 
   const router = useRouter();
+
+  useEffect(() => {
+    const savedValue = window.localStorage.getItem("accessToken");
+    setAuthToken(savedValue ? savedValue : "");
+  }, []);
 
   const onSubmit: SubmitHandler<Route> = async (data) => {
     setIsLoadingOpen(true);
