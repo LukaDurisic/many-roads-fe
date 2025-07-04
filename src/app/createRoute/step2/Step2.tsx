@@ -14,6 +14,8 @@ import CheckpointCreate from "@/app/_components/CheckpointCreate/CheckpointCreat
 import PlusIcon from "../../assets/plus.svg";
 import Image from "next/image";
 import Map from "@/app/_components/Map/Map";
+import { useTranslation } from "react-i18next";
+import "@/app/_translation/i18n";
 
 function Step2({
   register,
@@ -96,10 +98,12 @@ function Step2({
     return () => subscription.unsubscribe();
   }, [watch, getValues, JSON.stringify(previewAttractions)]);
 
+  const { t } = useTranslation();
+
   return (
     <div className={styles.stepWrapper}>
       <div className={styles.leftPane}>
-        <h2 className={styles.heading}>Checkpoints</h2>
+        <h2 className={styles.heading}>{t("checkpoints")}</h2>
         {getValues().attractions.map((attraction, index) => (
           <CheckpointCreate
             register={register}
@@ -120,8 +124,8 @@ function Step2({
           className={styles.addCheckpointBtn}
           onClick={() => addCheckpoint()}
         >
-          <Image src={PlusIcon} alt="add" height={22} width={22} /> Add
-          checkpoint
+          <Image src={PlusIcon} alt="add" height={22} width={22} />{" "}
+          {t("addCheckpoint")}
         </div>
       </div>
 

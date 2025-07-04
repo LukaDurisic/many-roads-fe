@@ -2,6 +2,8 @@ import React from "react";
 import styles from "./DeleteCheckpointModal.module.css";
 import { UseFieldArrayRemove } from "react-hook-form";
 import Button from "../Button/Button";
+import { useTranslation } from "react-i18next";
+import "@/app/_translation/i18n";
 
 function DeleteCheckpointModal({
   remove,
@@ -10,19 +12,16 @@ function DeleteCheckpointModal({
   remove: UseFieldArrayRemove;
   close: () => void;
 }) {
+  const { t } = useTranslation();
   return (
     <div className={styles.wrapper}>
-      <div className={styles.heading}>Are you sure?</div>
-      <div className={styles.description}>
-        Are you sure you want to delete all data for checkpoint? By continuing
-        you will lose all informations that you entered about it (including
-        name, address, images and description).
-      </div>
+      <div className={styles.heading}>{t("areYouSure")}</div>
+      <div className={styles.description}>{t("areYouSureDesc")}</div>
       <div className={styles.btnsContainer}>
         <div className={styles.close} onClick={close}>
-          Close
+          {t("close")}
         </div>
-        <Button label="Delete checkpoint" onClick={remove} />
+        <Button label={t("deleteCheckpoint")} onClick={remove} />
       </div>
     </div>
   );

@@ -8,6 +8,8 @@ import { UserInfoProps } from "@/app/_types";
 import DotsIcon from "@/app/assets/3dots.svg";
 import CameraIcon from "@/app/assets/camera.svg";
 import Link from "next/link";
+import { useTranslation } from "react-i18next";
+import "@/app/_translation/i18n";
 
 function UserInfo({
   data,
@@ -22,6 +24,7 @@ function UserInfo({
   variant: "big" | "small" | "smallCard";
   isInfoShowing?: boolean;
 }) {
+  const { t } = useTranslation();
   const [isImageOpen, setIsImageOpen] = useState(false);
   const [isEditOpen, setIsEditOpen] = useState(false);
 
@@ -63,7 +66,8 @@ function UserInfo({
     >
       {date && (
         <div className={styles.publishDate}>
-          Published {data?.date_added ? formatDate(data.date_added) : "N/A"}
+          {t("published")}{" "}
+          {data?.date_added ? formatDate(data.date_added) : "N/A"}
         </div>
       )}
       <div
@@ -111,8 +115,8 @@ function UserInfo({
               />
               {isImageOpen && (
                 <div className={styles.imageMenu}>
-                  <div className={styles.option}>Add image</div>
-                  <div className={styles.option}>Remove image</div>
+                  <div className={styles.option}>{t("addImage")}</div>
+                  <div className={styles.option}>{t("removeImage")}</div>
                 </div>
               )}
             </div>
@@ -172,7 +176,7 @@ function UserInfo({
               {isEditOpen && (
                 <div className={styles.editMenu}>
                   <Link href={"/settings"} className={styles.option}>
-                    Edit profile
+                    {t("editProfile")}
                   </Link>
                 </div>
               )}

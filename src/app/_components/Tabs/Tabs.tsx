@@ -1,5 +1,7 @@
 import React from "react";
 import styles from "./Tabs.module.css";
+import { useTranslation } from "react-i18next";
+import "@/app/_translation/i18n";
 
 interface TabProps {
   options: string[];
@@ -9,6 +11,7 @@ interface TabProps {
 }
 
 function Tabs({ options, selectedTab, setSelectedTab, isCenter }: TabProps) {
+  const { t } = useTranslation();
   return (
     <div className={isCenter ? styles.tabs : styles.leftTabs}>
       {options.map((option) => (
@@ -17,7 +20,7 @@ function Tabs({ options, selectedTab, setSelectedTab, isCenter }: TabProps) {
           className={selectedTab === option ? styles.activeTab : styles.tab}
           onClick={() => setSelectedTab(option)}
         >
-          {option}
+          {t(option)}
         </div>
       ))}
     </div>

@@ -17,6 +17,8 @@ import AddImageIcon from "../../assets/addImage.svg";
 import Modal from "../Modal/Modal";
 import DeleteCheckpointModal from "../DeleteCheckpointModal/DeleteCheckpointModal";
 import LocationInput from "../LocationInput/LocationInput";
+import { useTranslation } from "react-i18next";
+import "@/app/_translation/i18n";
 
 function CheckpointCreate({
   index,
@@ -41,6 +43,7 @@ function CheckpointCreate({
     React.SetStateAction<PreviewAttraction[]>
   >;
 }) {
+  const { t } = useTranslation();
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState<boolean>(false);
   const heroFileInputRef = useRef<HTMLInputElement>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -217,7 +220,7 @@ function CheckpointCreate({
           <div className={styles.checkpointNumber}>{index + 1}</div>
           <input
             className={styles.input}
-            placeholder="Type Name Here"
+            placeholder={t("typeName")}
             {...register(`attractions.${index}.name`)}
           />
           <Image
@@ -265,7 +268,7 @@ function CheckpointCreate({
               className={`${styles.imageBox} ${styles.noAfter}`}
               onClick={handleHeroImageBoxClick}
             >
-              <Image src={AddImageIcon} alt="add image" /> Intro image
+              <Image src={AddImageIcon} alt="add image" /> {t("introImage")}
               <input
                 type="file"
                 id="imageUpload"
@@ -278,15 +281,14 @@ function CheckpointCreate({
           )}{" "}
         </div>
         <div className={styles.imageNote}>
-          <InfoIcon height={35} width={35} stroke="#CCCCCC" /> Intro image is
-          visible on the checkpoint cards, while gallery images are the ones
-          that are shown on checkpoint view.
+          <InfoIcon height={35} width={35} stroke="#CCCCCC" />{" "}
+          {t("introImgDesc")}
         </div>
       </div>
       <div className={styles.descriptionBox}>
-        <label className={styles.descTitle}>Write a Description</label>
+        <label className={styles.descTitle}>{t("writeDescription")}</label>
         <textarea
-          placeholder="Type Here"
+          placeholder={t("typeHere")}
           className={styles.textarea}
           {...register(`attractions.${index}.content`)}
           maxLength={1000}
@@ -315,7 +317,7 @@ function CheckpointCreate({
         Create audio from my description.
       </label> */}
       <div className={styles.galleryBox}>
-        <div className={styles.descTitle}>Gallery</div>
+        <div className={styles.descTitle}>{t("gallery")}</div>
         <div className={styles.galleryImageUpload}>
           <div className={styles.galleryImageGrid}>
             {previewAttractions?.images.map((preview, index) => (

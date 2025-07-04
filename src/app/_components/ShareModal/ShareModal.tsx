@@ -4,8 +4,11 @@ import styles from "./ShareModal.module.css";
 import RouteCard from "../RouteCard/RouteCard";
 import Button from "../Button/Button";
 import { RouteCardProps, Route } from "@/app/_types";
+import { useTranslation } from "react-i18next";
+import "@/app/_translation/i18n";
 
 function ShareModal({ data }: { data: Route | undefined }) {
+  const { t } = useTranslation();
   const [copied, setCopied] = useState(false);
 
   const handleCopy = async () => {
@@ -52,14 +55,14 @@ function ShareModal({ data }: { data: Route | undefined }) {
 
   return (
     <div className={styles.card}>
-      <div className={styles.title}>Share this route</div>
+      <div className={styles.title}>{t("shareRoute")}</div>
       <RouteCard
         routeData={routeInfo}
         isProfileShowing={true}
         isClickable={false}
       />
-      <Button label="Copy link" onClick={handleCopy} />
-      {copied && <p className={styles.alert}>Link copied</p>}
+      <Button label={t("copyLink")} onClick={handleCopy} />
+      {copied && <p className={styles.alert}>{t("linkCopied")}</p>}
     </div>
   );
 }
