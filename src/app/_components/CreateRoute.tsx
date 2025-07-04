@@ -80,7 +80,7 @@ function CreateRoute() {
 
   useEffect(() => {
     if (typeof window !== "undefined") {
-      const storedValue = localStorage.getItem("accessToken");
+      const storedValue = localStorage.getItem("accessToken") || null;
       if (storedValue) {
         setAuthToken(storedValue);
       }
