@@ -14,6 +14,7 @@ import { ClipLoader } from "react-spinners";
 import { useRouter } from "next/navigation";
 import { useTranslation } from "react-i18next";
 import "@/app/_translation/i18n";
+import useLocalStorage from "../_hooks/useLocalStorage";
 
 function CreateRoute() {
   const { t } = useTranslation();
@@ -22,7 +23,7 @@ function CreateRoute() {
   const [attractionImages, setAttractionImages] = useState<AttractionImages[]>(
     []
   );
-  const [authToken, setAuthToken] = useState<string>("");
+  const [authToken, setAuthToken] = useLocalStorage<string>("accessToken", "");
   const [isLoadingOpen, setIsLoadingOpen] = useState<boolean>(false);
   const [previewRoute, setPreviewRoute] = useState<string[]>([]);
   const [previewAttractions, setPreviewAttractions] = useState<
@@ -77,15 +78,6 @@ function CreateRoute() {
     });
 
   const router = useRouter();
-
-  useEffect(() => {
-    if (global?.window !== undefined) {
-      const storedValue = localStorage.getItem("accessToken") || null;
-      if (storedValue) {
-        setAuthToken(storedValue);
-      }
-    }
-  }, []);
 
   const onSubmit: SubmitHandler<Route> = async (data) => {
     setIsLoadingOpen(true);
