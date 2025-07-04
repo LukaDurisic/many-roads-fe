@@ -11,7 +11,7 @@ import Link from "next/link";
 import CustomInput from "../CustomInput/CustomInput";
 import "@/app/_translation/i18n";
 import { useTranslation } from "react-i18next";
-import i18n from "@/app/_translation/i18n";
+// import i18n from "@/app/_translation/i18n";
 function Login() {
   const { t } = useTranslation();
   const [isLoading, setIsLoading] = useState(false);
@@ -23,29 +23,29 @@ function Login() {
 
   const router = useRouter();
 
-  useEffect(() => {
-    const browserLang =
-      (typeof navigator !== "undefined" && navigator.language.toLowerCase()) ||
-      "en";
-    let appLang: "en" | "sc" | "tc" = "en";
+  // useEffect(() => {
+  //   const browserLang =
+  //     (typeof navigator !== "undefined" && navigator.language.toLowerCase()) ||
+  //     "en";
+  //   let appLang: "en" | "sc" | "tc" = "en";
 
-    if (browserLang.startsWith("zh")) {
-      if (
-        browserLang.includes("tw") ||
-        browserLang.includes("hk") ||
-        browserLang.includes("mo")
-      ) {
-        appLang = "tc";
-      } else {
-        appLang = "sc";
-      }
-    } else if (browserLang.startsWith("en")) {
-      appLang = "en";
-    }
+  //   if (browserLang.startsWith("zh")) {
+  //     if (
+  //       browserLang.includes("tw") ||
+  //       browserLang.includes("hk") ||
+  //       browserLang.includes("mo")
+  //     ) {
+  //       appLang = "tc";
+  //     } else {
+  //       appLang = "sc";
+  //     }
+  //   } else if (browserLang.startsWith("en")) {
+  //     appLang = "en";
+  //   }
 
-    localStorage.setItem("userLang", appLang);
-    i18n.changeLanguage(appLang);
-  }, []);
+  //   localStorage.setItem("userLang", appLang);
+  //   i18n.changeLanguage(appLang);
+  // }, []);
 
   const logIn = async () => {
     if (username.trim() === "" && password.trim() === "") {
