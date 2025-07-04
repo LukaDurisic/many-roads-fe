@@ -79,7 +79,7 @@ function CreateRoute() {
   const router = useRouter();
 
   useEffect(() => {
-    if (typeof window !== "undefined") {
+    if (global?.window !== undefined) {
       const storedValue = localStorage.getItem("accessToken") || null;
       if (storedValue) {
         setAuthToken(storedValue);
