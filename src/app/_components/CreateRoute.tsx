@@ -14,12 +14,6 @@ import { ClipLoader } from "react-spinners";
 import { useRouter } from "next/navigation";
 import { useTranslation } from "react-i18next";
 import "@/app/_translation/i18n";
-// import dynamic from "next/dynamic";
-
-// const DynamicComponentWithNoSSR = dynamic(
-//   () => import("@/app/_components/CreateRoute"),
-//   { ssr: false }
-// );
 
 function CreateRoute() {
   const { t } = useTranslation();

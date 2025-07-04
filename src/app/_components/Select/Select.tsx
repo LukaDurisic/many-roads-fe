@@ -21,6 +21,20 @@ interface SelectProps {
 const Select: React.FC<SelectProps> = ({ options, style }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedOption, setSelectedOption] = useState<Option | null>(null);
+  const [initialLangValue, setInitialLangValue] = useState(options[0].value);
+
+  useEffect(() => {
+    if (typeof window !== "undefined" && style === "lang") {
+      const storedLang = localStorage.getItem("userLang");
+      const matchedOption = options.find(
+        (option) => option.short === storedLang
+      );
+      if (matchedOption) {
+        setInitialLangValue(matchedOption.value);
+      }
+    }
+  }, [options, style]);
+
   const dropdownRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -80,25 +94,19 @@ const Select: React.FC<SelectProps> = ({ options, style }) => {
               style === "citySmall" ? styles.citySmallSelect : styles.langSelect
             }
             onClick={() => setIsOpen(!isOpen)}
+            value={initialLangValue}
             onChange={(e) => {
               const selected = options.find(
                 (opt) => opt.value === e.target.value
               );
               if (style === "lang" && selected?.short) {
-                console.log("test");
                 changeLanguage(selected.short);
+                if (typeof window !== "undefined") {
+                  localStorage.setItem("userLang", selected.short);
+                }
+                setInitialLangValue(selected.value);
               }
             }}
-            // value={
-            //   style === "lang"
-            //     ? (localStorage !== undefined &&
-            //         options.find(
-            //           (option) =>
-            //             option.short === localStorage.getItem("userLang")
-            //         )?.value) ||
-            //       options[0].value
-            //     : options[0].value
-            // }
           >
             {style === "citySmall" ? (
               options.map((option) => (
