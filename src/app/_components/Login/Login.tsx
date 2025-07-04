@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import styles from "./Login.module.css";
 import Button from "@/app/_components/Button/Button";
 import Image from "next/image";
