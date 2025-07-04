@@ -16,12 +16,13 @@ import {
   getSingleRoute,
 } from "@/app/_services/client-api-requests";
 import type { Route } from "@/app/_types";
-import Map from "@/app/_components/Map/Map";
+// import Map from "@/app/_components/Map/Map";
 import { ClipLoader } from "react-spinners";
 import UserInfo from "@/app/_components/UserInfo/UserInfo";
 import { useTranslation } from "react-i18next";
 import "@/app/_translation/i18n";
 import ReviewSection from "@/app/_components/ReviewSection/ReviewSection";
+import Mapbox from "@/app/mapbox/page";
 
 const accessOptions = [
   { name: "Child", checked: true },
@@ -274,7 +275,8 @@ function Route({ params }: RoutePageProps) {
 
           <div className={styles.mapSection}>
             <div className={styles.map}>
-              {data && <Map tourList={[data]} isSingleRoute />}
+              {/* {data && <Map tourList={[data]} isSingleRoute />} */}
+              {data && <Mapbox sigleRoute={data} />}
             </div>
           </div>
 

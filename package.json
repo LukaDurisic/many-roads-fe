@@ -24,6 +24,7 @@
     "i18next": "^25.2.1",
     "lodash.debounce": "^4.0.8",
     "lucide-react": "^0.513.0",
+    "mapbox-gl": "^3.13.0",
     "next": "15.2.4",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
@@ -31,6 +32,7 @@
     "react-hook-form": "^7.57.0",
     "react-i18next": "^15.5.3",
     "react-image-crop": "^11.0.10",
+    "react-map-gl": "^8.0.4",
     "react-spinners": "^0.16.1",
     "react-tooltip": "^5.29.1",
     "tailwind": "^4.0.0",
@@ -41,6 +43,7 @@
   "devDependencies": {
     "@eslint/eslintrc": "^3",
     "@types/lodash.debounce": "^4.0.9",
+    "@types/mapbox-gl": "^3.4.1",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
