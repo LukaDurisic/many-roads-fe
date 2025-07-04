@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import styles from "@/app/createRoute/CreateRoute.module.css";
 import Navbar from "./Navbar/Navbar";
 import UserMenu from "./UserMenu/UserMenu";
@@ -29,6 +29,8 @@ function CreateRoute() {
   const [previewAttractions, setPreviewAttractions] = useState<
     PreviewAttraction[]
   >([]);
+
+  console.log(setAuthToken);
   const [isStep1Allowed, setIsStep1Allowed] = useState<boolean>(false);
   const [isStep2Allowed, setIsStep2Allowed] = useState<boolean>(false);
   const { register, handleSubmit, setValue, watch, getValues, control } =
