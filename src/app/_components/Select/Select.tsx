@@ -91,10 +91,12 @@ const Select: React.FC<SelectProps> = ({ options, style }) => {
             }}
             value={
               style === "lang"
-                ? options.find(
-                    (option) =>
-                      option.short === localStorage.getItem("userLang")
-                  )?.value || options[0].value
+                ? (localStorage !== undefined &&
+                    options.find(
+                      (option) =>
+                        option.short === localStorage.getItem("userLang")
+                    )?.value) ||
+                  options[0].value
                 : options[0].value
             }
           >

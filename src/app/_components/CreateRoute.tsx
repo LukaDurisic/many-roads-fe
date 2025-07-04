@@ -14,6 +14,12 @@ import { ClipLoader } from "react-spinners";
 import { useRouter } from "next/navigation";
 import { useTranslation } from "react-i18next";
 import "@/app/_translation/i18n";
+// import dynamic from "next/dynamic";
+
+// const DynamicComponentWithNoSSR = dynamic(
+//   () => import("@/app/_components/CreateRoute"),
+//   { ssr: false }
+// );
 
 function CreateRoute() {
   const { t } = useTranslation();
@@ -79,8 +85,12 @@ function CreateRoute() {
   const router = useRouter();
 
   useEffect(() => {
-    const savedValue = window.localStorage.getItem("accessToken");
-    setAuthToken(savedValue ? savedValue : "");
+    if (typeof window !== "undefined") {
+      const storedValue = localStorage.getItem("accessToken") || null;
+      if (storedValue) {
+        setAuthToken(storedValue);
+      }
+    }
   }, []);
 
   const onSubmit: SubmitHandler<Route> = async (data) => {
