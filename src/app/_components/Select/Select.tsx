@@ -89,16 +89,16 @@ const Select: React.FC<SelectProps> = ({ options, style }) => {
                 changeLanguage(selected.short);
               }
             }}
-            value={
-              style === "lang"
-                ? (localStorage !== undefined &&
-                    options.find(
-                      (option) =>
-                        option.short === localStorage.getItem("userLang")
-                    )?.value) ||
-                  options[0].value
-                : options[0].value
-            }
+            // value={
+            //   style === "lang"
+            //     ? (localStorage !== undefined &&
+            //         options.find(
+            //           (option) =>
+            //             option.short === localStorage.getItem("userLang")
+            //         )?.value) ||
+            //       options[0].value
+            //     : options[0].value
+            // }
           >
             {style === "citySmall" ? (
               options.map((option) => (
