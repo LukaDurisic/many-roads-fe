@@ -279,9 +279,9 @@ function CreateRoute() {
                 label={t("next") + " ->"}
                 className={styles.nextBtn}
                 onClick={() => {
-                  if (true) setCurrentStep(2);
+                  if (isStep1Allowed) setCurrentStep(2);
                 }}
-                variant={true ? "primary" : "disabled"}
+                variant={isStep1Allowed ? "primary" : "disabled"}
               />
             </div>
           ) : currentStep === 2 ? (

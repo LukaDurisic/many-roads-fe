@@ -12,7 +12,7 @@ import {
 import { Route, AttractionImages, PreviewAttraction } from "@/app/_types";
 import TrashIcon from "../../assets/trash.svg";
 import InfoIcon from "../../assets/info";
-import LocationIcon from "@/app/assets/location";
+// import LocationIcon from "@/app/assets/location";
 import AddImageIcon from "../../assets/addImage.svg";
 import Modal from "../Modal/Modal";
 import DeleteCheckpointModal from "../DeleteCheckpointModal/DeleteCheckpointModal";
@@ -56,6 +56,8 @@ function CheckpointCreate({
   const handleImageBoxClick = () => {
     fileInputRef.current?.click();
   };
+
+  console.log(getValues());
 
   const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     const files = event.target.files;
