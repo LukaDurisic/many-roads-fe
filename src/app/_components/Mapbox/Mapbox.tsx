@@ -6,7 +6,7 @@ import { Feature, LineString } from "geojson";
 import { Route } from "@/app/_types";
 import RouteDisabledIcon from "@/app/assets/routeDisabled.svg";
 import RouteIcon from "@/app/assets/route.svg";
-import RouteCard from "../_components/RouteCard/RouteCard";
+import RouteCard from "../RouteCard/RouteCard";
 import Image from "next/image";
 import styles from "./Mapbox.module.css";
 import { UseFormWatch, UseFormSetValue } from "react-hook-form";

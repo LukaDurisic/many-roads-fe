@@ -22,7 +22,7 @@ import UserInfo from "@/app/_components/UserInfo/UserInfo";
 import { useTranslation } from "react-i18next";
 import "@/app/_translation/i18n";
 import ReviewSection from "@/app/_components/ReviewSection/ReviewSection";
-import Mapbox from "@/app/mapbox/page";
+import Mapbox from "@/app/_components/Mapbox/Mapbox";
 
 const accessOptions = [
   { name: "Child", checked: true },

@@ -16,7 +16,7 @@ import Image from "next/image";
 // import Map from "@/app/_components/Map/Map";
 import { useTranslation } from "react-i18next";
 import "@/app/_translation/i18n";
-import Mapbox from "@/app/mapbox/page";
+import Mapbox from "@/app/_components/Mapbox/Mapbox";
 
 function Step2({
   register,
