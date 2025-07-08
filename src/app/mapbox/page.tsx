@@ -11,6 +11,12 @@ import Image from "next/image";
 import styles from "./Mapbox.module.css";
 import { UseFormWatch, UseFormSetValue } from "react-hook-form";
 
+type MapboxFeatureProperties = {
+  full_name?: string;
+  full_address?: string;
+  [key: string]: any;
+};
+
 const Mapbox = ({
   sigleRoute,
   allRoutes,
@@ -60,7 +66,7 @@ const Mapbox = ({
   const [selectedCheckpoint, setSelectedCheckpoint] = useState<number | null>(
     null
   );
-  const [info, setInfo] = useState<any>();
+  const [info, setInfo] = useState<MapboxFeatureProperties | undefined>();
 
   useEffect(() => {
     async function fetchAndFitRoute() {
