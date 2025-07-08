@@ -14,7 +14,6 @@ import { UseFormWatch, UseFormSetValue } from "react-hook-form";
 type MapboxFeatureProperties = {
   full_name?: string;
   full_address?: string;
-  [key: string]: any;
 };
 
 const Mapbox = ({
