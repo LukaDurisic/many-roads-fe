@@ -1,15 +1,20 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import styles from "@/app/createRoute/CreateRoute.module.css";
-import Navbar from "./Navbar/Navbar";
-import UserMenu from "./UserMenu/UserMenu";
-import Step1 from "../createRoute/step1/Step1";
-import Step2 from "../createRoute/step2/Step2";
-import Step3 from "../createRoute/step3/Step3";
-import Button from "./Button/Button";
+import Navbar from "../Navbar/Navbar";
+import UserMenu from "../UserMenu/UserMenu";
+import Step1 from "../../createRoute/step1/Step1";
+import Step2 from "../../createRoute/step2/Step2";
+import Step3 from "../../createRoute/step3/Step3";
+import Button from "../Button/Button";
 import { useForm, SubmitHandler, useFieldArray } from "react-hook-form";
-import { Image, Route, AttractionImages, PreviewAttraction } from "../_types";
-import { uploadImage, createRoute } from "../_services/client-api-requests";
+import {
+  Image,
+  Route,
+  AttractionImages,
+  PreviewAttraction,
+} from "../../_types";
+import { uploadImage, createRoute } from "../../_services/client-api-requests";
 import { ClipLoader } from "react-spinners";
 import { useRouter } from "next/navigation";
 import { useTranslation } from "react-i18next";
@@ -181,6 +186,7 @@ function CreateRoute() {
     } else {
       alert("Route creation failed!");
     }
+    console.log(data);
   };
 
   const { append, remove } = useFieldArray({
@@ -273,9 +279,9 @@ function CreateRoute() {
                 label={t("next") + " ->"}
                 className={styles.nextBtn}
                 onClick={() => {
-                  if (isStep1Allowed) setCurrentStep(2);
+                  if (true) setCurrentStep(2);
                 }}
-                variant={isStep1Allowed ? "primary" : "disabled"}
+                variant={true ? "primary" : "disabled"}
               />
             </div>
           ) : currentStep === 2 ? (

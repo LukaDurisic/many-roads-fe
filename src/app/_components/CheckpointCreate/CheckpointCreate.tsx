@@ -16,7 +16,8 @@ import LocationIcon from "@/app/assets/location";
 import AddImageIcon from "../../assets/addImage.svg";
 import Modal from "../Modal/Modal";
 import DeleteCheckpointModal from "../DeleteCheckpointModal/DeleteCheckpointModal";
-import LocationInput from "../LocationInput/LocationInput";
+// import LocationInput from "../LocationInput/LocationInput";
+import MapboxSearch from "../MapboxSearch/MapboxSearch";
 import { useTranslation } from "react-i18next";
 import "@/app/_translation/i18n";
 
@@ -231,19 +232,15 @@ function CheckpointCreate({
           />
         </div>
         <div className={styles.inputGroup}>
-          <span className={styles.icon}>
+          {/* <span className={styles.icon}>
             <LocationIcon height={22} width={24} fill="#757575" />
-          </span>
-          {/*  <input
-            className={styles.input}
-            placeholder="Address"
-            {...register(`attractions.${index}.address`)}
-          /> */}
-          <LocationInput
+          </span> */}
+          {/* <LocationInput
             setValue={setValue}
             getValues={getValues}
             index={index}
-          />
+          /> */}
+          <MapboxSearch watch={watch} setValue={setValue} />
         </div>
       </div>
       <div className={styles.imageUpload}>
