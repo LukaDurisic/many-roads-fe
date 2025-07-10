@@ -46,7 +46,12 @@ const RouteCard: React.FC<RouteCardCompProps> = ({
                   </div>
                 ))}
               </div>
-              <div className={styles.checkpointNumber}>
+              <div
+                className={`${styles.checkpointNumber} ${
+                  routeData.num_of_completed_routes ===
+                    routeData.total_attractions && styles.done
+                }`}
+              >
                 {routeData.num_of_completed_routes === 0
                   ? 1
                   : routeData.num_of_completed_routes}{" "}

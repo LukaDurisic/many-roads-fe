@@ -145,7 +145,7 @@ function CheckpointModal({
             fill={
               checkpointNumber === checkpointData.length - 1
                 ? "#5c5c5c4d"
-                : "0d0d0dff"
+                : "0d0d0d"
             }
           />
         </div>

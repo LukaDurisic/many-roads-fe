@@ -1,5 +1,6 @@
 .wrapper {
   width: 300px;
+  /* width: 270px; */
   padding: 10px;
   background-color: #fff;
   color: #0d0d0d;
@@ -53,10 +54,15 @@
 
 .checkpointNumber {
   height: fit-content;
-  width: 48px;
+  width: 59px;
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.done {
+  background-color: #00af00;
+  color: #fff;
 }
 
 .descriptionContainer {
