@@ -1,0 +1,62 @@
+.wrapper {
+  padding: 50px;
+}
+
+.title {
+  font-family: Familjen Grotesk;
+  font-weight: 600;
+  font-style: SemiBold;
+  font-size: 40px;
+  line-height: 46px;
+  letter-spacing: 0%;
+  color: #0d0d0d;
+}
+
+.description {
+  font-family: Inter;
+  font-weight: 400;
+  font-style: Regular;
+  font-size: 16px;
+  line-height: 100%;
+  letter-spacing: 0px;
+  color: #0d0d0d;
+  margin-top: 20px;
+}
+
+.cardsContainer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 50px;
+  margin-top: 30px;
+}
+
+.card {
+  width: 300px;
+}
+
+.icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #f7f7f7;
+  height: 300px;
+  width: 300px;
+  border-radius: 20px;
+}
+
+.cardDesc {
+  font-family: Inter;
+  font-weight: 600;
+  font-style: Semi Bold;
+  font-size: 16px;
+  line-height: 20.8px;
+  letter-spacing: 0px;
+  color: #0d0d0d;
+  margin-top: 10px;
+}
+
+.card:hover {
+  cursor: pointer;
+  text-decoration: underline;
+}
