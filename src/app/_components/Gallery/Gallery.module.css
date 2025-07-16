@@ -1,11 +1,11 @@
 .wrapper,
 .wrapperLeft {
   height: 460px;
-  width: 420px;
+  width: 520px;
   background-color: #fff;
   display: flex;
   justify-content: center;
-  gap: 10px;
+  gap: 5px;
 }
 
 .wrapperLeft {
@@ -42,19 +42,17 @@
 
 .sliderImageSmall {
   height: 50px;
-  width: 35px;
+  width: 40px;
   border-radius: 8px;
   background-color: #d9d9d9;
   cursor: pointer;
-  min-height: 45px;
-  min-width: 35;
+  min-height: 50px;
+  min-width: 40px;
 }
 
 .slideImage {
-  height: 80px;
-  min-height: 70px;
-  width: 100%;
-  min-width: 55px;
+  height: 90px;
+  width: 72px;
   border-radius: 16px;
   background-color: #d9d9d9;
   cursor: pointer;
@@ -63,8 +61,9 @@
 .imageContainer {
   display: flex;
   flex-direction: column;
-  width: 400px;
-  margin-bottom: 20px;
+  width: 540px;
+  height: 520px;
+  margin-bottom: 10px;
 }
 
 .image {
@@ -113,8 +112,8 @@
 }
 
 .bigImg {
-  height: 430px;
-  width: 350px;
+  width: 400px;
+  height: 500px;
   background-color: #d9d9d9;
   border-radius: 16px;
   object-fit: cover;
@@ -122,7 +121,7 @@
 }
 
 .numContainer {
-  width: 350px;
+  width: 420px;
   display: flex;
   justify-content: end;
   padding: 15px;

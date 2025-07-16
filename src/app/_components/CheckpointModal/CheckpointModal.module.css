@@ -8,12 +8,12 @@
 .content {
   display: flex;
   justify-content: space-between;
-  gap: 100px;
+  gap: 40px;
 }
 
 .gallery {
-  height: 450px;
-  width: 45%;
+  height: 550px;
+  width: 60%;
 }
 
 .info {
