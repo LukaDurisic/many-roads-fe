@@ -83,7 +83,7 @@ const routes: RouteCardProps[] = [
     end: "Admiralty",
     id: 3,
     name: "156-year History of the City of Victoria",
-    num_of_completed_routes: 0,
+    num_of_completed_routes: 20,
     start: "Sheung Wan",
     total_attractions: 20,
     images: [
