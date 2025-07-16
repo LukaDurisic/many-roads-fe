@@ -23,7 +23,7 @@
 
 .imageBox {
   width: 100%;
-  aspect-ratio: 4/3;
+  aspect-ratio: 3/2;
   background-color: #fff;
   border: 2px solid #f0f0f0;
   display: flex;
