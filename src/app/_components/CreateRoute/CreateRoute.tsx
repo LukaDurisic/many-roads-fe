@@ -4,7 +4,7 @@ import styles from "@/app/createRoute/CreateRoute.module.css";
 import Navbar from "../Navbar/Navbar";
 import UserMenu from "../UserMenu/UserMenu";
 import Step1 from "../../createRoute/step1/Step1";
-import Step2 from "../../createRoute/step2/Step2";
+// import Step2 from "../../createRoute/step2/Step2";
 import Step3 from "../../createRoute/step3/Step3";
 import Button from "../Button/Button";
 import { useForm, SubmitHandler, useFieldArray } from "react-hook-form";
@@ -250,18 +250,19 @@ function CreateRoute() {
               setIsAllowed={setIsStep1Allowed}
             />
           ) : currentStep === 2 ? (
-            <Step2
-              register={register}
-              getValues={getValues}
-              watch={watch}
-              appendAttraction={append}
-              remove={remove}
-              setValue={setValue}
-              setAttractionImages={setAttractionImages}
-              previewAttractions={previewAttractions}
-              setPreviewAttractions={setPreviewAttractions}
-              setIsAllowed={setIsStep2Allowed}
-            />
+            // <Step2
+            //   register={register}
+            //   getValues={getValues}
+            //   watch={watch}
+            //   appendAttraction={append}
+            //   remove={remove}
+            //   setValue={setValue}
+            //   setAttractionImages={setAttractionImages}
+            //   previewAttractions={previewAttractions}
+            //   setPreviewAttractions={setPreviewAttractions}
+            //   setIsAllowed={setIsStep2Allowed}
+            // />
+            <div>test</div>
           ) : currentStep === 3 ? (
             <Step3
               getValues={getValues}
