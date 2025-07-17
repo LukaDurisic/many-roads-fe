@@ -10,7 +10,7 @@ import {
   UseFormSetValue,
 } from "react-hook-form";
 import { Route, AttractionImages, PreviewAttraction } from "@/app/_types";
-// import CheckpointCreate from "@/app/_components/CheckpointCreate/CheckpointCreate";
+import CheckpointCreate from "@/app/_components/CheckpointCreate/CheckpointCreate";
 import PlusIcon from "../../assets/plus.svg";
 import Image from "next/image";
 // import Map from "@/app/_components/Map/Map";
@@ -43,8 +43,6 @@ function Step2({
   >;
   setIsAllowed: React.Dispatch<React.SetStateAction<boolean>>;
 }) {
-  console.log(register, remove, setAttractionImages, setPreviewAttractions);
-
   const addCheckpoint = () => {
     appendAttraction({
       address: "",
@@ -107,7 +105,7 @@ function Step2({
     <div className={styles.stepWrapper}>
       <div className={styles.leftPane}>
         <h2 className={styles.heading}>{t("checkpoints")}</h2>
-        {/* {getValues().attractions.map((attraction, index) => (
+        {getValues().attractions.map((attraction, index) => (
           <CheckpointCreate
             register={register}
             watch={watch}
@@ -122,7 +120,7 @@ function Step2({
             setPreviewAttractions={setPreviewAttractions}
             key={index}
           />
-        ))} */}
+        ))}
         <div
           className={styles.addCheckpointBtn}
           onClick={() => addCheckpoint()}

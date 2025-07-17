@@ -242,7 +242,7 @@ function CheckpointCreate({
             getValues={getValues}
             index={index}
           /> */}
-          <MapboxSearch watch={watch} setValue={setValue} />
+          {/* <MapboxSearch watch={watch} setValue={setValue} /> */}
         </div>
       </div>
       <div className={styles.imageUpload}>
