@@ -194,6 +194,14 @@ function CreateRoute() {
     name: "attractions",
   });
 
+  console.log(
+    append,
+    remove,
+    setAttractionImages,
+    setPreviewAttractions,
+    setIsStep2Allowed
+  );
+
   return (
     <div className={styles.wrapper}>
       {isLoadingOpen && (
