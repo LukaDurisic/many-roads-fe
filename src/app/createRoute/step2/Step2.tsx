@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./Step2.module.css";
 import {
   UseFormRegister,
@@ -13,10 +13,12 @@ import { Route, AttractionImages, PreviewAttraction } from "@/app/_types";
 import CheckpointCreate from "@/app/_components/CheckpointCreate/CheckpointCreate";
 import PlusIcon from "../../assets/plus.svg";
 import Image from "next/image";
-// import Map from "@/app/_components/Map/Map";
+import TrashIcon from "../../assets/trash.svg";
 import { useTranslation } from "react-i18next";
 import "@/app/_translation/i18n";
 import Mapbox from "@/app/_components/Mapbox/Mapbox";
+import Modal from "@/app/_components/Modal/Modal";
+import DeleteCheckpointModal from "@/app/_components/DeleteCheckpointModal/DeleteCheckpointModal";
 
 function Step2({
   register,
@@ -100,16 +102,28 @@ function Step2({
   }, [watch, getValues, JSON.stringify(previewAttractions)]);
 
   const { t } = useTranslation();
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState<boolean>(false);
+  const [activeCheckpoint, setActiveCheckpoint] = useState<number>(0); //dodat set logiku za cp index
 
   return (
     <div className={styles.stepWrapper}>
+      <Modal
+        isOpen={isDeleteModalOpen}
+        onClose={() => {
+          setIsDeleteModalOpen(false);
+        }}
+      >
+        <DeleteCheckpointModal
+          remove={() => remove(activeCheckpoint)}
+          close={() => setIsDeleteModalOpen(false)}
+        />
+      </Modal>
       <div className={styles.leftPane}>
         <h2 className={styles.heading}>{t("checkpoints")}</h2>
         {getValues().attractions.map((attraction, index) => (
           <CheckpointCreate
             register={register}
             watch={watch}
-            remove={remove}
             setValue={setValue}
             getValues={getValues}
             index={index}
@@ -121,12 +135,21 @@ function Step2({
             key={index}
           />
         ))}
-        <div
-          className={styles.addCheckpointBtn}
-          onClick={() => addCheckpoint()}
-        >
-          <Image src={PlusIcon} alt="add" height={22} width={22} />{" "}
-          {t("addCheckpoint")}
+        <div className={styles.btnsContainer}>
+          <div
+            className={styles.deleteCheckpointBtn}
+            onClick={() => setIsDeleteModalOpen(true)}
+          >
+            <Image src={TrashIcon} alt="delete" height={22} width={22} />{" "}
+            {t("deleteCheckpoint")}
+          </div>
+          <div
+            className={styles.addCheckpointBtn}
+            onClick={() => addCheckpoint()}
+          >
+            <Image src={PlusIcon} alt="add" height={22} width={22} />{" "}
+            {t("addCheckpoint")}
+          </div>
         </div>
       </div>
 

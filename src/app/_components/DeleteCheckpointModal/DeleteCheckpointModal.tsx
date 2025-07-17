@@ -21,7 +21,13 @@ function DeleteCheckpointModal({
         <div className={styles.close} onClick={close}>
           {t("close")}
         </div>
-        <Button label={t("deleteCheckpoint")} onClick={remove} />
+        <Button
+          label={t("deleteCheckpoint")}
+          onClick={() => {
+            remove();
+            close();
+          }}
+        />
       </div>
     </div>
   );

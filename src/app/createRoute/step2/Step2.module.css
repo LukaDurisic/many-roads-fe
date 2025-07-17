@@ -37,7 +37,15 @@
   border-radius: 16px;
 }
 
-.addCheckpointBtn {
+.btnsContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+}
+
+.addCheckpointBtn,
+.deleteCheckpointBtn {
   width: 100%;
   height: 48px;
   border: 1px solid #e7e7e7;
@@ -54,6 +62,10 @@
   align-items: center;
   gap: 5px;
   cursor: pointer;
+}
+
+.deleteCheckpointBtn {
+  background-color: #f2f2f2;
 }
 
 .map {
