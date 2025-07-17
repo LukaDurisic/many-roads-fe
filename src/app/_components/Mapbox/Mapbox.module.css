@@ -1,0 +1,35 @@
+.routeIcon {
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  user-select: none;
+  cursor: pointer;
+  position: relative;
+  z-index: 1;
+}
+
+.routeCardPopup {
+  position: absolute;
+  top: 0;
+  left: 100%;
+  margin-left: 8px;
+  z-index: 10;
+}
+
+.singleRouteCp {
+  background-color: black;
+  color: white;
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 14px;
+  font-weight: bold;
+  user-select: none;
+  border: 2px solid white;
+}

@@ -13,9 +13,10 @@ import { Route, AttractionImages, PreviewAttraction } from "@/app/_types";
 import CheckpointCreate from "@/app/_components/CheckpointCreate/CheckpointCreate";
 import PlusIcon from "../../assets/plus.svg";
 import Image from "next/image";
-import Map from "@/app/_components/Map/Map";
+// import Map from "@/app/_components/Map/Map";
 import { useTranslation } from "react-i18next";
 import "@/app/_translation/i18n";
+import Mapbox from "@/app/_components/Mapbox/Mapbox";
 
 function Step2({
   register,
@@ -132,7 +133,8 @@ function Step2({
       <div className={styles.rightPane}>
         <div className={styles.mapPlaceholder}>
           <div className={styles.map}>
-            <Map tourList={[getValues()]} isSingleRoute />
+            {/* <Map tourList={[getValues()]} isSingleRoute /> */}
+            <Mapbox isPickable setValue={setValue} atrIndex={0} watch={watch} />
           </div>
         </div>
       </div>
