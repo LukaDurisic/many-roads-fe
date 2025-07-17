@@ -17,7 +17,7 @@ import AddImageIcon from "../../assets/addImage.svg";
 import Modal from "../Modal/Modal";
 import DeleteCheckpointModal from "../DeleteCheckpointModal/DeleteCheckpointModal";
 // import LocationInput from "../LocationInput/LocationInput";
-// import MapboxSearch from "../MapboxSearch/MapboxSearch";
+import MapboxSearch from "../MapboxSearch/MapboxSearch";
 import { useTranslation } from "react-i18next";
 import "@/app/_translation/i18n";
 
@@ -57,7 +57,7 @@ function CheckpointCreate({
     fileInputRef.current?.click();
   };
 
-  console.log(getValues(), setValue);
+  console.log(getValues());
 
   const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     const files = event.target.files;
@@ -242,7 +242,7 @@ function CheckpointCreate({
             getValues={getValues}
             index={index}
           /> */}
-          {/* <MapboxSearch watch={watch} setValue={setValue} /> */}
+          <MapboxSearch watch={watch} setValue={setValue} />
         </div>
       </div>
       <div className={styles.imageUpload}>

@@ -1,3 +1,4 @@
+"use client";
 import { useRef, useEffect, useState } from "react";
 import { SearchBox } from "@mapbox/search-js-react";
 import mapboxgl, { Map as MapboxMap } from "mapbox-gl";
