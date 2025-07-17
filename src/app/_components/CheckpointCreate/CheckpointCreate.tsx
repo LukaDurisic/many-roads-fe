@@ -17,9 +17,13 @@ import AddImageIcon from "../../assets/addImage.svg";
 import Modal from "../Modal/Modal";
 import DeleteCheckpointModal from "../DeleteCheckpointModal/DeleteCheckpointModal";
 // import LocationInput from "../LocationInput/LocationInput";
-import MapboxSearch from "../MapboxSearch/MapboxSearch";
 import { useTranslation } from "react-i18next";
 import "@/app/_translation/i18n";
+import dynamic from "next/dynamic";
+
+const MapboxSearch = dynamic(() => import("../MapboxSearch/MapboxSearch"), {
+  ssr: false,
+});
 
 function CheckpointCreate({
   index,
