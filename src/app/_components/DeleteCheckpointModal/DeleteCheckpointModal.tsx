@@ -8,9 +8,13 @@ import "@/app/_translation/i18n";
 function DeleteCheckpointModal({
   remove,
   close,
+  setActiveCheckpoint,
+  activeCheckpoint,
 }: {
   remove: UseFieldArrayRemove;
   close: () => void;
+  activeCheckpoint: number;
+  setActiveCheckpoint: React.Dispatch<React.SetStateAction<number>>;
 }) {
   const { t } = useTranslation();
   return (
@@ -21,7 +25,16 @@ function DeleteCheckpointModal({
         <div className={styles.close} onClick={close}>
           {t("close")}
         </div>
-        <Button label={t("deleteCheckpoint")} onClick={remove} />
+        <Button
+          label={t("deleteCheckpoint")}
+          onClick={() => {
+            remove(activeCheckpoint);
+            setActiveCheckpoint(
+              activeCheckpoint > 0 ? activeCheckpoint - 1 : activeCheckpoint
+            );
+            close();
+          }}
+        />
       </div>
     </div>
   );

@@ -6,20 +6,16 @@ import {
   UseFormWatch,
   UseFormRegister,
   UseFormSetValue,
-  UseFieldArrayRemove,
   UseFormGetValues,
 } from "react-hook-form";
 import { Route, AttractionImages, PreviewAttraction } from "@/app/_types";
-import TrashIcon from "../../assets/trash.svg";
 import InfoIcon from "../../assets/info";
-// import LocationIcon from "@/app/assets/location";
 import AddImageIcon from "../../assets/addImage.svg";
-import Modal from "../Modal/Modal";
-import DeleteCheckpointModal from "../DeleteCheckpointModal/DeleteCheckpointModal";
-// import LocationInput from "../LocationInput/LocationInput";
 import { useTranslation } from "react-i18next";
 import "@/app/_translation/i18n";
 import dynamic from "next/dynamic";
+import SmallLangSelect from "../SmallLangSelect/SmallLangSelect";
+import StatusCircle from "../StatusCircle/StatusCircle";
 
 const MapboxSearch = dynamic(() => import("../MapboxSearch/MapboxSearch"), {
   ssr: false,
@@ -29,7 +25,6 @@ function CheckpointCreate({
   index,
   register,
   watch,
-  remove,
   setValue,
   getValues,
   setAttractionImages,
@@ -39,7 +34,6 @@ function CheckpointCreate({
   index: number;
   register: UseFormRegister<Route>;
   watch: UseFormWatch<Route>;
-  remove: UseFieldArrayRemove;
   setValue: UseFormSetValue<Route>;
   getValues: UseFormGetValues<Route>;
   setAttractionImages: React.Dispatch<React.SetStateAction<AttractionImages[]>>;
@@ -49,7 +43,6 @@ function CheckpointCreate({
   >;
 }) {
   const { t } = useTranslation();
-  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState<boolean>(false);
   const heroFileInputRef = useRef<HTMLInputElement>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -212,17 +205,25 @@ function CheckpointCreate({
   return (
     <>
       <div>
-        <Modal
-          isOpen={isDeleteModalOpen}
-          onClose={() => {
-            setIsDeleteModalOpen(false);
-          }}
-        >
-          <DeleteCheckpointModal
-            remove={() => remove(index)}
-            close={() => setIsDeleteModalOpen(false)}
-          />
-        </Modal>
+        <SmallLangSelect />
+        <div className={styles.circlesContainer}>
+          {getValues().attractions.map((attraction, i) => {
+            if (i !== index) {
+              return (
+                <StatusCircle
+                  backgroundColor="green"
+                  circleSize={32}
+                  content={`${i + 1}`}
+                  contentSize={14}
+                  fontColor="white"
+                  key={i}
+                  // completedPercentage={70}
+                  //ovo malo poredit kad se ubaci check i upload
+                />
+              );
+            }
+          })}
+        </div>
         <div className={styles.inputGroup}>
           <div className={styles.checkpointNumber}>{index + 1}</div>
           <input
@@ -230,23 +231,9 @@ function CheckpointCreate({
             placeholder={t("typeName")}
             {...register(`attractions.${index}.name`)}
           />
-          <Image
-            src={TrashIcon}
-            alt="Trash"
-            className={styles.deleteIcon}
-            onClick={() => setIsDeleteModalOpen(true)}
-          />
         </div>
         <div className={styles.inputGroup}>
-          {/* <span className={styles.icon}>
-            <LocationIcon height={22} width={24} fill="#757575" />
-          </span> */}
-          {/* <LocationInput
-            setValue={setValue}
-            getValues={getValues}
-            index={index}
-          /> */}
-          <MapboxSearch watch={watch} setValue={setValue} />
+          <MapboxSearch watch={watch} setValue={setValue} cpIndex={index} />
         </div>
       </div>
       <div className={styles.imageUpload}>
@@ -297,7 +284,7 @@ function CheckpointCreate({
           maxLength={1000}
         />
         <div className={styles.charCount}>
-          {watch(`attractions.${index}.content`).length} / 1000
+          {(watch(`attractions.${index}.content`) || "").length} / 1000
         </div>
       </div>
 

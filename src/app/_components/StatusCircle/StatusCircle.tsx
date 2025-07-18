@@ -24,8 +24,8 @@ function StatusCircle({
     <div
       className={styles.circleWrapper}
       style={{
-        width: circleSize + 4,
-        height: circleSize + 4,
+        width: backgroundColor === "blank" ? circleSize : circleSize + 4,
+        height: backgroundColor === "blank" ? circleSize : circleSize + 4,
         background: `conic-gradient(#9E9E9E ${completedPercentage}%, transparent ${completedPercentage}%)`,
         borderRadius: "50%",
         padding: "2px",
@@ -42,8 +42,8 @@ function StatusCircle({
               : backgroundColor === "yellow"
               ? "#E0C82E"
               : "#F2F2F2",
-          width: circleSize,
-          height: circleSize,
+          width: backgroundColor === "blank" ? circleSize - 4 : circleSize,
+          height: backgroundColor === "blank" ? circleSize - 4 : circleSize,
           fontSize: contentSize,
           color: fontColor,
         }}

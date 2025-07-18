@@ -3,7 +3,7 @@ import React, { useState, useEffect, useRef } from "react";
 import Map, { Marker, Source, Layer, MapRef } from "react-map-gl/mapbox";
 import "mapbox-gl/dist/mapbox-gl.css";
 import { Feature, LineString } from "geojson";
-import { Route } from "@/app/_types";
+import { Route, Attraction } from "@/app/_types";
 import RouteDisabledIcon from "@/app/assets/routeDisabled.svg";
 import RouteIcon from "@/app/assets/route.svg";
 import RouteCard from "../RouteCard/RouteCard";
@@ -23,7 +23,7 @@ const Mapbox = ({
   isPickable = false,
   setValue,
   watch,
-  atrIndex = 0,
+  activeCheckpoint,
 }: {
   sigleRoute?: Route;
   allRoutes?: Route[];
@@ -31,7 +31,7 @@ const Mapbox = ({
   isPickable?: boolean;
   setValue?: UseFormSetValue<Route>;
   watch?: UseFormWatch<Route>;
-  atrIndex?: number;
+  activeCheckpoint: number;
 }) => {
   const points = isAllRoutes
     ? allRoutes?.map((route) => [
@@ -39,6 +39,77 @@ const Mapbox = ({
         route.attractions[0].poi.latitude,
       ])
     : sigleRoute?.attractions.map((cp) => [cp.poi.longitude, cp.poi.latitude]);
+
+  const [liveAttractions, setLiveAttractions] = useState<Attraction[]>([]);
+
+  useEffect(() => {
+    if (!watch || !isPickable) return;
+
+    const subscription = watch((value) => {
+      const validAttractions = (value.attractions || []).filter(
+        (attr): attr is Attraction =>
+          !!attr &&
+          typeof attr?.poi?.latitude === "number" &&
+          typeof attr?.poi?.longitude === "number"
+      );
+      setLiveAttractions(validAttractions);
+    });
+
+    return () => subscription.unsubscribe?.();
+  }, [watch, isPickable]);
+
+  useEffect(() => {
+    async function fetchWalkRoute() {
+      const coords = liveAttractions
+        .map((attraction) => {
+          const lat = attraction?.poi?.latitude;
+          const lng = attraction?.poi?.longitude;
+          return typeof lat === "number" && typeof lng === "number"
+            ? [lng, lat]
+            : null;
+        })
+        .filter(Boolean) as [number, number][];
+
+      if (coords.length < 2) {
+        setRouteGeoJSON(undefined);
+        return;
+      }
+
+      try {
+        const res = await fetch(
+          `https://api.mapbox.com/directions/v5/mapbox/walking/${coords
+            .map((c) => c.join(","))
+            .join(";")}?geometries=geojson&access_token=${
+            process.env.NEXT_PUBLIC_MAPBOX_API_KEY
+          }`
+        );
+
+        const data = await res.json();
+
+        if (!data.routes || data.routes.length === 0) {
+          console.error("No walking route found");
+          return;
+        }
+
+        const newCoords = data.routes[0].geometry.coordinates;
+
+        setRouteGeoJSON({
+          type: "Feature",
+          geometry: {
+            type: "LineString",
+            coordinates: newCoords,
+          },
+          properties: {},
+        });
+      } catch (err) {
+        console.error("Error fetching walking route:", err);
+      }
+    }
+
+    if (isPickable) {
+      fetchWalkRoute();
+    }
+  }, [liveAttractions, isPickable]);
 
   const mapRef = useRef<MapRef>(null);
 
@@ -50,8 +121,6 @@ const Mapbox = ({
     lat: number;
     lng: number;
   } | null>(null);
-
-  console.log(atrIndex);
 
   if (isAllRoutes && allRoutes) {
     allRoutes.forEach((route) => {
@@ -142,15 +211,21 @@ const Mapbox = ({
 
   useEffect(() => {
     if (setValue && pickedLocation) {
-      setValue(`attractions.${0}.poi.latitude`, pickedLocation.lat);
-      setValue(`attractions.${0}.poi.longitude`, pickedLocation.lng);
+      setValue(
+        `attractions.${activeCheckpoint}.poi.latitude`,
+        pickedLocation.lat
+      );
+      setValue(
+        `attractions.${activeCheckpoint}.poi.longitude`,
+        pickedLocation.lng
+      );
     }
   }, [pickedLocation]);
 
   useEffect(() => {
     if (setValue && info) {
       setValue(
-        `attractions.${0}.address`,
+        `attractions.${activeCheckpoint}.address`,
         info.full_name || info.full_address || ""
       );
     }
@@ -160,7 +235,7 @@ const Mapbox = ({
     if (!watch) return;
 
     const subscription = watch((value) => {
-      const attraction = value.attractions?.[0];
+      const attraction = value.attractions?.[activeCheckpoint];
       const poi = attraction?.poi;
 
       const newLat = poi?.latitude;
@@ -179,7 +254,7 @@ const Mapbox = ({
     });
 
     return () => subscription.unsubscribe?.();
-  }, [watch, pickedLocation]);
+  }, [watch, pickedLocation, activeCheckpoint]);
 
   useEffect(() => {
     if (mapRef.current && pickedLocation) {
@@ -217,14 +292,19 @@ const Mapbox = ({
         />
       </Source>
 
-      {isPickable && pickedLocation && (
-        <Marker
-          longitude={pickedLocation.lng}
-          latitude={pickedLocation.lat}
-          anchor="bottom"
-          color="black"
-        />
-      )}
+      {isPickable &&
+        liveAttractions.map((attraction, i) => {
+          const lat = attraction?.poi?.latitude;
+          const lng = attraction?.poi?.longitude;
+
+          if (typeof lat !== "number" || typeof lng !== "number") return null;
+
+          return (
+            <Marker key={i} longitude={lng} latitude={lat} anchor="bottom">
+              <div className={styles.singleRouteCp}>{i + 1}</div>
+            </Marker>
+          );
+        })}
 
       {points &&
         points.map(([lng, lat], index) => (
