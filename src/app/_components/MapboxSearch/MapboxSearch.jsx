@@ -6,14 +6,14 @@ import "mapbox-gl/dist/mapbox-gl.css";
 
 const accessToken = process.env.NEXT_PUBLIC_MAPBOX_API_KEY;
 
-export default function MapboxSearch({ watch, setValue }) {
+export default function MapboxSearch({ watch, setValue, cpIndex }) {
   const mapContainerRef = (useRef < HTMLDivElement) | (null > null);
   const mapInstanceRef = (useRef < MapboxMap) | (null > null);
   const [mapLoaded, setMapLoaded] = useState(false);
   const [inputValue, setInputValue] = useState("");
   const [pickedLocation, setPickedLocation] = useState([0, 0]);
   console.log(mapLoaded);
-  const formAddress = watch("attractions.0.address");
+  const formAddress = watch(`attractions.${cpIndex}.address`);
 
   useEffect(() => {
     if (formAddress !== inputValue) {
@@ -62,9 +62,9 @@ export default function MapboxSearch({ watch, setValue }) {
   };
 
   useEffect(() => {
-    setValue(`attractions.${0}.address`, inputValue);
-    setValue(`attractions.${0}.poi.latitude`, pickedLocation[1]);
-    setValue(`attractions.${0}.poi.longitude`, pickedLocation[0]);
+    setValue(`attractions.${cpIndex}.address`, inputValue);
+    setValue(`attractions.${cpIndex}.poi.latitude`, pickedLocation[1]);
+    setValue(`attractions.${cpIndex}.poi.longitude`, pickedLocation[0]);
   }, [pickedLocation]);
 
   return (

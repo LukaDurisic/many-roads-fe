@@ -45,6 +45,7 @@ function Step2({
   >;
   setIsAllowed: React.Dispatch<React.SetStateAction<boolean>>;
 }) {
+  const [activeCheckpoint, setActiveCheckpoint] = useState<number>(0);
   const addCheckpoint = () => {
     appendAttraction({
       address: "",
@@ -60,6 +61,7 @@ function Step2({
         id: 0,
       },
     });
+    setActiveCheckpoint(activeCheckpoint + 1);
   };
 
   useEffect(() => {
@@ -73,7 +75,7 @@ function Step2({
         String(attraction.poi?.latitude || "").length > 0 &&
         String(attraction.poi?.longitude || "").length > 0 &&
         previewAttractions[index]?.heroImage &&
-        previewAttractions[index]?.images.length > 0
+        previewAttractions[index]?.images?.length > 0
       );
     });
     setIsAllowed(isAllowed);
@@ -91,7 +93,7 @@ function Step2({
           String(attraction.poi?.latitude || "").length > 0 &&
           String(attraction.poi?.longitude || "").length > 0 &&
           previewAttractions[index]?.heroImage &&
-          previewAttractions[index]?.images.length > 0
+          previewAttractions[index]?.images?.length > 0
         );
       });
 
@@ -103,7 +105,6 @@ function Step2({
 
   const { t } = useTranslation();
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState<boolean>(false);
-  const [activeCheckpoint, setActiveCheckpoint] = useState<number>(0); //dodat set logiku za cp index
 
   return (
     <div className={styles.stepWrapper}>
@@ -114,27 +115,26 @@ function Step2({
         }}
       >
         <DeleteCheckpointModal
-          remove={() => remove(activeCheckpoint)}
+          remove={remove}
           close={() => setIsDeleteModalOpen(false)}
+          activeCheckpoint={activeCheckpoint}
+          setActiveCheckpoint={setActiveCheckpoint}
         />
       </Modal>
       <div className={styles.leftPane}>
         <h2 className={styles.heading}>{t("checkpoints")}</h2>
-        {getValues().attractions.map((attraction, index) => (
-          <CheckpointCreate
-            register={register}
-            watch={watch}
-            setValue={setValue}
-            getValues={getValues}
-            index={index}
-            setAttractionImages={setAttractionImages}
-            previewAttractions={previewAttractions.find(
-              (att) => att.index === index
-            )}
-            setPreviewAttractions={setPreviewAttractions}
-            key={index}
-          />
-        ))}
+        <CheckpointCreate
+          register={register}
+          watch={watch}
+          setValue={setValue}
+          getValues={getValues}
+          index={activeCheckpoint}
+          setAttractionImages={setAttractionImages}
+          previewAttractions={previewAttractions.find(
+            (att) => att.index === activeCheckpoint
+          )}
+          setPreviewAttractions={setPreviewAttractions}
+        />
         <div className={styles.btnsContainer}>
           <div
             className={styles.deleteCheckpointBtn}
@@ -156,8 +156,12 @@ function Step2({
       <div className={styles.rightPane}>
         <div className={styles.mapPlaceholder}>
           <div className={styles.map}>
-            {/* <Map tourList={[getValues()]} isSingleRoute /> */}
-            <Mapbox isPickable setValue={setValue} atrIndex={0} watch={watch} />
+            <Mapbox
+              isPickable
+              setValue={setValue}
+              watch={watch}
+              activeCheckpoint={activeCheckpoint}
+            />
           </div>
         </div>
       </div>
