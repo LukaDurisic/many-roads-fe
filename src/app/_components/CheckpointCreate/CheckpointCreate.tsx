@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useRef } from "react";
+import React, { useRef } from "react";
 import styles from "./CheckpointCreate.module.css";
 import Image from "next/image";
 import {
@@ -16,10 +16,29 @@ import "@/app/_translation/i18n";
 import dynamic from "next/dynamic";
 import SmallLangSelect from "../SmallLangSelect/SmallLangSelect";
 import StatusCircle from "../StatusCircle/StatusCircle";
+import AudioInput from "../AudioInput/AudioInput";
 
 const MapboxSearch = dynamic(() => import("../MapboxSearch/MapboxSearch"), {
   ssr: false,
 });
+
+const languageOptions = [
+  {
+    label: "English",
+    value: "english",
+    short: "en",
+  },
+  {
+    label: "繁體中文",
+    value: "traditional",
+    short: "tc",
+  },
+  {
+    label: "简体中文",
+    value: "simplified",
+    short: "sc",
+  },
+];
 
 function CheckpointCreate({
   index,
@@ -306,6 +325,11 @@ function CheckpointCreate({
         </span>
         Create audio from my description.
       </label> */}
+      <div className={styles.audioInputsContainer}>
+        {languageOptions.map((lang, index) => (
+          <AudioInput label={`Description audio ${lang.label}`} key={index} />
+        ))}
+      </div>
       <div className={styles.galleryBox}>
         <div className={styles.descTitle}>{t("gallery")}</div>
         <div className={styles.galleryImageUpload}>
@@ -344,20 +368,6 @@ function CheckpointCreate({
             )}{" "}
           </div>
         </div>
-        {/* <div className={styles.imageDescriptionBox}>
-          <label className={styles.descTitle}>Image 1 description</label>
-          <textarea
-            placeholder="Type Here"
-            className={styles.textarea}
-            // value={imageDescription}
-            // onChange={(e) => setImageDescription(e.target.value)}
-            maxLength={100}
-          />
-          <div className={styles.charCount}>
-             {imageDescription.length} / 100 }
-          </div>
-        </div>
-         */}
       </div>
     </>
   );
