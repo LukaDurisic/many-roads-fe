@@ -19,6 +19,7 @@ import "@/app/_translation/i18n";
 import Mapbox from "@/app/_components/Mapbox/Mapbox";
 import Modal from "@/app/_components/Modal/Modal";
 import DeleteCheckpointModal from "@/app/_components/DeleteCheckpointModal/DeleteCheckpointModal";
+import ToastInfo from "@/app/_components/ToastInfo/ToastInfo";
 
 function Step2({
   register,
@@ -46,6 +47,7 @@ function Step2({
   setIsAllowed: React.Dispatch<React.SetStateAction<boolean>>;
 }) {
   const [activeCheckpoint, setActiveCheckpoint] = useState<number>(0);
+  const [showToast, setShowToast] = useState(true);
   const addCheckpoint = () => {
     appendAttraction({
       address: "",
@@ -126,6 +128,13 @@ function Step2({
           setPreviewAttractions={setPreviewAttractions}
         />
       </Modal>
+      {showToast && (
+        <ToastInfo
+          content="Checkpoint 1 - “Bank of China Tower“ successfully saved."
+          check={false}
+          onClose={() => setShowToast(false)}
+        />
+      )}
       <div className={styles.leftPane}>
         <h2 className={styles.heading}>{t("checkpoints")}</h2>
         <CheckpointCreate
