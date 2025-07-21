@@ -62,6 +62,10 @@ function Step2({
       },
     });
     setActiveCheckpoint(activeCheckpoint + 1);
+    setPreviewAttractions([
+      ...previewAttractions,
+      { index: previewAttractions.length, heroImage: "", images: [] },
+    ]);
   };
 
   useEffect(() => {
@@ -119,6 +123,7 @@ function Step2({
           close={() => setIsDeleteModalOpen(false)}
           activeCheckpoint={activeCheckpoint}
           setActiveCheckpoint={setActiveCheckpoint}
+          setPreviewAttractions={setPreviewAttractions}
         />
       </Modal>
       <div className={styles.leftPane}>
@@ -130,9 +135,7 @@ function Step2({
           getValues={getValues}
           index={activeCheckpoint}
           setAttractionImages={setAttractionImages}
-          previewAttractions={previewAttractions.find(
-            (att) => att.index === activeCheckpoint
-          )}
+          previewAttractions={previewAttractions}
           setPreviewAttractions={setPreviewAttractions}
         />
         <div className={styles.btnsContainer}>
@@ -162,6 +165,9 @@ function Step2({
               watch={watch}
               activeCheckpoint={activeCheckpoint}
             />
+          </div>
+          <div className={styles.clickInfo}>
+            You can add checkpoint by clicking on the map
           </div>
         </div>
       </div>

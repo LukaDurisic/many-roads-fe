@@ -1,5 +1,5 @@
 "use client";
-import React, { useRef } from "react";
+import React, { useRef, useEffect } from "react";
 import styles from "./CheckpointCreate.module.css";
 import Image from "next/image";
 import {
@@ -56,7 +56,7 @@ function CheckpointCreate({
   setValue: UseFormSetValue<Route>;
   getValues: UseFormGetValues<Route>;
   setAttractionImages: React.Dispatch<React.SetStateAction<AttractionImages[]>>;
-  previewAttractions: PreviewAttraction | undefined;
+  previewAttractions: PreviewAttraction[];
   setPreviewAttractions: React.Dispatch<
     React.SetStateAction<PreviewAttraction[]>
   >;
@@ -73,7 +73,13 @@ function CheckpointCreate({
     fileInputRef.current?.click();
   };
 
-  console.log(getValues());
+  useEffect(() => {
+    const name = getValues(`attractions.${index}.name`);
+    const content = getValues(`attractions.${index}.content`);
+
+    setValue(`attractions.${index}.name`, name || "");
+    setValue(`attractions.${index}.content`, content || "");
+  }, [index]);
 
   const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     const files = event.target.files;
@@ -257,14 +263,14 @@ function CheckpointCreate({
       </div>
       <div className={styles.imageUpload}>
         <div className={styles.imageGrid}>
-          {previewAttractions?.heroImage && (
+          {previewAttractions[index]?.heroImage && (
             <div
               key={index}
               className={styles.imageBox}
               onClick={() => handleHeroImageDelete()}
             >
               <Image
-                src={previewAttractions?.heroImage}
+                src={previewAttractions[index]?.heroImage}
                 alt={`uploaded preview ${index}`}
                 width={300}
                 height={200}
@@ -272,7 +278,7 @@ function CheckpointCreate({
               />
             </div>
           )}
-          {!previewAttractions?.heroImage && (
+          {!previewAttractions[index]?.heroImage && (
             <div
               className={`${styles.imageBox} ${styles.noAfter}`}
               onClick={handleHeroImageBoxClick}
@@ -299,6 +305,7 @@ function CheckpointCreate({
         <textarea
           placeholder={t("typeHere")}
           className={styles.textarea}
+          value={getValues(`attractions.${index}.content`)}
           {...register(`attractions.${index}.content`)}
           maxLength={1000}
         />
@@ -334,7 +341,7 @@ function CheckpointCreate({
         <div className={styles.descTitle}>{t("gallery")}</div>
         <div className={styles.galleryImageUpload}>
           <div className={styles.galleryImageGrid}>
-            {previewAttractions?.images.map((preview, index) => (
+            {previewAttractions[index]?.images.map((preview, index) => (
               <div
                 key={index}
                 className={styles.imageBoxGallery}
@@ -349,23 +356,24 @@ function CheckpointCreate({
                 />
               </div>
             ))}
-            {previewAttractions && previewAttractions?.images?.length < 10 && (
-              <div
-                className={`${styles.imageBoxGallery} ${styles.noAfter}`}
-                onClick={handleImageBoxClick}
-              >
-                <Image src={AddImageIcon} alt="add image" />
-                <input
-                  type="file"
-                  id="imageUpload"
-                  accept="image/*"
-                  multiple
-                  style={{ display: "none" }}
-                  ref={fileInputRef}
-                  onChange={handleImageUpload}
-                />
-              </div>
-            )}{" "}
+            {previewAttractions[index] &&
+              previewAttractions[index]?.images?.length < 10 && (
+                <div
+                  className={`${styles.imageBoxGallery} ${styles.noAfter}`}
+                  onClick={handleImageBoxClick}
+                >
+                  <Image src={AddImageIcon} alt="add image" />
+                  <input
+                    type="file"
+                    id="imageUpload"
+                    accept="image/*"
+                    multiple
+                    style={{ display: "none" }}
+                    ref={fileInputRef}
+                    onChange={handleImageUpload}
+                  />
+                </div>
+              )}{" "}
           </div>
         </div>
       </div>

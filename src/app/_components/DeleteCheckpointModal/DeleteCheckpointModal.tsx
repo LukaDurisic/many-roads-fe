@@ -4,17 +4,22 @@ import { UseFieldArrayRemove } from "react-hook-form";
 import Button from "../Button/Button";
 import { useTranslation } from "react-i18next";
 import "@/app/_translation/i18n";
+import { PreviewAttraction } from "@/app/_types";
 
 function DeleteCheckpointModal({
   remove,
   close,
   setActiveCheckpoint,
   activeCheckpoint,
+  setPreviewAttractions,
 }: {
   remove: UseFieldArrayRemove;
   close: () => void;
   activeCheckpoint: number;
   setActiveCheckpoint: React.Dispatch<React.SetStateAction<number>>;
+  setPreviewAttractions: React.Dispatch<
+    React.SetStateAction<PreviewAttraction[]>
+  >;
 }) {
   const { t } = useTranslation();
   return (
@@ -29,6 +34,10 @@ function DeleteCheckpointModal({
           label={t("deleteCheckpoint")}
           onClick={() => {
             remove(activeCheckpoint);
+            setPreviewAttractions((prev) =>
+              prev.filter((_, index) => index !== activeCheckpoint)
+            );
+
             setActiveCheckpoint(
               activeCheckpoint > 0 ? activeCheckpoint - 1 : activeCheckpoint
             );

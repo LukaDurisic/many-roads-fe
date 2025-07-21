@@ -55,7 +55,7 @@
   position: absolute;
   top: 100%;
   left: 0;
-  background-color: #f2f2f2;
+  background-color: #fff;
   border-radius: 8px;
   width: 100%;
   margin-top: 5px;
@@ -72,7 +72,7 @@
 }
 
 .dropdownItem:hover {
-  background-color: #dedbdb;
+  background-color: #f2f2f2;
   border-radius: 8px;
   cursor: pointer;
 }
