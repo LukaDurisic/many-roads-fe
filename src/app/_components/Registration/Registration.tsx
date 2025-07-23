@@ -128,8 +128,12 @@ function Registration({
         <Trans
           i18nKey="agreeWTermsAndPrivacy"
           components={[
-            <Link key={"terms"} className={styles.link} href="#" />,
-            <Link key={"privacy"} className={styles.link} href="#" />,
+            <Link key={"terms"} className={styles.link} href="/terms-of-use" />,
+            <Link
+              key={"privacy"}
+              className={styles.link}
+              href="/privacy-policy"
+            />,
           ]}
         />
       </div>
