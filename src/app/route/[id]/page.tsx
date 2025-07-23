@@ -276,7 +276,7 @@ function Route({ params }: RoutePageProps) {
           <div className={styles.mapSection}>
             <div className={styles.map}>
               {/* {data && <Map tourList={[data]} isSingleRoute />} */}
-              {data && <Mapbox sigleRoute={data} />}
+              {data && <Mapbox sigleRoute={data} activeCheckpoint={0} />}
             </div>
           </div>
 
