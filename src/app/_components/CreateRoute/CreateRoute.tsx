@@ -32,7 +32,7 @@ function CreateRoute() {
   const [previewRoute, setPreviewRoute] = useState<string[]>([]);
   const [previewAttractions, setPreviewAttractions] = useState<
     PreviewAttraction[]
-  >([]);
+  >([{ index: 0, heroImage: "", images: [] }]);
   const [isStep1Allowed, setIsStep1Allowed] = useState<boolean>(false);
   const [isStep2Allowed, setIsStep2Allowed] = useState<boolean>(false);
   const { register, handleSubmit, setValue, watch, getValues, control } =
@@ -279,7 +279,7 @@ function CreateRoute() {
                 label={t("next") + " ->"}
                 className={styles.nextBtn}
                 onClick={() => {
-                  if (isStep1Allowed) setCurrentStep(2);
+                  if (true) setCurrentStep(2);
                 }}
                 variant={isStep1Allowed ? "primary" : "disabled"}
               />
