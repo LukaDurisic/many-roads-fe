@@ -1,12 +1,13 @@
 .wrapper {
-  width: 300px;
+  width: 320px;
   padding: 10px;
-  background-color: #f3f3f3;
+  background-color: #fff;
   color: #0d0d0d;
 }
 
 .fakeImage {
   height: 200px;
+  width: 300px;
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
@@ -24,8 +25,8 @@
   display: flex;
   justify-content: center;
   padding: 5px;
-  gap: 15px;
-  width: 280px;
+  gap: 20px;
+  width: 300px;
 }
 
 .tags {
@@ -53,10 +54,15 @@
 
 .checkpointNumber {
   height: fit-content;
-  width: 48px;
+  width: 57px;
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.done {
+  background-color: #00af00;
+  color: #fff;
 }
 
 .descriptionContainer {
@@ -64,7 +70,7 @@
   flex-direction: column;
   gap: 10px;
   padding-top: 10px;
-  max-width: 290px;
+  max-width: 300px;
 }
 
 .title {
@@ -94,23 +100,14 @@
   width: 280px;
 }
 
-.profile {
+.aliner {
   display: flex;
   align-items: center;
-  gap: 10px;
-  font-family: Inter;
-  font-weight: 600;
-  font-size: 12.41px;
-  line-height: 100%;
-  letter-spacing: 0px;
-  vertical-align: middle;
-  text-transform: capitalize;
-  border-top: 1px solid #e7e7e7;
-  padding-top: 10px;
+  gap: 3px;
 }
 
-.profileImg {
-  height: 30px;
-  width: 30px;
-  border-radius: 50%;
+.info {
+  display: flex;
+  align-items: center;
+  gap: 6px;
 }

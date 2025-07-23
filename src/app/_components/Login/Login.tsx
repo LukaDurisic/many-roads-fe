@@ -1,22 +1,20 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styles from "./Login.module.css";
 import Button from "@/app/_components/Button/Button";
 import Image from "next/image";
-import ShowIcon from "../../assets/show";
-import HideIcon from "../../assets/hide";
-import InfoIcon from "../../assets/info";
 import LogoIcon from "../../assets/mrLogo.svg";
 import { useRouter } from "next/navigation";
 import { userLogIn } from "@/app/_services/client-api-requests";
 import { ClipLoader } from "react-spinners";
 import Link from "next/link";
-
+import CustomInput from "../CustomInput/CustomInput";
+import "@/app/_translation/i18n";
+import { useTranslation } from "react-i18next";
+import i18n from "@/app/_translation/i18n";
 function Login() {
-  const [showPassword, setShowPassword] = useState(false);
+  const { t } = useTranslation();
   const [isLoading, setIsLoading] = useState(false);
-  const [isFocused, setIsFocused] = useState(false);
-  const [isFocusedName, setIsFocusedName] = useState(false);
   const [showErrorName, setShowErrorName] = useState(false);
   const [showErrorPass, setShowErrorPass] = useState(false);
   const [showInvalidError, setShowInvalidError] = useState(false);
@@ -24,6 +22,30 @@ function Login() {
   const [password, setPassword] = useState("");
 
   const router = useRouter();
+
+  useEffect(() => {
+    const browserLang =
+      (typeof navigator !== "undefined" && navigator.language.toLowerCase()) ||
+      "en";
+    let appLang: "en" | "sc" | "tc" = "en";
+
+    if (browserLang.startsWith("zh")) {
+      if (
+        browserLang.includes("tw") ||
+        browserLang.includes("hk") ||
+        browserLang.includes("mo")
+      ) {
+        appLang = "tc";
+      } else {
+        appLang = "sc";
+      }
+    } else if (browserLang.startsWith("en")) {
+      appLang = "en";
+    }
+
+    localStorage.setItem("userLang", appLang);
+    i18n.changeLanguage(appLang);
+  }, []);
 
   const logIn = async () => {
     if (username.trim() === "" && password.trim() === "") {
@@ -69,110 +91,47 @@ function Login() {
     <>
       <div className={styles.logInIcon}>
         <Image alt="logo" src={LogoIcon} />
-
-        <h1 className={styles.title}>Welcome back!</h1>
+        <h1 className={styles.title}>{t("welcomeBack")}</h1>
       </div>
-      <div className={styles.inputContainer}>
-        <label
-          className={`${
-            isFocusedName || username.length > 0
-              ? styles.label
-              : styles.hiddenLabel
-          }
-          ${showInvalidError ? styles.error : ""}`}
-        >
-          Email or username
-        </label>
-        <input
-          type="text"
-          className={`${styles.input} ${
-            showInvalidError || showErrorName ? styles.error : ""
-          }`}
-          placeholder={isFocusedName ? "" : "Email or username"}
-          onChange={(e) => {
-            setUsername(e.target.value);
-            if (showInvalidError || showErrorName) {
-              setShowErrorName(false);
-              setShowInvalidError(false);
-            }
+      <div className={styles.inpContainer}>
+        <CustomInput
+          label={t("email")}
+          value={username}
+          onChange={(val) => {
+            setUsername(val);
+            setShowErrorName(false);
+            setShowInvalidError(false);
           }}
-          onFocus={() => setIsFocusedName(true)}
-          onBlur={() => setIsFocusedName(false)}
+          placeholder={t("email")}
+          showError={showErrorName}
+          showInvalidError={showInvalidError}
         />
-        <label
-          className={`${
-            isFocused || password.length > 0 ? styles.label : styles.hiddenLabel
-          }
-            ${showInvalidError ? styles.error : ""}`}
-        >
-          Password
-        </label>
-        <div
-          className={`${styles.passContainer} ${
-            isFocused ? styles.focused : ""
-          } ${showInvalidError || showErrorPass ? styles.error : ""}`}
-        >
-          <input
-            type={showPassword ? "text" : "password"}
-            className={`${styles.input} ${styles.inputPassword} ${
-              showInvalidError || showErrorPass ? styles.errorPass : ""
-            }`}
-            placeholder={isFocused ? "" : "Password"}
-            onChange={(e) => {
-              setPassword(e.target.value);
-              if (showInvalidError || showErrorPass) {
-                setShowErrorPass(false);
-                setShowInvalidError(false);
-              }
-            }}
-            onFocus={() => setIsFocused(true)}
-            onBlur={() => setIsFocused(false)}
-          />
-          {password.length > 0 && (
-            <button
-              type="button"
-              onClick={() => setShowPassword(!showPassword)}
-              className={styles.showPass}
-            >
-              {showPassword ? (
-                <HideIcon
-                  height={22}
-                  width={22}
-                  stroke={
-                    showInvalidError || showErrorPass ? "#C11A1A" : "#9E9E9E"
-                  }
-                />
-              ) : (
-                <ShowIcon
-                  height={22}
-                  width={22}
-                  stroke={
-                    showInvalidError || showErrorPass ? "#C11A1A" : "#9E9E9E"
-                  }
-                />
-              )}
-            </button>
-          )}
-        </div>
-        <Link className={styles.forgotPass} href="/forgot-password">
-          Forgot password?
-        </Link>
-        {showInvalidError && (
-          <div className={styles.errContainer}>
-            <InfoIcon height={20} width={20} stroke="#C11A1A" />
-            Invalid email or password!
-          </div>
-        )}
+        <CustomInput
+          label={t("password")}
+          type="password"
+          value={password}
+          onChange={(val) => {
+            setPassword(val);
+            setShowErrorPass(false);
+            setShowInvalidError(false);
+          }}
+          placeholder={t("password")}
+          showError={showErrorPass}
+          showInvalidError={showInvalidError}
+        />
       </div>
+      <Link className={styles.forgotPass} href="/forgot-password">
+        {t("forgotPassword")}
+      </Link>
       <div className={styles.logInBtn}>
         <Button variant="primary" onClick={() => logIn()}>
-          {isLoading ? <ClipLoader color={"#fff"} size={30} /> : "LOG IN"}
+          {isLoading ? <ClipLoader color={"#fff"} size={30} /> : t("logIn")}
         </Button>
       </div>
       <div className={styles.registration}>
-        <p className={styles.registrationP}>Don&apos;t have account?</p>{" "}
+        <p className={styles.registrationP}>{t("dontHaveAcc")}</p>{" "}
         <Link className={styles.registrationLink} href="/registration">
-          Create account
+          {t("createAcc")}
         </Link>
       </div>
     </>

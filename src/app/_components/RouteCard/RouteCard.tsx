@@ -1,11 +1,13 @@
 import React from "react";
 import styles from "./RouteCard.module.css";
 import Image from "next/image";
-import ProfileIcon from "../../assets/profile.svg";
 import DistanceIcon from "../../assets/distance.svg";
 import TimeIcon from "../../assets/time.svg";
 import Link from "next/link";
 import { RouteCardProps } from "@/app/_types";
+import UserInfo from "../UserInfo/UserInfo";
+import { useTranslation } from "react-i18next";
+import "@/app/_translation/i18n";
 
 interface RouteCardCompProps {
   routeData: RouteCardProps;
@@ -18,6 +20,7 @@ const RouteCard: React.FC<RouteCardCompProps> = ({
   isProfileShowing,
   isClickable,
 }) => {
+  const { t } = useTranslation();
   return (
     <Link href={isClickable ? `/route/${routeData.id}` : "#"}>
       <div className={styles.wrapper}>
@@ -39,11 +42,16 @@ const RouteCard: React.FC<RouteCardCompProps> = ({
               <div className={styles.tags}>
                 {routeData.categories.map((tag, index) => (
                   <div key={index} className={styles.tag}>
-                    {tag}
+                    {t(tag)}
                   </div>
                 ))}
               </div>
-              <div className={styles.checkpointNumber}>
+              <div
+                className={`${styles.checkpointNumber} ${
+                  routeData.num_of_completed_routes ===
+                    routeData.total_attractions && styles.done
+                }`}
+              >
                 {routeData.num_of_completed_routes === 0
                   ? 1
                   : routeData.num_of_completed_routes}{" "}
@@ -59,25 +67,24 @@ const RouteCard: React.FC<RouteCardCompProps> = ({
             {routeData.country} | {routeData.start} –&gt; {routeData.end}
           </div>
           <div className={styles.info}>
-            <Image alt="profile" src={DistanceIcon} /> {routeData.distance} |{" "}
-            <Image alt="profile" src={TimeIcon} /> {routeData.duration_est}
+            <div className={styles.aliner}>
+              <Image alt="distance" src={DistanceIcon} /> {routeData.distance}
+            </div>{" "}
+            |{" "}
+            <div className={styles.aliner}>
+              <Image alt="clock" src={TimeIcon} /> {routeData.duration_est}
+            </div>
           </div>
           {isProfileShowing && (
-            <div className={styles.profile}>
-              <Image
-                alt="profile"
-                src={
-                  routeData?.creator.profile_image
-                    ? process.env.NEXT_PUBLIC_MANY_ROADS_IMG +
-                      routeData?.creator.profile_image
-                    : ProfileIcon
-                }
-                height={100}
-                width={100}
-                className={styles.profileImg}
-              />{" "}
-              {routeData.creator.username}
-            </div>
+            <UserInfo
+              data={{
+                username: routeData?.creator.username,
+                profile_image: routeData?.creator.profile_image,
+              }}
+              variant="smallCard"
+              verify={false}
+              date={false}
+            />
           )}
         </div>
       </div>

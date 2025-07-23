@@ -6,6 +6,8 @@ import debounce from "lodash.debounce";
 import styles from "./LocationInput.module.css";
 import { UseFormGetValues, UseFormSetValue } from "react-hook-form";
 import { Route } from "@/app/_types";
+import { useTranslation } from "react-i18next";
+import "@/app/_translation/i18n";
 
 type Suggestion = {
   display_name: string;
@@ -22,6 +24,7 @@ export default function LocationInput({
   getValues: UseFormGetValues<Route>;
   index: number;
 }) {
+  const { t } = useTranslation();
   const [query, setQuery] = useState("");
   const [suggestions, setSuggestions] = useState<Suggestion[]>([]);
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -88,7 +91,7 @@ export default function LocationInput({
         type="text"
         value={query || getValues().attractions[index].address}
         onChange={handleChange}
-        placeholder="Address"
+        placeholder={t("address")}
         className={styles.input}
       />
       {suggestions.length > 0 && (

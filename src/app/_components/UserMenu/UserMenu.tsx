@@ -4,50 +4,56 @@ import styles from "./UserMenu.module.css";
 import Image from "next/image";
 import BurgerMenuIcon from "../../assets/burgerMenu.svg";
 import ProfileIcon from "../../assets/profile.svg";
-// import Select from "../Select/Select";
+import Select, { Option } from "../Select/Select";
 import Link from "next/link";
+import { useTranslation } from "react-i18next";
+import "@/app/_translation/i18n";
 
-// const languageOptions = [
-//   {
-//     label: "English",
-//     value: "Eng",
-//   },
-//   {
-//     label: "繁體中文",
-//     value: "traditional",
-//   },
-//   {
-//     label: "简体中文",
-//     value: "simplified",
-//   },
-// ];
+const languageOptions: Option[] = [
+  {
+    label: "English",
+    value: "Eng",
+    short: "en",
+  },
+  {
+    label: "繁體中文",
+    value: "traditional",
+    short: "tc",
+  },
+  {
+    label: "简体中文",
+    value: "simplified",
+    short: "sc",
+  },
+];
 
 const userOptions = [
+  {
+    label: "My profile",
+    value: "myProfile",
+    route: "/my-profile",
+  },
+  {
+    label: "Settings",
+    value: "settings",
+    route: "/settings",
+  },
   {
     label: "Log out",
     value: "logOut",
     route: "/",
   },
-  // {
-  //   label: "Log out",
-  //   value: "logOut",
-  // route:"/"
-  // },
-  // {
-  //   label: "Log out",
-  //   value: "logOut",
-  // route:"/"
-  // },
 ];
 
 function UserMenu() {
+  const { t } = useTranslation();
   const [isUserOpen, setIsUserOpen] = useState(false);
 
   return (
     <div className={styles.wrapper}>
-      {/* <div className={styles.langSelect}>
+      <div className={styles.langSelect}>
         <Select options={languageOptions} style="lang" />
-      </div> */}
+      </div>
 
       <div className={styles.userSelect}>
         <Image
@@ -75,7 +81,7 @@ function UserMenu() {
                     }
                   }}
                 >
-                  {option.label}
+                  {t(option.value)}
                 </div>
               </Link>
             ))}

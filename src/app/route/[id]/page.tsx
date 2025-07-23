@@ -6,10 +6,7 @@ import Header from "@/app/_components/Header/Header";
 import Image from "next/image";
 import ArrowIcon from "../../assets/arrowRight";
 import ShareIcon from "../../assets/share.svg";
-// import PersonIcon from "../../assets/person.svg";
 import CheckpointCard from "@/app/_components/CheckpointCard/CheckpointCard";
-import ProfileIcon from "../../assets/profile.svg";
-import VerifyIcon from "../../assets/verify.svg";
 import Link from "next/link";
 import ShareModal from "@/app/_components/ShareModal/ShareModal";
 import CheckpointModal from "@/app/_components/CheckpointModal/CheckpointModal";
@@ -19,41 +16,20 @@ import {
   getSingleRoute,
 } from "@/app/_services/client-api-requests";
 import type { Route } from "@/app/_types";
-import Map from "@/app/_components/Map/Map";
+// import Map from "@/app/_components/Map/Map";
 import { ClipLoader } from "react-spinners";
+import UserInfo from "@/app/_components/UserInfo/UserInfo";
+import { useTranslation } from "react-i18next";
+import "@/app/_translation/i18n";
+import ReviewSection from "@/app/_components/ReviewSection/ReviewSection";
+import Mapbox from "@/app/_components/Mapbox/Mapbox";
 
 const accessOptions = [
-  { name: "child", checked: true },
-  { name: "pet", checked: false },
-  { name: "wheelchair", checked: false },
-  { name: "pram-friendly", checked: false },
+  { name: "Child", checked: true },
+  { name: "Pet", checked: false },
+  { name: "Wheelchair", checked: false },
+  { name: "Pram-friendly", checked: false },
 ];
-
-function formatDate(dateString: string): string {
-  const date = new Date(dateString);
-
-  const options: Intl.DateTimeFormatOptions = {
-    month: "long",
-    year: "numeric",
-  };
-
-  const day = date.getDate();
-  const dayWithSuffix =
-    day +
-    (day % 10 === 1 && day !== 11
-      ? "st"
-      : day % 10 === 2 && day !== 12
-      ? "nd"
-      : day % 10 === 3 && day !== 13
-      ? "rd"
-      : "th");
-
-  const formattedMonthYear = date.toLocaleDateString("en-US", options);
-
-  return `${formattedMonthYear.split(" ")[0]} ${dayWithSuffix}, ${
-    formattedMonthYear.split(" ")[1]
-  }`;
-}
 
 interface RoutePageProps {
   params: Promise<{
@@ -62,12 +38,14 @@ interface RoutePageProps {
 }
 
 function Route({ params }: RoutePageProps) {
+  const { t } = useTranslation();
   const [isShareOpen, setIsShareOpen] = useState(false);
   const [error, seterror] = useState(false);
   const [isCheckpointOpen, setIsCheckpointOpen] = useState(false);
   const [activeCheckpoint, setActiveCheckpoint] = useState(0);
   const [activeIndex, setActiveIndex] = useState(0);
   const [routes, setRoutes] = useState<Route[]>([]);
+  const [isDescriptionOpen, setIsDescriptionOpen] = useState<boolean>(false);
 
   useEffect(() => {
     const fetchRoutes = async () => {
@@ -100,8 +78,6 @@ function Route({ params }: RoutePageProps) {
   }, [id]);
 
   const attractions = data?.attractions || [];
-
-  const [isDescriptionOpen, setIsDescriptionOpen] = useState<boolean>(false);
 
   const showMoreButtonVisible =
     data?.description && data?.description.length > 200;
@@ -140,6 +116,7 @@ function Route({ params }: RoutePageProps) {
           />
         </Modal>
       )}
+
       <Navbar />
       <div className={styles.contentWrapper}>
         <Header routes={routes} setRoutes={() => setRoutes} />
@@ -149,11 +126,11 @@ function Route({ params }: RoutePageProps) {
               <span className={styles.spanRotated}>
                 <ArrowIcon fill="#757575" height={14} width={14} />
               </span>{" "}
-              Back to list
+              {t("backToList")}
             </Link>
             <div className={styles.share} onClick={() => setIsShareOpen(true)}>
               <Image alt="share" src={ShareIcon} height={18} width={18} />
-              Share
+              {t("share")}
             </div>
           </div>
 
@@ -210,36 +187,37 @@ function Route({ params }: RoutePageProps) {
                 <div className={styles.infoRow}>
                   <div className={styles.infoItem}>
                     <div className={styles.data}>{data?.distance || "N/A"}</div>
-                    <div className={styles.infoLabel}>Distance</div>
+                    <div className={styles.infoLabel}>{t("distance")}</div>
                   </div>
                   <div className={styles.infoItem}>
                     <div className={styles.data}>
                       {data?.duration_est || "N/A"}
                     </div>
-                    <div className={styles.infoLabel}>Estimated Duration</div>
+                    <div className={styles.infoLabel}>
+                      {t("estimatedDuration")}
+                    </div>
                   </div>
                 </div>
                 <div className={styles.infoRow}>
                   <div className={styles.infoItem}>
-                    <div className={styles.data}>{data?.type || "N/A"}</div>
-                    <div className={styles.infoLabel}>Route Type</div>
+                    <div className={styles.data}>
+                      {data?.type ? t(data?.type) : "N/A"}
+                    </div>
+                    <div className={styles.infoLabel}>{t("routeType")}</div>
                   </div>
                   <div className={styles.infoItem}>
                     <div className={styles.data}>
-                      {data?.difficulty || "N/A"}
+                      {data?.difficulty ? t(data?.difficulty) : "N/A"}
                     </div>
-                    <div className={styles.infoLabel}>Difficulty</div>
+                    <div className={styles.infoLabel}>{t("difficulty")}</div>
                   </div>
                 </div>
               </div>
               <div className={styles.accessibility}>
-                <div className={styles.accessTitle}>Accessibility</div>
+                <div className={styles.accessTitle}>{t("accessibility")}</div>
                 {accessOptions.map((option, index) => (
                   <label key={index} className={styles.accessOption}>
-                    <span className={styles.label}>
-                      {option.name.charAt(0).toUpperCase() +
-                        option.name.slice(1)}
-                    </span>
+                    <span className={styles.label}>{t(option.name)}</span>
                     <input
                       type="checkbox"
                       checked={option.checked}
@@ -268,7 +246,7 @@ function Route({ params }: RoutePageProps) {
             </div>
 
             <div className={styles.fullDescription}>
-              <div className={styles.descTitle}>Description</div>
+              <div className={styles.descTitle}>{t("description")}</div>
               {/* <audio
                 className={styles.audioBox}
                 controls
@@ -289,7 +267,7 @@ function Route({ params }: RoutePageProps) {
                   className={styles.more}
                   onClick={() => setIsDescriptionOpen(!isDescriptionOpen)}
                 >
-                  {!isDescriptionOpen ? "More" : "Less"}
+                  {!isDescriptionOpen ? t("more") : t("less")}
                 </div>
               )}
             </div>
@@ -297,14 +275,15 @@ function Route({ params }: RoutePageProps) {
 
           <div className={styles.mapSection}>
             <div className={styles.map}>
-              {data && <Map tourList={[data]} isSingleRoute />}
+              {/* {data && <Map tourList={[data]} isSingleRoute />} */}
+              {data && <Mapbox sigleRoute={data} activeCheckpoint={0} />}
             </div>
           </div>
 
           <div className={styles.checkpointSection}>
             <div className={styles.checkpointTitle}>
               <span className={styles.checkPointNum}>{attractions.length}</span>{" "}
-              Checkpoints
+              {t("checkpoints")}
             </div>
             <div className={styles.checkpointsContainer}>
               {attractions
@@ -322,29 +301,21 @@ function Route({ params }: RoutePageProps) {
                 ))}
             </div>
           </div>
-
-          <div className={styles.userSection}>
-            <div className={styles.publishDate}>
-              Published {data?.date_added ? formatDate(data.date_added) : "N/A"}
+          <div className={styles.reviewSection}>
+            <div className={styles.userInfo}>
+              <UserInfo
+                data={{
+                  username: data?.creator.username,
+                  date_added: data?.date_added,
+                  profile_image: data?.creator.profile_image,
+                }}
+                isInfoShowing={false}
+                verify={false}
+                date
+                variant="small"
+              />
             </div>
-            <div className={styles.userProfile}>
-              <div className={styles.profile}>
-                <Image
-                  alt="profile"
-                  src={
-                    data?.creator.profile_image
-                      ? process.env.NEXT_PUBLIC_MANY_ROADS_IMG +
-                        data?.creator.profile_image
-                      : ProfileIcon
-                  }
-                  height={100}
-                  width={100}
-                  className={styles.profileImg}
-                />{" "}
-                {data?.creator ? `${data.creator.username}` : "Unknown"}
-                <Image alt="verify" src={VerifyIcon} />
-              </div>
-            </div>
+            <ReviewSection />
           </div>
         </div>
       </div>

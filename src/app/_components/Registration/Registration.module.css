@@ -16,100 +16,8 @@
   margin-bottom: 20px;
 }
 
-.inputContainer {
-  width: 415px;
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-  padding-bottom: 10px;
-}
-
 .btnContainer {
   padding-top: 30px;
-}
-
-.input {
-  border: none;
-  background-color: transparent;
-  border-bottom: 1px solid #d9d9d9;
-  height: 40px;
-  color: #000;
-  font-family: Inter;
-  font-weight: 400;
-  font-size: 16px;
-  line-height: 20px;
-  letter-spacing: 0%;
-}
-
-.input::placeholder {
-  color: #d9d9d9;
-}
-
-.inputPassword {
-  border: none;
-}
-.passContainer {
-  position: relative;
-  border-bottom: 1px solid #d9d9d9;
-}
-
-.input:focus,
-.passContainer.focused {
-  outline: none;
-  border-bottom: 3px solid #0d0d0d;
-}
-
-.inputPassword:focus {
-  outline: none;
-  border: none;
-}
-
-.passContainer.error,
-.input.error {
-  border-bottom: 2px solid #c11a1a;
-  color: #c11a1a;
-}
-
-.passContainer.error .input::placeholder,
-input.error::placeholder,
-.input.errorPass,
-.errContainer {
-  color: #c11a1a;
-}
-
-.errContainer {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.showPass {
-  position: absolute;
-  right: 10px;
-  top: 50%;
-  transform: translateY(-50%);
-  background: none;
-  border: none;
-  cursor: pointer;
-}
-
-.label {
-  font-family: Inter;
-  font-weight: 400;
-  font-size: 14px;
-  line-height: 20px;
-  letter-spacing: 0.2px;
-  color: #0d0d0d;
-  margin-bottom: -20px;
-}
-
-.hiddenLabel {
-  visibility: hidden;
-  margin-bottom: -20px;
-}
-
-.label.error {
-  color: #c11a1a;
 }
 
 .login {
@@ -141,32 +49,7 @@ input.error::placeholder,
 
 .info {
   max-width: 415px;
-}
-
-.tabs {
-  display: flex;
-  width: 100%;
-  align-items: center;
-  justify-content: center;
-}
-
-.tab,
-.activeTab {
-  font-family: Inter;
-  font-weight: 600;
-  font-size: 16px;
-  line-height: 16px;
-  letter-spacing: 0px;
-  text-align: center;
-  padding: 10px 15px;
-  border-bottom: 1px solid #f2f2f2;
-  color: #757575;
-  cursor: pointer;
-}
-
-.activeTab {
-  border-bottom: 2px solid #000;
-  color: #000;
+  margin-top: 10px;
 }
 
 .link {

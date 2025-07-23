@@ -11,7 +11,7 @@ const ArrowRight: React.FC<ArrowProps> = ({ fill, height, width }) => (
     width={width}
     height={height}
     viewBox="0 0 11 9"
-    fill="none"
+    fill={fill}
     xmlns="http://www.w3.org/2000/svg"
   >
     <path

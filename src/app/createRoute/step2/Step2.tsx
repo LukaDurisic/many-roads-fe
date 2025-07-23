@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./Step2.module.css";
 import {
   UseFormRegister,
@@ -13,7 +13,13 @@ import { Route, AttractionImages, PreviewAttraction } from "@/app/_types";
 import CheckpointCreate from "@/app/_components/CheckpointCreate/CheckpointCreate";
 import PlusIcon from "../../assets/plus.svg";
 import Image from "next/image";
-import Map from "@/app/_components/Map/Map";
+import TrashIcon from "../../assets/trash.svg";
+import { useTranslation } from "react-i18next";
+import "@/app/_translation/i18n";
+import Mapbox from "@/app/_components/Mapbox/Mapbox";
+import Modal from "@/app/_components/Modal/Modal";
+import DeleteCheckpointModal from "@/app/_components/DeleteCheckpointModal/DeleteCheckpointModal";
+import ToastInfo from "@/app/_components/ToastInfo/ToastInfo";
 
 function Step2({
   register,
@@ -40,6 +46,8 @@ function Step2({
   >;
   setIsAllowed: React.Dispatch<React.SetStateAction<boolean>>;
 }) {
+  const [activeCheckpoint, setActiveCheckpoint] = useState<number>(0);
+  const [showToast, setShowToast] = useState(true);
   const addCheckpoint = () => {
     appendAttraction({
       address: "",
@@ -55,6 +63,11 @@ function Step2({
         id: 0,
       },
     });
+    setActiveCheckpoint(activeCheckpoint + 1);
+    setPreviewAttractions([
+      ...previewAttractions,
+      { index: previewAttractions.length, heroImage: "", images: [] },
+    ]);
   };
 
   useEffect(() => {
@@ -68,7 +81,7 @@ function Step2({
         String(attraction.poi?.latitude || "").length > 0 &&
         String(attraction.poi?.longitude || "").length > 0 &&
         previewAttractions[index]?.heroImage &&
-        previewAttractions[index]?.images.length > 0
+        previewAttractions[index]?.images?.length > 0
       );
     });
     setIsAllowed(isAllowed);
@@ -86,7 +99,7 @@ function Step2({
           String(attraction.poi?.latitude || "").length > 0 &&
           String(attraction.poi?.longitude || "").length > 0 &&
           previewAttractions[index]?.heroImage &&
-          previewAttractions[index]?.images.length > 0
+          previewAttractions[index]?.images?.length > 0
         );
       });
 
@@ -96,39 +109,75 @@ function Step2({
     return () => subscription.unsubscribe();
   }, [watch, getValues, JSON.stringify(previewAttractions)]);
 
+  const { t } = useTranslation();
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState<boolean>(false);
+
   return (
     <div className={styles.stepWrapper}>
+      <Modal
+        isOpen={isDeleteModalOpen}
+        onClose={() => {
+          setIsDeleteModalOpen(false);
+        }}
+      >
+        <DeleteCheckpointModal
+          remove={remove}
+          close={() => setIsDeleteModalOpen(false)}
+          activeCheckpoint={activeCheckpoint}
+          setActiveCheckpoint={setActiveCheckpoint}
+          setPreviewAttractions={setPreviewAttractions}
+        />
+      </Modal>
+      {showToast && (
+        <ToastInfo
+          content="Checkpoint 1 - “Bank of China Tower“ successfully saved."
+          check={false}
+          onClose={() => setShowToast(false)}
+        />
+      )}
       <div className={styles.leftPane}>
-        <h2 className={styles.heading}>Checkpoints</h2>
-        {getValues().attractions.map((attraction, index) => (
-          <CheckpointCreate
-            register={register}
-            watch={watch}
-            remove={remove}
-            setValue={setValue}
-            getValues={getValues}
-            index={index}
-            setAttractionImages={setAttractionImages}
-            previewAttractions={previewAttractions.find(
-              (att) => att.index === index
-            )}
-            setPreviewAttractions={setPreviewAttractions}
-            key={index}
-          />
-        ))}
-        <div
-          className={styles.addCheckpointBtn}
-          onClick={() => addCheckpoint()}
-        >
-          <Image src={PlusIcon} alt="add" height={22} width={22} /> Add
-          checkpoint
+        <h2 className={styles.heading}>{t("checkpoints")}</h2>
+        <CheckpointCreate
+          register={register}
+          watch={watch}
+          setValue={setValue}
+          getValues={getValues}
+          index={activeCheckpoint}
+          setActiveCheckpoint={setActiveCheckpoint}
+          setAttractionImages={setAttractionImages}
+          previewAttractions={previewAttractions}
+          setPreviewAttractions={setPreviewAttractions}
+        />
+        <div className={styles.btnsContainer}>
+          <div
+            className={styles.deleteCheckpointBtn}
+            onClick={() => setIsDeleteModalOpen(true)}
+          >
+            <Image src={TrashIcon} alt="delete" height={22} width={22} />{" "}
+            {t("deleteCheckpoint")}
+          </div>
+          <div
+            className={styles.addCheckpointBtn}
+            onClick={() => addCheckpoint()}
+          >
+            <Image src={PlusIcon} alt="add" height={22} width={22} />{" "}
+            {t("addCheckpoint")}
+          </div>
         </div>
       </div>
 
       <div className={styles.rightPane}>
         <div className={styles.mapPlaceholder}>
           <div className={styles.map}>
-            <Map tourList={[getValues()]} isSingleRoute />
+            <Mapbox
+              isPickable
+              setValue={setValue}
+              watch={watch}
+              activeCheckpoint={activeCheckpoint}
+            />
+          </div>
+          <div className={styles.clickInfo}>
+            You can add checkpoint by clicking on the map
           </div>
         </div>
       </div>

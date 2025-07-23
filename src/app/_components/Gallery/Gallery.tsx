@@ -10,12 +10,14 @@ function Gallery({
   isSliderLeft,
   checkpointNumber,
   images,
+  imageUrls,
   activeImage,
   setActiveImage,
 }: {
   isNumberShowing: boolean;
   isSliderLeft: boolean;
-  images: ImageInterface[];
+  images?: ImageInterface[];
+  imageUrls?: string[];
   activeImage: number;
   setActiveImage: React.Dispatch<React.SetStateAction<number>>;
   checkpointNumber?: number;
@@ -34,6 +36,24 @@ function Gallery({
             >
               <Image
                 src={process.env.NEXT_PUBLIC_MANY_ROADS_IMG + image.url}
+                alt=""
+                height={100}
+                width={100}
+                className={styles.sliderBg}
+              />
+            </div>
+          ))
+        ) : imageUrls ? (
+          imageUrls.map((image, index) => (
+            <div
+              className={`${
+                isSliderLeft ? styles.slideImage : styles.sliderImageSmall
+              } ${activeImage === index ? styles.active : null}`}
+              key={index}
+              onClick={() => setActiveImage(index)}
+            >
+              <Image
+                src={process.env.NEXT_PUBLIC_MANY_ROADS_IMG + image}
                 alt=""
                 height={100}
                 width={100}
@@ -61,7 +81,12 @@ function Gallery({
           )}
           <Image
             src={
-              process.env.NEXT_PUBLIC_MANY_ROADS_IMG + images[activeImage]?.url
+              process.env.NEXT_PUBLIC_MANY_ROADS_IMG +
+              (images
+                ? images[activeImage]?.url
+                : imageUrls
+                ? imageUrls[activeImage]
+                : "")
             }
             alt=""
             height={1000}
@@ -72,7 +97,15 @@ function Gallery({
             <div
               onClick={() =>
                 setActiveImage(
-                  activeImage === 0 ? images.length - 1 : activeImage - 1
+                  images && activeImage === 0
+                    ? images.length - 1
+                    : images && activeImage !== 0
+                    ? activeImage - 1
+                    : imageUrls && activeImage === 0
+                    ? imageUrls.length - 1
+                    : imageUrls && activeImage !== 0
+                    ? activeImage - 1
+                    : 0
                 )
               }
             >
@@ -81,7 +114,15 @@ function Gallery({
             <div
               onClick={() =>
                 setActiveImage(
-                  activeImage === images.length - 1 ? 0 : activeImage + 1
+                  images && activeImage === images.length - 1
+                    ? 0
+                    : images && activeImage !== images.length - 1
+                    ? activeImage + 1
+                    : imageUrls && activeImage === imageUrls.length - 1
+                    ? 0
+                    : imageUrls && activeImage !== imageUrls.length
+                    ? activeImage + 1
+                    : 0
                 )
               }
             >
@@ -92,7 +133,9 @@ function Gallery({
         <div className={styles.caption}>
           {images && images[activeImage]?.caption
             ? images[activeImage].caption
-            : "No caption"}
+            : images
+            ? "No caption"
+            : null}
         </div>
       </div>
     </div>

@@ -6,6 +6,8 @@ import Button from "../Button/Button";
 import Select from "../Select/Select";
 import { Route } from "@/app/_types";
 import { usePathname, useRouter } from "next/navigation";
+import { useTranslation } from "react-i18next";
+import "@/app/_translation/i18n";
 
 const cityOptions = [{ value: "Hong Kong SAR", label: "Hong Kong SAR" }];
 
@@ -63,6 +65,7 @@ export default function FilterModal({
   const [filteredRoutes, setFilteredRoutes] = useState<Route[]>([]);
   const pathname = usePathname();
   const router = useRouter();
+  const { t } = useTranslation();
 
   const handleToggle = (
     value: string,
@@ -123,21 +126,21 @@ export default function FilterModal({
 
   return (
     <div className={styles.modal}>
-      <div className={styles.title}>Filter</div>
+      <div className={styles.title}>{t("filter")}</div>
       <div className={styles.sectionCity}>
-        <label className={styles.label}>Country</label>
+        <label className={styles.label}>{t("country")}</label>
         <Select options={cityOptions} style="citySmall" />
       </div>
 
       <div className={styles.section}>
-        <label className={styles.label}>Sort</label>
+        <label className={styles.label}>{t("sort")}</label>
         {["Best Match", "Most Popular", "Closest", "Newly Added"].map(
           (label) => {
             const value = label.toLowerCase().replace(" ", "");
             return (
               <div key={value} className={styles.inputItem}>
                 <label htmlFor={value} className={styles.option}>
-                  {label}
+                  {t(label)}
                 </label>
                 <label className={styles.customRadioContainer}>
                   <input
@@ -157,7 +160,7 @@ export default function FilterModal({
       </div>
 
       <div className={styles.section}>
-        <label className={styles.label}>Route Classification</label>
+        <label className={styles.label}>{t("routeClassifications")}</label>
         <div>
           {filterOptions.map((tag) => (
             <button
@@ -169,7 +172,7 @@ export default function FilterModal({
                 handleToggle(tag, setClassification, classification)
               }
             >
-              {tag}
+              {t(tag)}
             </button>
           ))}
         </div>
@@ -178,7 +181,7 @@ export default function FilterModal({
       <div className={styles.section}>
         <div className={styles.sectionCity}>
           <label htmlFor="distance" className={styles.label}>
-            Distance
+            {t("distance")}
           </label>
           <div className={styles.distanceInfo}>{`0 - ${
             distance === 50 ? "50+" : distance
@@ -196,11 +199,11 @@ export default function FilterModal({
       </div>
 
       <div className={styles.section}>
-        <label className={styles.label}>Difficulty</label>
+        <label className={styles.label}>{t("difficulty")}</label>
         {["Easy", "Moderate", "Difficult"].map((level) => (
           <div key={level} className={styles.inputItem}>
             <label htmlFor={level} className={styles.option}>
-              {level}
+              {t(level)}
             </label>
             <div
               className={styles.accessOption}
@@ -228,11 +231,11 @@ export default function FilterModal({
       </div>
 
       <div className={styles.section}>
-        <label className={styles.label}>Route Type</label>
+        <label className={styles.label}>{t("routeType")}</label>
         {["Linear", "Circular", "Point To Point"].map((type) => (
           <div key={type} className={styles.inputItem}>
             <label htmlFor={type} className={styles.option}>
-              {type}
+              {t(type)}
             </label>
             <div
               className={styles.accessOption}
@@ -260,11 +263,11 @@ export default function FilterModal({
       </div>
 
       <div className={styles.section}>
-        <label className={styles.label}>Accessibility</label>
+        <label className={styles.label}>{t("accessibility")}</label>
         {["Child", "Pet", "Wheelchair", "Pram-friendly"].map((option) => (
           <div key={option} className={styles.inputItem}>
             <label htmlFor={option} className={styles.option}>
-              {option}
+              {t(option)}
             </label>
             <div
               className={styles.accessOption}
@@ -295,11 +298,11 @@ export default function FilterModal({
 
       <div className={styles.footer}>
         <div className={styles.clear} onClick={handleClear}>
-          Clear
+          {t("clear")}
         </div>
         <div className={styles.btnContainer}>
           <Button
-            label={`Show ${numOfRoutes} routes`}
+            label={t("showRoutes", { count: numOfRoutes })}
             onClick={() => {
               if (pathname === "/dashboard") {
                 onClose();

@@ -4,6 +4,8 @@ import styles from "./CheckpointModal.module.css";
 import ArrowIcon from "../../assets/arrowRight";
 import Gallery from "../Gallery/Gallery";
 import { Attraction } from "@/app/_types";
+import { useTranslation } from "react-i18next";
+import "@/app/_translation/i18n";
 
 function CheckpointModal({
   checkpointNumber,
@@ -14,6 +16,7 @@ function CheckpointModal({
   setCheckpointNumber: React.Dispatch<React.SetStateAction<number>>;
   checkpointData: Attraction[];
 }) {
+  const { t } = useTranslation();
   const [activeImage, setActiveImage] = useState<number>(0);
   const [isDescriptionOpen, setIsDescriptionOpen] = useState<boolean>(false);
 
@@ -52,7 +55,7 @@ function CheckpointModal({
             checkpointNumber={checkpointNumber}
             isSliderLeft={true}
             images={checkpointData[checkpointNumber]?.images?.slice(
-              1,
+              2,
               checkpointData[checkpointNumber]?.images?.length
             )}
             activeImage={activeImage}
@@ -96,7 +99,7 @@ function CheckpointModal({
               className={styles.more}
               onClick={() => setIsDescriptionOpen(!isDescriptionOpen)}
             >
-              {!isDescriptionOpen ? "More" : "Less"}
+              {!isDescriptionOpen ? t("more") : t("less")}
             </div>
           )}
         </div>
@@ -119,7 +122,7 @@ function CheckpointModal({
               fill={checkpointNumber === 0 ? "#5c5c5c4d" : "0d0d0dff"}
             />
           </span>
-          Previous
+          {t("previousCp")}
         </div>
         <div
           className={
@@ -135,14 +138,14 @@ function CheckpointModal({
             }
           }}
         >
-          Next checkpoint{" "}
+          {t("nextCp")}
           <ArrowIcon
             height={16}
             width={16}
             fill={
               checkpointNumber === checkpointData.length - 1
                 ? "#5c5c5c4d"
-                : "0d0d0dff"
+                : "0d0d0d"
             }
           />
         </div>

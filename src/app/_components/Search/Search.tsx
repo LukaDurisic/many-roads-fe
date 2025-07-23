@@ -6,6 +6,8 @@ import FilterIcon from "../../assets/filters.svg";
 import FilterModal from "../FilterModal/FilterModal";
 import Modal from "../Modal/Modal";
 import { Route } from "@/app/_types";
+import { useTranslation } from "react-i18next";
+import "@/app/_translation/i18n";
 
 function Search({
   routes,
@@ -18,8 +20,8 @@ function Search({
   isReload?: boolean;
   setIsReload?: React.Dispatch<React.SetStateAction<boolean>>;
 }) {
+  const { t } = useTranslation();
   const [isFilterOpen, setIsFilterOpen] = useState(false);
-
   const [sort, setSort] = useState("bestmatch");
   const [classification, setClassification] = useState<string[]>([]);
   const [distance, setDistance] = useState(50);
@@ -74,7 +76,7 @@ function Search({
       </Modal>
       <input
         type="text"
-        placeholder="Find routes..."
+        placeholder={t("findRoutes")}
         className={styles.searchInput}
       />
       <button

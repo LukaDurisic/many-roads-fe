@@ -11,7 +11,6 @@ import MapContainer from "../_components/MapContainer/MapContainer";
 import RoutesContainer from "../_components/RoutesContainer/RoutesContainer";
 import { getAllRoutes } from "../_services/client-api-requests";
 import { Route } from "../_types";
-//import { useTours } from "../_hooks/tours";
 import ProtectedRoute from "../_components/ProtectedRoutes/ProtectedRoute";
 import { ClipLoader } from "react-spinners";
 

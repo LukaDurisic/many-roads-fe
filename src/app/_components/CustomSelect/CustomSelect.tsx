@@ -1,6 +1,8 @@
 import React, { useState, useRef, useEffect } from "react";
 import styles from "./CustomSelect.module.css";
 import ArrowIconCity from "../../assets/arrowDownCity";
+import { useTranslation } from "react-i18next";
+import "@/app/_translation/i18n";
 
 interface CustomDropdownProps {
   options: string[];
@@ -15,6 +17,7 @@ const CustomDropdown: React.FC<CustomDropdownProps> = ({
   onChange,
   label,
 }) => {
+  const { t } = useTranslation();
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
@@ -44,7 +47,7 @@ const CustomDropdown: React.FC<CustomDropdownProps> = ({
           className={styles.dropdownHeader}
           onClick={() => setIsOpen(!isOpen)}
         >
-          {value || "Select"}
+          {t(value) || t("select")}
           <ArrowIconCity
             fill={"#9E9E9E"}
             height="16"
@@ -63,7 +66,7 @@ const CustomDropdown: React.FC<CustomDropdownProps> = ({
                 className={styles.dropdownItem}
                 onClick={() => handleSelect(option)}
               >
-                {option}
+                {t(option)}
               </li>
             ))}
           </ul>

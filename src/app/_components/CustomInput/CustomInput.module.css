@@ -1,0 +1,176 @@
+.inputContainer {
+  width: 415px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.fullLenghtContainer {
+  width: 100%;
+  gap: 0px;
+}
+
+.input {
+  border: none;
+  background-color: transparent;
+  height: 44px;
+  color: #000;
+  font-family: Inter;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 20px;
+  letter-spacing: 0%;
+}
+
+.input::placeholder {
+  color: #d9d9d9;
+}
+
+.inputPassword {
+  border: none;
+}
+.passContainer {
+  position: relative;
+  border-bottom: 1px solid #d9d9d9;
+}
+
+.input:focus {
+  border: none;
+  outline: none;
+}
+
+.passContainer.focused {
+  outline: none;
+  border-bottom: 3px solid #0d0d0d;
+}
+
+.inputPassword:focus {
+  outline: none;
+  border: none;
+}
+
+.passContainer.error {
+  border-bottom: 2px solid #c11a1a;
+  color: #c11a1a;
+}
+
+.passContainer.error .input::placeholder,
+input.error::placeholder,
+.input.errorPass,
+.errContainer,
+input.error {
+  color: #c11a1a;
+}
+
+.errContainer {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.showPass {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.lockIcon {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.logInBtn {
+  width: 415px;
+  height: 52px;
+  background-color: #969696;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 32px;
+  font-family: Inter;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 20px;
+  letter-spacing: 0%;
+  cursor: pointer;
+}
+
+.label {
+  font-family: Inter;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 20px;
+  letter-spacing: 0.2px;
+  color: #0d0d0d;
+  margin-bottom: -20px;
+}
+
+.hiddenLabel {
+  visibility: hidden;
+  margin-bottom: -20px;
+}
+
+.label.error {
+  color: #c11a1a;
+}
+
+.registration {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+}
+
+.registrationP {
+  font-family: Inter;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 20px;
+  letter-spacing: 0%;
+  color: #adadad;
+}
+
+.registrationLink {
+  font-family: Inter;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 20px;
+  letter-spacing: -2%;
+  color: #000;
+}
+
+.forgotPass {
+  width: 100%;
+  text-align: right;
+  font-family: Inter;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 20px;
+  letter-spacing: 0%;
+  color: #adadad;
+}
+
+.forgotPass:hover,
+.registrationLink:hover {
+  text-decoration: underline;
+}
+
+.inputWrapper {
+  width: 100%;
+  border-bottom: 1px solid #d9d9d9;
+}
+
+.inputWrapper.focused {
+  border-bottom: 3px solid #0d0d0d;
+}
+
+.inputWrapper.error {
+  border-bottom: 2px solid #c11a1a;
+}

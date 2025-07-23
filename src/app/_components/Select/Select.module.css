@@ -38,7 +38,7 @@
 
 /*Language select*/
 
-/* .langSelect {
+.langSelect {
   font-family: Inter;
   font-weight: 400;
   font-size: 16px;
@@ -52,12 +52,13 @@
   background: none;
   border: none;
   cursor: pointer;
+  padding: 0px 8px;
 }
 
 .selectIconLang {
   width: 10px;
   height: 10px;
-} */
+}
 
 .cityDropdown {
   position: absolute;

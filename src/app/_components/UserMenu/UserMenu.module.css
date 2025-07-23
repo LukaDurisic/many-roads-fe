@@ -2,7 +2,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 20px;
+  gap: 30px;
 }
 
 .userSelect {
@@ -27,7 +27,7 @@
 
 .optionsDiv {
   position: absolute;
-  margin-top: 104px;
+  margin-top: 190px;
   right: 40px;
   box-shadow: 0px 2px 12px 0px #00000014;
   border-radius: 8px;
@@ -38,10 +38,10 @@
 .userOption {
   color: #000;
   font-family: Inter;
-  font-weight: 600;
+  font-weight: 500;
   font-size: 14px;
   line-height: 20px;
-  letter-spacing: 0%;
+  letter-spacing: 0.2px;
   height: 44px;
   width: 200px;
   display: flex;

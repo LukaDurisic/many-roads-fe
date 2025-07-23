@@ -5,6 +5,8 @@ import Image from "next/image";
 import LocationIcon from "../../assets/location";
 import GallerySmall from "../GallerySmall/GallerySmall";
 import { Attraction, PreviewAttraction } from "@/app/_types";
+import { useTranslation } from "react-i18next";
+import "@/app/_translation/i18n";
 
 function CheckpointCardDetailed({
   checkpointData,
@@ -15,6 +17,7 @@ function CheckpointCardDetailed({
   images: PreviewAttraction | undefined;
   index: number;
 }) {
+  const { t } = useTranslation();
   return (
     <div className={styles.cardContainer}>
       <div className={styles.heroImage}>
@@ -47,7 +50,7 @@ function CheckpointCardDetailed({
         </div>
         <div>
           <div className={styles.descHeading}>
-            Description
+            {t("description")}
             {/* <div className={styles.audio}>
               <Image src={PlayIcon} alt="play icon" />{" "}
               {checkpointData.needs_upload

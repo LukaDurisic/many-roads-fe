@@ -6,9 +6,12 @@ import LogoIcon from "../../assets/mrLogo.svg";
 import Arrow from "../../assets/arrowRight";
 import Button from "@/app/_components/Button/Button";
 import Link from "next/link";
+import CustomInput from "../CustomInput/CustomInput";
+import { useTranslation } from "react-i18next";
+import "@/app/_translation/i18n";
 
 function ForgotPass() {
-  const [isFocused, setIsFocused] = useState(false);
+  const { t } = useTranslation();
   const [isError, setIsError] = useState(false);
   const [email, setEmail] = useState("");
 
@@ -16,31 +19,17 @@ function ForgotPass() {
     <div className={styles.wrapper}>
       <div className={styles.mrLogo}>
         <Image alt="logo" src={LogoIcon} />
-        <h1 className={styles.title}>Forgot password</h1>
+        <h1 className={styles.title}>{t("forgotPasswordTitle")}</h1>
       </div>
-      <p className={styles.ph}>
-        All good. Enter your account&apos;s email address and we&apos;ll send
-        you a link to reset your password.
-      </p>
-      <div className={styles.inputContainer}>
-        <label
-          className={`
-            ${isFocused ? styles.label : styles.hiddenLabel}
-            ${isError ? styles.error : ""}
-          `}
-        >
-          Email
-        </label>
-        <input
-          type="text"
-          className={`${styles.input} ${isError ? styles.error : ""}`}
-          placeholder={isFocused ? "" : "Email"}
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          onFocus={() => setIsFocused(true)}
-          onBlur={() => setIsFocused(false)}
-        />
-      </div>
+      <p className={styles.ph}>{t("forgotPasswordDescription")}</p>
+      <CustomInput
+        label={t("email")}
+        value={email}
+        onChange={setEmail}
+        showError={isError}
+      />
+      <br />
+      <br />
       <Button
         variant="primary"
         onClick={() => {
@@ -50,13 +39,13 @@ function ForgotPass() {
         }}
         className={email.length > 0 ? undefined : styles.disabled}
       >
-        {"SEND RESET LINK"}
+        {t("resetLink")}
       </Button>
       <Link href={"/"} className={styles.link}>
         <div style={{ rotate: "180deg", paddingTop: 4 }}>
           <Arrow height={16} width={16} fill="#000" />
         </div>
-        Return to Log In
+        {t("returnToLogIn")}
       </Link>
     </div>
   );

@@ -5,6 +5,8 @@ import Select from "../Select/Select";
 import Search from "../Search/Search";
 import Filters from "../Filters/Filters";
 import { Route } from "@/app/_types";
+import { useTranslation } from "react-i18next";
+import "@/app/_translation/i18n";
 
 const testOptions = [{ label: "Hong Kong SAR", value: "HongKongSar" }];
 
@@ -21,6 +23,7 @@ function Header({
   isReload?: boolean;
   setIsReload?: React.Dispatch<React.SetStateAction<boolean>>;
 }) {
+  const { t } = useTranslation();
   return (
     <div className={styles.wrapper}>
       <div className={styles.firstRow}>
@@ -30,7 +33,9 @@ function Header({
             <Select options={testOptions} style={"city"} />
           </div>
           {!!numberOfRoutes === true && (
-            <div className={styles.routes}>{numberOfRoutes || 0} routes</div>
+            <div className={styles.routes}>
+              {t("routesCount", { count: numberOfRoutes || 0 })}
+            </div>
           )}
         </div>
         <UserMenu />
