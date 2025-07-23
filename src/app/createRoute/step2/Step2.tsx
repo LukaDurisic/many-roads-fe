@@ -143,6 +143,7 @@ function Step2({
           setValue={setValue}
           getValues={getValues}
           index={activeCheckpoint}
+          setActiveCheckpoint={setActiveCheckpoint}
           setAttractionImages={setAttractionImages}
           previewAttractions={previewAttractions}
           setPreviewAttractions={setPreviewAttractions}

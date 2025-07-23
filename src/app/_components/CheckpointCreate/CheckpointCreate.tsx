@@ -49,6 +49,7 @@ function CheckpointCreate({
   setAttractionImages,
   previewAttractions,
   setPreviewAttractions,
+  setActiveCheckpoint,
 }: {
   index: number;
   register: UseFormRegister<Route>;
@@ -60,6 +61,7 @@ function CheckpointCreate({
   setPreviewAttractions: React.Dispatch<
     React.SetStateAction<PreviewAttraction[]>
   >;
+  setActiveCheckpoint: React.Dispatch<React.SetStateAction<number>>;
 }) {
   const { t } = useTranslation();
   const heroFileInputRef = useRef<HTMLInputElement>(null);
@@ -235,16 +237,17 @@ function CheckpointCreate({
           {getValues().attractions.map((attraction, i) => {
             if (i !== index) {
               return (
-                <StatusCircle
-                  backgroundColor="green"
-                  circleSize={32}
-                  content={`${i + 1}`}
-                  contentSize={14}
-                  fontColor="white"
-                  key={i}
-                  // completedPercentage={70}
-                  //ovo malo poredit kad se ubaci check i upload
-                />
+                <div key={i} onClick={() => setActiveCheckpoint(i)}>
+                  <StatusCircle
+                    backgroundColor="green"
+                    circleSize={32}
+                    content={`${i + 1}`}
+                    contentSize={14}
+                    fontColor="white"
+                    // completedPercentage={70}
+                    //ovo malo poredit kad se ubaci check i upload
+                  />
+                </div>
               );
             }
           })}
